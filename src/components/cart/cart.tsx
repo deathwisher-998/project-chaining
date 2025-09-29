@@ -27,7 +27,7 @@ export default function Cart() {
               <div className="flex items-center justify-between border-b pb-2">
                 <div className="flex items-center space-x-4">
                   <img
-                    src="https://via.placeholder.com/80"
+                    src="/image/blogs/blog4.svg"
                     alt="Product"
                     className="w-20 h-20 rounded-lg"
                   />
@@ -46,7 +46,7 @@ export default function Cart() {
               <div className="flex items-center justify-between border-b pb-4">
                 <div className="flex items-center space-x-4">
                   <img
-                    src="https://via.placeholder.com/80"
+                    src="/image/blogs/blog4.svg"
                     alt="Product"
                     className="w-20 h-20 rounded-lg"
                   />

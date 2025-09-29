@@ -71,13 +71,13 @@ export function Loginheader() {
 
   return (
     <div className="px-10 sticky top-4 z-50">
-      <div className="mx-auto container">
-        <MTNavbar
-          blurred
-          color="white"
-          className="z-50 relative border-0 pr-3 py-3 pl-6"
-          style={{backgroundColor:"#17212b"}}
-        >
+      <div className="mx-auto w-full">
+              <MTNavbar
+                blurred
+                color="white"
+                className="z-50 mt-6 relative border-0 pr-10 py-3 pl-10 max-w-[100%] pt-5 pb-5 "
+                style={{backgroundColor:"#17212b"}}
+              >
           <div className="flex items-center justify-between">
             <Typography color="blue-gray" className="text-lg font-bold text-white">
               <Link href={routes.nonauth.home}>Logo</Link>

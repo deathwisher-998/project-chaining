@@ -24,7 +24,7 @@ export default function ProfilePage() {
   function CreativeTable() {
     return (
       <div>
-        <div className="overflow-hidden shadow-lg border border-gray-200">
+        <div className="overflow-hidden shadow-sm border border-gray-200">
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-gradient-to-r from-gray-800 to-gray-700 text-white">
@@ -73,7 +73,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="bg-gray-100 mt-20 p-5 mb-20">
+    <div className="mt-10 p-5 mb-10">
       <div className="w-full  bg-gradient-to-r from-gray-800 via-gray-700 to-gray-600 rounded-xl shadow-lg p-8">
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-white">Personal Centre</h1>
