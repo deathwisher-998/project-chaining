@@ -37,25 +37,25 @@ function Logincomponent() {
   };
 
   async function Logintoken(payload: loginModel) {
-    try {
-      if (payload) {
-        setloadingState((e) => 1);
-        const res: any = await token(payload).then((res: any) => {
-          return res;
-        });
-        const response: loginResponse = res;
-        if (response.token) {
-          setloadingState((e) => 0);
-          setReset((e) => {});
-          localStorage.setItem("token", response.token);
-          navigate.replace("/");
-        }
-      }
-    } catch (err) {
-      if (err) {
-        setloadingState((e) => 0);
-      }
-    }
+    // try {
+    //   if (payload) {
+    //     setloadingState((e) => 1);
+    //     const res: any = await token(payload).then((res: any) => {
+    //       return res;
+    //     });
+    //     const response: loginResponse = res;
+    //     if (response.token) {
+    //       setloadingState((e) => 0);
+    //       setReset((e) => {});
+    //       localStorage.setItem("token", response.token);
+    //       navigate.replace("/");
+    //     }
+    //   }
+    // } catch (err) {
+    //   if (err) {
+    //     setloadingState((e) => 0);
+    //   }
+    // }
   }
 
   return (

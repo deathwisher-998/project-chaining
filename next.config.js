@@ -17,8 +17,7 @@ const nextConfig = {
     // Dangerously allow production builds to complete
     // even if your project has type errors.
     ignoreBuildErrors: true,
-  },
-  output: 'export',
+  }
 };
 
 module.exports = nextConfig;

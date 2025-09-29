@@ -39,44 +39,31 @@ function Registercomponent() {
   };
 
   async function Logintoken(payload: registrationModel) {
-    try {
-      if (payload) {
-        // toast.error("sss")
-        toast('🦄 Wow so easy!', {
-position: "top-right",
-autoClose: 5000,
-hideProgressBar: false,
-closeOnClick: false,
-pauseOnHover: true,
-draggable: true,
-progress: undefined,
-theme: "light",
-});
-
-toast.success("ssss")
-        setloadingState((e) => 1);
-        const res: any = await userRegister(payload).then((res) => {
-          return res;
-        });
-        const response:any = res;
-        console.log('response', response);
+    // try {
+    //   if (payload) {
+    //     setloadingState((e) => 1);
+    //     const res: any = await userRegister(payload).then((res) => {
+    //       return res;
+    //     });
+    //     const response:any = res;
+    //     console.log('response', response);
         
-        if(response.succeeded){
-          setloadingState((e) => 0);
-          setReset({})
-          toast.success(response?.messages[0])
-          navigate.push("/login");
-        }else{
-          setloadingState((e) => 0);
-          toast.error(response?.messages[0])
-        }
-      }
-    } catch (err) {
-      if (err) {
-        setloadingState((e) => 0);
-        toast.error("Something went wrong")
-      }
-    }
+    //     if(response.succeeded){
+    //       setloadingState((e) => 0);
+    //       setReset({})
+    //       toast.success(response?.messages[0])
+    //       navigate.push("/login");
+    //     }else{
+    //       setloadingState((e) => 0);
+    //       toast.error(response?.messages[0])
+    //     }
+    //   }
+    // } catch (err) {
+    //   if (err) {
+    //     setloadingState((e) => 0);
+    //     toast.error("Something went wrong")
+    //   }
+    // }
   }
 
   return (
