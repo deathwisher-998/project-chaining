@@ -1,0 +1,42 @@
+import "./globals.css";
+import "react-toastify/dist/ReactToastify.css"; 
+import type { Metadata } from "next";
+import { Roboto } from "next/font/google";
+import { Layout, FixedPlugin } from "@/components";
+import { Providers } from "./globalstore/provider";
+import { AuthProvider } from "@/context/AuthContext";
+import Chakraprovider from "@/components/Provider/Provider";
+
+const roboto = Roboto({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "700", "900"],
+  display: "swap",
+});
+
+export const metadata: Metadata = {
+  title: "NextJS Tailwind Course Landing Page",
+  description:
+    "Introducing Tailwind Course Landing Page, a versatile and engaging landing page template designed using Tailwind CSS and Material Tailwind.",
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en">
+      <head>
+        <link rel="shortcut icon" href="/favicon.png" type="image/png" />
+      </head>
+      <body className={roboto.className}>
+        <Providers>
+            <Layout>
+              {children}
+              {/* <FixedPlugin /> */}
+            </Layout>
+        </Providers>
+      </body>
+    </html>
+  );
+}
