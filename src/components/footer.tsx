@@ -20,7 +20,7 @@ const CURRENT_YEAR = new Date().getFullYear();
 export function Footer() {
   return (
     <footer
-      className="px-8 pt-24 pb-8 mt-40"
+      className="px-8 pt-24 pb-8"
       style={{ backgroundColor: "#17212b" }}
     >
       <div className="container max-w-6xl flex flex-col mx-auto">
@@ -63,7 +63,7 @@ export function Footer() {
               <div className="w-full">
                 {/* @ts-ignore */}
                 <Input label="Email" color="gray" />
-                <Typography className="font-medium mt-3 !text-sm !text-gray-500 text-left">
+                {/* <Typography className="font-medium mt-3 !text-sm !text-gray-500 text-left">
                   I agree the{" "}
                   <a
                     href="#"
@@ -71,7 +71,7 @@ export function Footer() {
                   >
                     Terms and Conditions{" "}
                   </a>
-                </Typography>
+                </Typography> */}
               </div>
               <Button color="red" className="w-full lg:w-fit" size="md">
                 button
@@ -84,12 +84,9 @@ export function Footer() {
           className="md:text-center mt-16 font-normal text-white"
         >
           &copy; {CURRENT_YEAR} Made with{" "}
-          <a href="https://www.material-tailwind.com" target="_blank">
-            Material Tailwind
-          </a>{" "}
           by{" "}
-          <a href="https://www.creative-tim.com" target="_blank">
-            Creative Tim
+          <a href="#" target="_blank">
+            Auramera
           </a>
           .
         </Typography>

@@ -16,7 +16,6 @@ export default function ProductDetails({ id }: Productdetail) {
 
   useEffect(() => {
     if(id){
-      console.log('product id', id);
       const data = productsList.filter((item) => item.productid == id);
       if(data.length > 0){
         setproductData((e:any) => data[0])
@@ -29,7 +28,7 @@ export default function ProductDetails({ id }: Productdetail) {
   },[id])
 
   return (
-    <div className="py-10 px-6 mt-20" style={{ marginBottom: "-50px" }}>
+    <div className="py-10 px-6 mt-20 mb-20">
       <div className="max-w-8xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 bg-white rounded-2xl border-2 p-8">
         {/* Product Image */}
         <div className="flex justify-center items-center">

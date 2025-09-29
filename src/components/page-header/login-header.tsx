@@ -76,9 +76,10 @@ export function Loginheader() {
           blurred
           color="white"
           className="z-50 relative border-0 pr-3 py-3 pl-6"
+          style={{backgroundColor:"#17212b"}}
         >
           <div className="flex items-center justify-between">
-            <Typography color="blue-gray" className="text-lg font-bold">
+            <Typography color="blue-gray" className="text-lg font-bold text-white">
               <Link href={routes.nonauth.home}>Logo</Link>
             </Typography>
             {/* <ul className="ml-10 hidden items-center gap-8 lg:flex">
@@ -91,11 +92,11 @@ export function Loginheader() {
             </ul> */}
             <div className="hidden items-center gap-4 lg:flex">
               <Link href={routes.nonauth.home}>
-                <Button variant="text">Home</Button>
+                <Button variant="text" className="text-white">Home</Button>
               </Link>
 
               <Link href={routes.nonauth.register}>
-                <Button color="gray">Register here!</Button>
+                <Button color="red">Register here!</Button>
               </Link>
             </div>
             <IconButton
@@ -124,7 +125,7 @@ export function Loginheader() {
               <div className="mt-6 mb-4 flex items-center gap-4">
                 <Button variant="text">Home</Button>
                 <Link href={routes.nonauth.register}>
-                  <Button color="gray">Register here!</Button>
+                  <Button color="red">Register here!</Button>
                 </Link>
               </div>
             </div>

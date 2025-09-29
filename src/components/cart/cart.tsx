@@ -18,7 +18,7 @@ export default function Cart() {
 
   return (
     <>
-      <div className="p-0 mt-5">
+      <div className="p-0 mt-20 mb-20">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* Left - Product List */}
           <div className="md:col-span-2 bg-white rounded-xl shadow-md p-6">

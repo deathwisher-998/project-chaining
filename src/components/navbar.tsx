@@ -82,9 +82,10 @@ export function Navbar() {
           blurred
           color="white"
           className="z-50 mt-6 relative border-0 pr-3 py-3 pl-6"
+          style={{backgroundColor:"#17212b"}}
         >
           <div className="flex items-center justify-between">
-            <Typography color="blue-gray" className="text-lg font-bold">
+            <Typography color="blue-gray" className="text-lg font-bold text-white">
               <Link href={routes.auth.home}>Logo</Link>
             </Typography>
             {/* <ul className="ml-10 hidden items-center gap-8 lg:flex">
@@ -103,12 +104,13 @@ export function Navbar() {
                     ? navigation.push("/profile")
                     : navigation.push("/login")
                 }
+                className="text-white"
               >
                  {token ? "Account" : "Login"}
               </Button>
 
               <Button
-                color="gray"
+                color="red"
                 onClick={() =>
                   token ? navigation.push("/cart") : navigation.push("/login")
                 }

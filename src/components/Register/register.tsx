@@ -73,8 +73,8 @@ function Registercomponent() {
           <Loginheader />
           <div className="flex items-center justify-center min-h-screen bg-gray-100">
             {/* w-full max-w-lg */}
-            <div className="container bg-white rounded-2xl shadow-lg p-8">
-              <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
+            <div className="container bg-white rounded-2xl shadow-lg p-8"  style={{backgroundColor:"#17212b"}}>
+              <h2 className="text-2xl font-bold text-center text-white mb-6">
                 Register
               </h2>
               <Form<Registrationforminput>
@@ -98,7 +98,7 @@ function Registercomponent() {
                                   errors?.firstName?.message ? true : false
                                 }
                               >
-                                <Field.Label>
+                                <Field.Label className="text-white">
                                   Firstname <Field.RequiredIndicator />
                                 </Field.Label>
                                 <Input
@@ -121,7 +121,7 @@ function Registercomponent() {
                                   errors?.lastName?.message ? true : false
                                 }
                               >
-                                <Field.Label>
+                                <Field.Label className="text-white">
                                   Lastname <Field.RequiredIndicator />
                                 </Field.Label>
                                 <Input
@@ -142,7 +142,7 @@ function Registercomponent() {
                                 required
                                 invalid={errors?.email?.message ? true : false}
                               >
-                                <Field.Label>
+                                <Field.Label className="text-white">
                                   Email <Field.RequiredIndicator />
                                 </Field.Label>
                                 <Input
@@ -165,7 +165,7 @@ function Registercomponent() {
                                   errors?.userName?.message ? true : false
                                 }
                               >
-                                <Field.Label>
+                                <Field.Label className="text-white">
                                   Username <Field.RequiredIndicator />
                                 </Field.Label>
                                 <Input
@@ -188,7 +188,7 @@ function Registercomponent() {
                                   errors?.password?.message ? true : false
                                 }
                               >
-                                <Field.Label>
+                                <Field.Label className="text-white">
                                   Password <Field.RequiredIndicator />
                                 </Field.Label>
                                 <Input
@@ -213,7 +213,7 @@ function Registercomponent() {
                                     : false
                                 }
                               >
-                                <Field.Label>
+                                <Field.Label className="text-white">
                                   Confirm Password <Field.RequiredIndicator />
                                 </Field.Label>
                                 <Input
@@ -236,7 +236,7 @@ function Registercomponent() {
                                   errors?.phoneNumber?.message ? true : false
                                 }
                               >
-                                <Field.Label>
+                                <Field.Label className="text-white">
                                   Phone No. <Field.RequiredIndicator />
                                 </Field.Label>
                                 <Input
@@ -256,7 +256,7 @@ function Registercomponent() {
 
                             <div>
                               <Field.Root>
-                                <Field.Label>Referral Code</Field.Label>
+                                <Field.Label className="text-white">Referral Code</Field.Label>
                                 <Input
                                   type="text"
                                   placeholder="Your name"
@@ -283,7 +283,7 @@ function Registercomponent() {
                        text-white font-semibold rounded-lg shadow-md 
                        focus:outline-none focus:ring-2 focus:ring-offset-2 
                        focus:ring-blue-500 transition"
-                                background={"#1c1c1c"}
+                                background={"#f44336"}
                                 type="submit"
                               >
                                 Register
@@ -298,10 +298,10 @@ function Registercomponent() {
               </Form>
 
               {/* Divider */}
-              <div className="my-6 border-t border-gray-300"></div>
+              <div className="my-6 border-t border-white"></div>
 
               {/* Sign up */}
-              <p className="text-center text-sm text-gray-600">
+              <p className="text-center text-sm text-white">
                 Already have an account?{" "}
                 <Link href="/login" className="text-blue-600 hover:underline">
                   Sign In

@@ -35,7 +35,7 @@ export function ExploreCourses() {
   };
 
   return (
-    <section className="px-8 pt-80">
+    <section className="px-8 mt-40 mb-20">
       <div className="container mx-auto mb-24 text-center">
         <Typography variant="h2" color="blue-gray">
           Our Products

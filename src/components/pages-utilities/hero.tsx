@@ -8,12 +8,12 @@ function Hero() {
     <div className="!flex h-[55vh] w-full items-center justify-between px-10 mb-20">
       <Image
         width={1200}
-        height={1200}
+        height={800}
         src="/image/image8.svg"
         alt="bg-img"
-        className="absolute inset-0 ml-auto w-[100%] h-[850px] object-cover object-center"
+        className="absolute inset-0 ml-auto w-[100%] h-[650px] object-cover object-center"
       />
-      <div className="container mx-auto mt-60">
+      <div className="container mx-auto mt-10">
         <div className="grid grid-cols-12 text-center lg:text-left">
           <Card className="col-span-full rounded-xl border border-white bg-white/90 py-10 p-8 shadow-lg shadow-black/10 backdrop-blur-sm backdrop-saturate-200 xl:col-span-7">
             <Typography
@@ -28,42 +28,12 @@ function Hero() {
               web development? Look no further! We are your trusted partner for
               mastering the art of web development.
             </Typography>
-            <div className="mb-8 flex justify-center gap-4 lg:justify-start">
+            {/* <div className="mb-8 flex justify-center gap-4 lg:justify-start">
               <Button color="gray">view all courses</Button>
               <Button color="gray" variant="outlined">
                 see pricing
               </Button>
-            </div>
-            <div className="grid grid-cols-2 lg:grid-cols-4 items-center justify-between gap-4 lg:justify-start">
-              <Image
-                width={144}
-                height={144}
-                className="w-36 grayscale opacity-60"
-                src="/logos/logo-pinterest.svg"
-                alt="pinterest"
-              />
-              <Image
-                width={144}
-                height={144}
-                className="w-36 grayscale opacity-60"
-                src="/logos/logo-netflix.svg"
-                alt="netflix"
-              />
-              <Image
-                width={144}
-                height={144}
-                className="w-36 grayscale opacity-60"
-                src="/logos/logo-coinbase.svg"
-                alt="coinbase"
-              />
-              <Image
-                width={144}
-                height={144}
-                className="w-36 grayscale opacity-60"
-                src="/logos/logo-google.svg"
-                alt="google"
-              />
-            </div>
+            </div> */}
           </Card>
         </div>
       </div>

@@ -73,7 +73,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="bg-gray-100 mt-20 p-5" style={{ marginBottom: "-60px" }}>
+    <div className="bg-gray-100 mt-20 p-5 mb-20">
       <div className="w-full  bg-gradient-to-r from-gray-800 via-gray-700 to-gray-600 rounded-xl shadow-lg p-8">
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-white">Personal Centre</h1>

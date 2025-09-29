@@ -68,8 +68,8 @@ function Logincomponent() {
             <Loginheader />
 
             <div className="flex items-center justify-center min-h-screen bg-gray-100">
-              <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
-                <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
+              <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8" style={{backgroundColor:"#17212b"}}>
+                <h2 className="text-2xl font-bold text-center text-white mb-6">
                   Login
                 </h2>
                 <Spinner size="lg" color="#000" />
@@ -95,7 +95,7 @@ function Logincomponent() {
                                       errors?.email?.message ? true : false
                                     }
                                   >
-                                    <Field.Label>
+                                    <Field.Label className="text-white">
                                       Email <Field.RequiredIndicator />
                                     </Field.Label>
                                     <Input
@@ -117,7 +117,7 @@ function Logincomponent() {
                                       errors?.password?.message ? true : false
                                     }
                                   >
-                                    <Field.Label>
+                                    <Field.Label className="text-white">
                                       Password <Field.RequiredIndicator />
                                     </Field.Label>
                                     <Input
@@ -141,7 +141,7 @@ function Logincomponent() {
                        text-white font-semibold rounded-lg shadow-md 
                        focus:outline-none focus:ring-2 focus:ring-offset-2 
                        focus:ring-blue-500 transition"
-                                background={"#1c1c1c"}
+                                background={"#f44336"}
                                 type="submit"
                               >
                                 Sign In
@@ -155,10 +155,10 @@ function Logincomponent() {
                 </Form>
 
                 {/* Divider */}
-                <div className="my-6 border-t border-gray-300"></div>
+                <div className="my-6 border-t border-white"></div>
 
                 {/* Sign up */}
-                <p className="text-center text-sm text-gray-600">
+                <p className="text-center text-sm text-white">
                   Don’t have an account?{" "}
                   <Link
                     href="/register"
