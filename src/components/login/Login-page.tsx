@@ -33,6 +33,8 @@ function Logincomponent() {
     if (data.email && data.password) {
       let payload = { ...data, userDeviceToken: "", userDeviceType: "" };
       Logintoken(payload);
+      localStorage.setItem("token", "nedjkde");
+      navigate.replace("/");
     }
   };
 
