@@ -22,6 +22,7 @@ const initialValues = {
   password: "",
 };
 import { token } from "@/helpers/services/auth";
+import { toast, ToastContainer } from "react-toastify";
 
 function Logincomponent() {
   const [reset, setReset] = useState({});
@@ -31,33 +32,37 @@ function Logincomponent() {
 
   const onSubmit: SubmitHandler<Loginforminput> = async (data) => {
     if (data.email && data.password) {
-      let payload = { ...data, userDeviceToken: "", userDeviceType: "" };
+      let payload = { ...data};
       Logintoken(payload);
-      localStorage.setItem("token", "nedjkde");
-      navigate.replace("/");
+      // localStorage.setItem("token", "nedjkde");
+      // navigate.replace("/");
     }
   };
 
   async function Logintoken(payload: loginModel) {
-    // try {
-    //   if (payload) {
-    //     setloadingState((e) => 1);
-    //     const res: any = await token(payload).then((res: any) => {
-    //       return res;
-    //     });
-    //     const response: loginResponse = res;
-    //     if (response.token) {
-    //       setloadingState((e) => 0);
-    //       setReset((e) => {});
-    //       localStorage.setItem("token", response.token);
-    //       navigate.replace("/");
-    //     }
-    //   }
-    // } catch (err) {
-    //   if (err) {
-    //     setloadingState((e) => 0);
-    //   }
-    // }
+    try {
+      if (payload) {
+        setloadingState((e) => 1);
+        const res: any = await token(payload).then((res: any) => {
+          return res;
+        });
+        const response: loginResponse = res;
+        if (response.token) {
+          setloadingState((e) => 0);
+          setReset((e) => {});
+          localStorage.setItem("token", response.token);
+          navigate.replace("/");
+        }else{
+          toast.error("Invalid Credentials")
+          setloadingState((e) => 0);
+        }
+      }
+    } catch (err) {
+      if (err) {
+        toast.error("Invalid Credentials")
+        setloadingState((e) => 0);
+      }
+    }
   }
 
   return (
@@ -66,7 +71,7 @@ function Logincomponent() {
         <>
           <div className="bg-gray-100">
             <Loginheader />
-
+            <ToastContainer />
             <div className="flex items-center justify-center min-h-screen bg-gray-100">
               <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8" style={{backgroundColor:"#17212b"}}>
                 <h2 className="text-2xl font-bold text-center text-white mb-6">

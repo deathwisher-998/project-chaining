@@ -18,7 +18,7 @@ import { Form } from "@/ui/form";
 import { AbsoluteCenter, Box, Button, Field, Input } from "@chakra-ui/react";
 import Link from "next/link";
 import { userRegister } from "@/helpers/services/registration";
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from "react-toastify";
 
 const initialValues = {
   email: "",
@@ -39,31 +39,29 @@ function Registercomponent() {
   };
 
   async function Logintoken(payload: registrationModel) {
-    // try {
-    //   if (payload) {
-    //     setloadingState((e) => 1);
-    //     const res: any = await userRegister(payload).then((res) => {
-    //       return res;
-    //     });
-    //     const response:any = res;
-    //     console.log('response', response);
-        
-    //     if(response.succeeded){
-    //       setloadingState((e) => 0);
-    //       setReset({})
-    //       toast.success(response?.messages[0])
-    //       navigate.push("/login");
-    //     }else{
-    //       setloadingState((e) => 0);
-    //       toast.error(response?.messages[0])
-    //     }
-    //   }
-    // } catch (err) {
-    //   if (err) {
-    //     setloadingState((e) => 0);
-    //     toast.error("Something went wrong")
-    //   }
-    // }
+    try {
+      if (payload) {
+        setloadingState((e) => 1);
+        const res: any = await userRegister(payload).then((res) => {
+          return res;
+        });
+        const response: any = res;
+        if (response.succeeded) {
+          setloadingState((e) => 0);
+          setReset({});
+          toast.success(response?.messages[0]);
+          navigate.push("/login");
+        } else {
+          setloadingState((e) => 0);
+          toast.error(response?.messages[0]);
+        }
+      }
+    } catch (err) {
+      if (err) {
+        setloadingState((e) => 0);
+        toast.error("Something went wrong");
+      }
+    }
   }
 
   return (
@@ -71,9 +69,13 @@ function Registercomponent() {
       <Apploader Loadingstate={loadingState}>
         <div className="bg-gray-100">
           <Loginheader />
+          <ToastContainer />
           <div className="flex items-center justify-center min-h-screen bg-gray-100">
             {/* w-full max-w-lg */}
-            <div className="container bg-white rounded-2xl shadow-lg p-8"  style={{backgroundColor:"#17212b"}}>
+            <div
+              className="container bg-white rounded-2xl shadow-lg p-8"
+              style={{ backgroundColor: "#17212b" }}
+            >
               <h2 className="text-2xl font-bold text-center text-white mb-6">
                 Register
               </h2>
@@ -256,7 +258,9 @@ function Registercomponent() {
 
                             <div>
                               <Field.Root>
-                                <Field.Label className="text-white">Referral Code</Field.Label>
+                                <Field.Label className="text-white">
+                                  Referral Code
+                                </Field.Label>
                                 <Input
                                   type="text"
                                   placeholder="Your name"
@@ -271,13 +275,11 @@ function Registercomponent() {
                                 </Field.ErrorText> */}
                               </Field.Root>
                             </div>
-
-                           
                           </div>
 
-                           <div className="container flex items-center mt-10 justify-center">
-                              <div>
-                                <Button
+                          <div className="container flex items-center mt-10 justify-center">
+                            <div>
+                              <Button
                                 variant="subtle"
                                 className="w-full py-2 px-4 bg-gray-600 hover:bg-gray-700 
                        text-white font-semibold rounded-lg shadow-md 
@@ -288,8 +290,8 @@ function Registercomponent() {
                               >
                                 Register
                               </Button>
-                              </div>
                             </div>
+                          </div>
                         </div>
                       </Box>
                     </Box>
