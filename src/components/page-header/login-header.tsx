@@ -80,7 +80,7 @@ export function Loginheader() {
               >
           <div className="flex items-center justify-between">
             <Typography color="blue-gray" className="text-lg font-bold text-white">
-              <Link href={routes.nonauth.home}>Logo</Link>
+              <Link href={routes.nonauth.home}>SAMDENA</Link>
             </Typography>
             {/* <ul className="ml-10 hidden items-center gap-8 lg:flex">
               {NAV_MENU.map(({ name, icon: Icon, href }) => (
@@ -101,7 +101,7 @@ export function Loginheader() {
             </div>
             <IconButton
               variant="text"
-              color="gray"
+              color="white"
               onClick={handleOpen}
               className="ml-auto inline-block lg:hidden"
             >
@@ -114,19 +114,26 @@ export function Loginheader() {
           </div>
           <Collapse open={open}>
             <div className="container mx-auto mt-3 border-t border-gray-200 px-2 pt-4">
-              <ul className="flex flex-col gap-4">
+              {/* <ul className="flex flex-col gap-4">
                 {NAV_MENU.map(({ name, icon: Icon, href }) => (
                   <NavItem key={name} href={href}>
                     <Icon className="h-5 w-5" />
                     {name}
                   </NavItem>
                 ))}
-              </ul>
-              <div className="mt-6 mb-4 flex items-center gap-4">
-                <Button variant="text">Home</Button>
-                <Link href={routes.nonauth.register}>
+              </ul> */}
+              <div className="flex items-center gap-4" style={{flexDirection:"column"}}>
+                <div>
+                  <Link href={routes.nonauth.home}>
+                  <Button variant="text"
+                    className="text-white">Home</Button>
+                  </Link>
+                </div>
+               <div>
+                 <Link href={routes.nonauth.register}>
                   <Button color="red">Register here!</Button>
                 </Link>
+               </div>
               </div>
             </div>
           </Collapse>

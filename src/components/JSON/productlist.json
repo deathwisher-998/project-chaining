@@ -1,0 +1,26 @@
+[
+  {
+    "id": "5e3cca4f-e38a-4f7c-9f57-72dd1f31670d",
+    "name": "Blanket2",
+    "skU": "5IUZ0CV4Q548",
+    "regularPrice": 460,
+    "salePrice": 320,
+    "quantity": 120,
+    "discription": "DiscriptionDiscription",
+    "isActive": true,
+    "createdOn": "2025-09-30T14:01:38.1723596",
+    "productImages": null
+  },
+  {
+    "id": "1a284bc7-2747-4934-8fb5-ff89d9610940",
+    "name": "Blanket",
+    "skU": "98FI7LNX7UN3",
+    "regularPrice": 500,
+    "salePrice": 200,
+    "quantity": 120,
+    "discription": "Discription",
+    "isActive": true,
+    "createdOn": "2025-09-30T13:02:36.4570706",
+    "productImages": null
+  }
+]

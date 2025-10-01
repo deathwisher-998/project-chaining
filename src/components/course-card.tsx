@@ -1,3 +1,7 @@
+"use client";
+
+import config from "@/config";
+import { useAuth } from "@/hooks/useAuth";
 import { routes } from "@/routes/routes";
 import {
   Typography,
@@ -8,41 +12,50 @@ import {
 } from "@material-tailwind/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface CourseCardProps {
-  img: string;
-  tag: string;
-  title: string;
-  desc: string;
-  label: string;
-  addtocart: Boolean;
-  productid: number;
+  productImages: string;
+  name: string;
+  skU: string;
+  regularPrice: number;
+  salePrice: number;
+  quantity: number;
+  discription: string;
   addcart: any;
+  addtocart: boolean;
+  id: any;
 }
 
 export function CourseCard({
-  img,
-  tag,
-  title,
-  desc,
-  label,
-  addtocart,
+  productImages,
+  name,
+  skU,
+  regularPrice,
+  salePrice,
+  quantity,
+  discription,
   addcart,
-  productid,
+  addtocart,
+  id,
 }: CourseCardProps) {
+  const imgurl = config.imgBaseurl;
+  const { token, loading } = useAuth(); // your auth logic
+  const navigation = useRouter();
+
   return (
     <Card className="border">
       <CardHeader className="h-64">
         <Image
           width={768}
           height={768}
-          src={img}
-          alt={title}
+          src={productImages ? (imgurl + productImages) : "/image/product-image/blankets-img.jpg"}
+          alt={name}
           className="h-full w-full object-cover scale-[1.1]"
         />
       </CardHeader>
       <CardBody>
-        <div className="flex items-center gap-2">
+        {/* <div className="flex items-center gap-2">
           <Typography
             variant="small"
             color="blue"
@@ -50,51 +63,58 @@ export function CourseCard({
           >
             {tag}
           </Typography>
-        </div>
+        </div> */}
         <Link
-          href={{pathname:routes.nonauth.productdetail + productid , query:{id:productid}}}
+          href={{
+            pathname: routes.nonauth.productdetail + id,
+            query: { id: id },
+          }}
           className="text-blue-gray-900 transition-colors hover:text-gray-900"
         >
-          <Typography variant="h5" className="mb-2 normal-case">
-            {title}
+          <Typography variant="h5" className="mb-2 normal-case underline">
+            {name}
           </Typography>
         </Link>
         <Typography className="mb-6 font-normal !text-gray-500">
-          {desc}
+          {discription}
         </Typography>
-        <Typography className="mb-6 font-bold text-black">
-          Price {label}
-        </Typography>
+        <div className="flex">
+          <Typography className="mb-6 font-bold text-black">
+            Price {salePrice} Rs
+          </Typography>
+          <Typography className="ml-5 line-through">
+            {regularPrice} Rs
+          </Typography>
+        </div>
         {!addtocart ? (
           <>
             <Button
               variant="outlined"
               size="sm"
-              onClick={() => addcart(productid)}
+              onClick={() => addcart(id)}
               className="mr-2"
             >
               Add to cart
             </Button>
 
-            <Button
-              variant="gradient"
-              size="sm"
-              onClick={() => addcart(productid)}
-            >
+            {/* <Button variant="gradient" size="sm" onClick={() => addcart(id)}>
               Buy now
-            </Button>
+            </Button> */}
           </>
         ) : (
           <>
             {" "}
-            <Button variant="gradient" className="mr-2" size="sm">
+            <Button
+              variant="gradient"
+              className="mr-2"
+              size="sm"
+              onClick={() =>
+                token ? navigation.push("/cart") : navigation.push("/login")
+              }
+            >
               View cart
             </Button>{" "}
-            <Button
-              variant="outlined"
-              size="sm"
-              onClick={() => addcart(productid)}
-            >
+            <Button variant="outlined" size="sm" onClick={() => addcart(id)}>
               Remove
             </Button>{" "}
           </>

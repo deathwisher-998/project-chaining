@@ -2,6 +2,7 @@
 const nextConfig = {
   experimental: { appDir: true },
   images: {
+    domains:['sdplapi.runasp.net'],
     remotePatterns: [
       {
         protocol: "https",

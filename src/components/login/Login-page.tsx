@@ -23,6 +23,7 @@ const initialValues = {
 };
 import { token } from "@/helpers/services/auth";
 import { toast, ToastContainer } from "react-toastify";
+import { userList } from "@/helpers/services/users";
 
 function Logincomponent() {
   const [reset, setReset] = useState({});
@@ -32,7 +33,7 @@ function Logincomponent() {
 
   const onSubmit: SubmitHandler<Loginforminput> = async (data) => {
     if (data.email && data.password) {
-      let payload = { ...data};
+      let payload = { ...data };
       Logintoken(payload);
       // localStorage.setItem("token", "nedjkde");
       // navigate.replace("/");
@@ -48,21 +49,37 @@ function Logincomponent() {
         });
         const response: loginResponse = res;
         if (response.token) {
+          usersList(payload.email);
           setloadingState((e) => 0);
           setReset((e) => {});
           localStorage.setItem("token", response.token);
           navigate.replace("/");
-        }else{
-          toast.error("Invalid Credentials")
+        } else {
+          toast.error("Invalid Credentials");
           setloadingState((e) => 0);
         }
       }
     } catch (err) {
       if (err) {
-        toast.error("Invalid Credentials")
+        toast.error("Invalid Credentials");
         setloadingState((e) => 0);
       }
     }
+  }
+
+  async function usersList(id: string) {
+    try {
+      if (id) {
+        const response: any = await userList().then((res) => res);
+        if (response?.length > 0) {
+          response.filter((item: any) => {
+            if (item.email == id) {
+              localStorage.setItem("uId", item?.id);
+            }
+          });
+        }
+      }
+    } catch (err) {}
   }
 
   return (
@@ -73,7 +90,10 @@ function Logincomponent() {
             <Loginheader />
             <ToastContainer />
             <div className="flex items-center justify-center min-h-screen bg-gray-100">
-              <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8" style={{backgroundColor:"#17212b"}}>
+              <div
+                className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8"
+                style={{ backgroundColor: "#17212b" }}
+              >
                 <h2 className="text-2xl font-bold text-center text-white mb-6">
                   Login
                 </h2>

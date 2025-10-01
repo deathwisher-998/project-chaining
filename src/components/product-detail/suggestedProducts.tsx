@@ -1,69 +1,78 @@
+import config from "@/config";
+import { routes } from "@/routes/routes";
 import {
   Card,
   CardHeader,
   CardBody,
   CardFooter,
   Typography,
-  Button
+  Button,
 } from "@material-tailwind/react";
+import Link from "next/link";
 
-const suggestedProducts = [
-  {
-    id: 1,
-    name: "Wireless Headphones",
-    price: "$59.99",
-    image: "/image/blogs/blog4.svg"
-  },
-  {
-    id: 2,
-    name: "Smart Watch",
-    price: "$129.99",
-    image: "/image/blogs/blog3.svg"
-  },
-  {
-    id: 3,
-    name: "Gaming Mouse",
-    price: "$39.99",
-    image: "/image/blogs/blog5.svg"
-  }
-];
+interface suggestedProduct {
+  data: any;
+}
 
-export default function SuggestedProducts() {
+export default function SuggestedProducts({ data }: suggestedProduct) {
+
+  const imgUrl = config.imgBaseurl;
+
   return (
     <div className="bg-gray-50 p-6 rounded-lg shadow-md mb-20">
-      <Typography variant="h5" className="mb-4 font-bold text-gray-800">
-        Suggested Products
-      </Typography>
+      {data && (
+        <>
+          <Typography variant="h5" className="mb-4 font-bold text-gray-800">
+            Suggested Products
+          </Typography>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {suggestedProducts.map((product) => (
-          <Card
-            key={product.id}
-            className="shadow-md hover:shadow-xl transition-shadow duration-300"
-          >
-            <CardHeader floated={false} className="h-40">
-              <img
-                src={product.image}
-                alt={product.name}
-                className="h-full w-full object-cover rounded-lg"
-              />
-            </CardHeader>
-            <CardBody>
-              <Typography variant="h6" className="font-semibold text-gray-700">
-                {product.name}
-              </Typography>
-              <Typography variant="small" className="text-gray-500 mt-1">
-                {product.price}
-              </Typography>
-            </CardBody>
-            <CardFooter>
-              <Button fullWidth color="gray">
-                Add to Cart
-              </Button>
-            </CardFooter>
-          </Card>
-        ))}
-      </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            {data.map((product) => (
+              <Card
+                key={product.id}
+                className="shadow-md hover:shadow-xl transition-shadow duration-300"
+              >
+                <CardHeader floated={false} className="h-40">
+                  <img
+                    src={product.productImages ? (imgUrl + product.productImages) : "/image/product-image/blankets-img.jpg"}
+                    alt={product.name}
+                    className="h-full w-full object-cover rounded-lg"
+                  />
+                </CardHeader>
+                <CardBody>
+                  <Link
+                    href={{
+                      pathname: routes.nonauth.productdetail + product.id,
+                      query: { id: product.id },
+                    }}
+                  >
+                    <Typography
+                      variant="h6"
+                      className="font-semibold text-gray-700"
+                    >
+                      {product.name}
+                    </Typography>
+                  </Link>
+                  <div className="flex">
+                    <Typography
+                      variant="small"
+                      className="text-black mt-1 font-semibold"
+                    >
+                      Price {product.salePrice} Rs
+                    </Typography>
+                    <Typography
+                      variant="small"
+                      className="ml-5 text-gray-500 mt-1 font-semibold line-through"
+                    >
+                      {product.salePrice} Rs
+                    </Typography>
+                  </div>
+                </CardBody>
+              </Card>
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 }

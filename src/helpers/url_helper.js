@@ -1,5 +1,13 @@
 // Api Version
 const apistartWith = 'v1';
-//Login Api
+//Login & Register Api
 export const token = "/Auth/token";
 export const registration = "/Users"
+
+// Product List and Product Details
+export const productList = "/Product"
+
+
+// Users levels and detail
+export const User =  "/Users"
+
