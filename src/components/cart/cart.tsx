@@ -15,6 +15,8 @@ export default function Cart() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log('productSelector', productSelector);
+    
     if (productSelector.cartproductlist) {
       const data: any = JSON.parse(productSelector?.cartproductlist);
       setcartproductlist((e: any) => data);
