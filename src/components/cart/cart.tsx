@@ -19,53 +19,18 @@ export default function Cart() {
       const data: any = JSON.parse(productSelector?.cartproductlist);
       setcartproductlist((e: any) => data);
     } else {
-      let getsdata: any = sessionStorage.getItem("ctData");
-      console.log('ds', getsdata);
-      
-      if (getsdata) {
-        getsdata = JSON.parse(getsdata);
-        let cartproductlist = getsdata?.cartproductlist;
-        console.log('getsdata', getsdata);
-        
-        if (cartproductlist) {
-          // cartproductlist = JSON.parse(cartproductlist);
-          // if (cartproductlist?.length > 0) {
-          //   setcartproductlist((e: any) => cartproductlist);
-          //   dispatch(
-          //     cartproductList({
-          //       cartproductlist:
-          //         cartproductlist?.length > 0
-          //           ? JSON.stringify(cartproductlist)
-          //           : null,
-          //       productQuantity:
-          //         cartproductlist?.length > 0 ? cartproductlist.length : null,
-          //     })
-          //   );
-          // }
-        } else {
-          // dispatch(
-          //   cartproductList({
-          //     cartproductlist: null,
-          //     productQuantity: null,
-          //   })
-          // );
-          // setcartproductlist((e: any) => []);
-        }
-      } else {
-        // dispatch(
-        //   cartproductList({
-        //     cartproductlist: null,
-        //     productQuantity: null,
-        //   })
-        // );
-        setcartproductlist((e: any) => []);
-      }
+      setcartproductlist((e: any) => []);
     }
   }, [productSelector]);
 
-  const quantityUpdation = (qty: number, data: any, flag: number) => {
-    console.log("s");
+  useEffect(() => {
+    let mewdata = sessionStorage.getItem("cdata");
+    if (mewdata) {
+      dispatch(cartproductList(JSON.parse(mewdata)));
+    }
+  }, []);
 
+  const quantityUpdation = (qty: number, data: any, flag: number) => {
     if (flag == 1 || flag == 2) {
       const updatedList = cartproductlist.map((item: any) => {
         if (data.id == item.id) {
@@ -77,6 +42,12 @@ export default function Cart() {
           return item;
         }
       });
+      let scartData = {
+        cartproductlist:
+          updatedList?.length > 0 ? JSON.stringify(updatedList) : null,
+        productQuantity: updatedList?.length > 0 ? updatedList.length : null,
+      };
+      sessionStorage.setItem("cdata", JSON.stringify(scartData));
       dispatch(
         cartproductList({
           cartproductlist:
@@ -90,6 +61,12 @@ export default function Cart() {
           return item;
         }
       });
+      let scartData = {
+        cartproductlist:
+          updatedList?.length > 0 ? JSON.stringify(updatedList) : null,
+        productQuantity: updatedList?.length > 0 ? updatedList.length : null,
+      };
+      sessionStorage.setItem("cdata", JSON.stringify(scartData));
       dispatch(
         cartproductList({
           cartproductlist:
@@ -130,9 +107,12 @@ export default function Cart() {
               >
                 <div className="space-y-4">
                   {/* Product Item */}
-                  {cartproductlist.map((item: any, i:number) => {
+                  {cartproductlist.map((item: any, i: number) => {
                     return (
-                      <div className="flex items-center justify-between border-b pb-2 custom-res-cart" key={i}>
+                      <div
+                        className="flex items-center justify-between border-b pb-2 custom-res-cart"
+                        key={i}
+                      >
                         <div className="flex items-center space-x-4">
                           <img
                             src="/image/product-image/blankets-img.jpg"

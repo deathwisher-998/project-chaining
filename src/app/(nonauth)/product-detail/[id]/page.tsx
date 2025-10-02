@@ -48,7 +48,11 @@ export default function Productdetail() {
             }
           }
 
-          let item = {...response.data, ['addtocart']:false, ['cartquantity']:1}
+          let item = {
+            ...response.data,
+            ["addtocart"]: false,
+            ["cartquantity"]: 1,
+          };
           setproductDetailsdata((e: any) => item);
           getProductlist();
         } else {
@@ -109,7 +113,7 @@ export default function Productdetail() {
     } catch (err) {}
   }
 
-  const addandremovetocart = (data: any, quantity:any) => {
+  const addandremovetocart = (data: any, quantity: any) => {
     if (data) {
       if (productSelector.cartproductlist) {
         const datalist: any = JSON.parse(productSelector?.cartproductlist);
@@ -119,9 +123,15 @@ export default function Productdetail() {
           let obj = {
             ...productDetailsdata,
             ["addtocart"]: !data.addtocart ? true : false,
-            ['cartquantity']:quantity
+            ["cartquantity"]: quantity,
           };
           setproductDetailsdata((e: any) => obj);
+          let scartData = {
+            cartproductlist:
+              notincart?.length > 0 ? JSON.stringify(notincart) : null,
+            productQuantity: notincart?.length > 0 ? notincart.length : null,
+          };
+          sessionStorage.setItem("cdata", JSON.stringify(scartData));
           dispatch(
             cartproductList({
               cartproductlist:
@@ -136,10 +146,19 @@ export default function Productdetail() {
           let obj = {
             ...productDetailsdata,
             ["addtocart"]: !data.addtocart ? true : false,
-            ['cartquantity']:quantity
+            ["cartquantity"]: quantity,
           };
           setproductDetailsdata((e: any) => obj);
           const dataAddedlist = [...datalist, obj];
+          let scartData = {
+              cartproductlist:
+                dataAddedlist?.length > 0
+                  ? JSON.stringify(dataAddedlist)
+                  : null,
+              productQuantity:
+                dataAddedlist?.length > 0 ? dataAddedlist.length : null,
+          }
+          sessionStorage.setItem("cdata", JSON.stringify(scartData));
           dispatch(
             cartproductList({
               cartproductlist:
@@ -157,17 +176,28 @@ export default function Productdetail() {
     }
   };
 
-  function itemNotincart(data: any, qty:any) {
+  function itemNotincart(data: any, qty: any) {
     if (data) {
       let obj = {
         ...productDetailsdata,
         ["addtocart"]: !data.addtocart ? true : false,
-        ['cartquantity']:qty
+        ["cartquantity"]: qty,
       };
       setproductDetailsdata((e: any) => obj);
       const productdata = [
-        { ...data, ["addtocart"]: !data.addtocart ? true : false,['cartquantity']:qty  },
+        {
+          ...data,
+          ["addtocart"]: !data.addtocart ? true : false,
+          ["cartquantity"]: qty,
+        },
       ];
+
+      let scartData = {
+        cartproductlist:
+          productdata?.length > 0 ? JSON.stringify(productdata) : null,
+        productQuantity: productdata?.length > 0 ? productdata.length : null,
+      };
+      sessionStorage.setItem("cdata", JSON.stringify(scartData));
       dispatch(
         cartproductList({
           cartproductlist:

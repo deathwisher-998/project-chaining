@@ -46,7 +46,13 @@ export default function ProductDetails({ id, data, addcart }: Productdetail) {
                 return item;
               }
             });
-
+            let scartData = {
+              cartproductlist:
+                productlist?.length > 0 ? JSON.stringify(productlist) : null,
+              productQuantity:
+                productlist?.length > 0 ? productlist.length : null,
+            };
+            sessionStorage.setItem("cdata", JSON.stringify(scartData));
             dispatch(
               cartproductList({
                 cartproductlist:
@@ -103,37 +109,37 @@ export default function ProductDetails({ id, data, addcart }: Productdetail) {
               {/* Quantity Selector */}
               <div className="flex justify-between">
                 <div className="flex items-center gap-4 mt-6">
-                <button
-                  onClick={decreaseQty}
-                  className="px-3 py-2 bg-gray-200 rounded-md hover:bg-gray-300"
-                >
-                  -
-                </button>
-                <span className="text-lg font-semibold">{quantity}</span>
-                <button
-                  onClick={increaseQty}
-                  className="px-3 py-2 bg-gray-200 rounded-md hover:bg-gray-300"
-                >
-                  +
-                </button>
-              </div>
-
-              <div>
-                {!productData.addtocart && (
-                <div className="flex gap-4 mt-8">
-                  <Button
-                    onClick={() => addcart(data, quantity)}
-                    className="flex-1 py-3 bg-gray-900 text-white rounded-lg font-semibold hover:bg-gray-700 transition"
+                  <button
+                    onClick={decreaseQty}
+                    className="px-3 py-2 bg-gray-200 rounded-md hover:bg-gray-300"
                   >
-                    Add to Cart
-                  </Button>
+                    -
+                  </button>
+                  <span className="text-lg font-semibold">{quantity}</span>
+                  <button
+                    onClick={increaseQty}
+                    className="px-3 py-2 bg-gray-200 rounded-md hover:bg-gray-300"
+                  >
+                    +
+                  </button>
                 </div>
-              )}
-              </div>
+
+                <div>
+                  {!productData.addtocart && (
+                    <div className="flex gap-4 mt-8">
+                      <Button
+                        onClick={() => addcart(data, quantity)}
+                        className="flex-1 py-3 bg-gray-900 text-white rounded-lg font-semibold hover:bg-gray-700 transition"
+                      >
+                        Add to Cart
+                      </Button>
+                    </div>
+                  )}
+                </div>
               </div>
 
               {/* Action Buttons */}
-              {productData.addtocart &&
+              {productData.addtocart && (
                 <div className="flex gap-4 mt-8">
                   <Button
                     className="flex-1 py-3 bg-gray-900 text-white rounded-lg font-semibold hover:bg-gray-700 transition"
@@ -153,7 +159,7 @@ export default function ProductDetails({ id, data, addcart }: Productdetail) {
                     Remove
                   </Button>
                 </div>
-              }
+              )}
             </div>
           </div>
         </div>

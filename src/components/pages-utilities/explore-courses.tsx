@@ -115,6 +115,12 @@ export function ExploreCourses() {
       const storelist = productsRef.current.filter(
         (item: any) => item.addtocart == true
       );
+      let scartData = {
+          cartproductlist:
+            storelist?.length > 0 ? JSON.stringify(storelist) : null,
+          productQuantity: storelist?.length > 0 ? storelist.length : null,
+        }
+      sessionStorage.setItem('cdata', JSON.stringify(scartData))
       dispatch(
         cartproductList({
           cartproductlist:

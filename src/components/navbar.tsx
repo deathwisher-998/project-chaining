@@ -64,17 +64,6 @@ export function Navbar() {
   const navigation = useRouter();
   const { token, loading } = useAuth(); // your auth logic
   const cartcount = useSelector((state: any) => state?.ProductCart);
-  const dispatch = useDispatch();
-
-  const cartDataMemo = useMemo(() => {
-    return cartcount;
-  }, [cartcount]);
-
-  useEffect(() => {
-    if (cartDataMemo) {
-      sessionStorage.setItem("ctData", JSON.stringify(cartDataMemo));
-    }
-  }, [cartDataMemo]);
 
   function handleOpen() {
     setOpen((cur) => !cur);
