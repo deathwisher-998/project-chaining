@@ -70,7 +70,7 @@ function Registercomponent() {
         <div className="bg-gray-100">
           <Loginheader />
           <ToastContainer />
-          <div className="flex items-center justify-center min-h-screen bg-gray-100">
+          <div className="flex items-center justify-center pt-20 pb-20 sm:pb-0 sm:pt-0 md:min-h-screen bg-gray-100 px-10">
             {/* w-full max-w-lg */}
             <div
               className="container bg-white rounded-2xl shadow-lg p-8"
@@ -92,7 +92,7 @@ function Registercomponent() {
                     <Box position="relative" borderRadius="md">
                       <Box px="4" py="2" borderRadius="md">
                         <div>
-                          <div className="grid grid-cols-2 sm:grid-cols-1 md:grid-cols-2 gap-4">
+                          <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                               <Field.Root
                                 required

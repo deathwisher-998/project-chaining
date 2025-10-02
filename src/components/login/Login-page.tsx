@@ -89,7 +89,7 @@ function Logincomponent() {
           <div className="bg-gray-100">
             <Loginheader />
             <ToastContainer />
-            <div className="flex items-center justify-center min-h-screen bg-gray-100">
+            <div className="flex items-center justify-center pt-40 sm:min-h-screen bg-gray-100 px-10 sm:pt-0">
               <div
                 className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8"
                 style={{ backgroundColor: "#17212b" }}

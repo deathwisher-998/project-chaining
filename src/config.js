@@ -7,6 +7,6 @@ module.exports = {
   facebook: {
     APP_ID: "",
   },
-  baseUrl:"http://sdplapi.runasp.net/api",
-  imgBaseurl:"http://sdplapi.runasp.net/"
+  baseUrl:"https://sdplapi.runasp.net/api",
+  imgBaseurl:"https://sdplapi.runasp.net/"
 };

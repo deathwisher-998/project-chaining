@@ -1,95 +1,52 @@
 import { Typography, Button, Input } from "@material-tailwind/react";
-
-const LINKS = [
-  {
-    title: "Company",
-    items: ["About Us", "Careers", "Premium Tools", "Blog"],
-  },
-  {
-    title: "Pages",
-    items: ["Login", "Register", "Add List", "Contact"],
-  },
-  {
-    title: "Legal",
-    items: ["Terms", "Privacy", "Team", "About Us"],
-  },
-];
+import Link from "next/link";
 
 const CURRENT_YEAR = new Date().getFullYear();
 
+const links = [
+  { name: "Home", link: "/" },
+  { name: "Policy", link: "/" },
+  { name: "About", link: "/" },
+  { name: "Company", link: "/" },
+  { name: "Contact Us", link: "/" },
+];
+
 export function Footer() {
   return (
-    <footer
-      className="px-8 pt-24 pb-8"
-      style={{ backgroundColor: "#17212b" }}
-    >
+    <footer className="px-8 pt-5 pb-5" style={{ backgroundColor: "#17212b" }}>
       <div className="container max-w-6xl flex flex-col mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-3 !w-full ">
-          <div className="flex col-span-2 items-center gap-10 mb-10 lg:mb-0 md:gap-36">
-            {LINKS.map(({ title, items }) => (
-              <ul key={title}>
-                <Typography variant="h6" color="white" className="mb-4">
-                  {title}
-                </Typography>
-                {items.map((link) => (
-                  <li key={link}>
+        <div className="w-full flex justify-center border-b border-gray-600 pb-1">
+          <div className="flex col-span-2 items-center gap-10 mb-1 lg:mb-0 md:gap-36">
+            <ul style={{ display: "inline-flex", justifyContent:"center", flexWrap:"wrap" }}>
+              {links.map((item: any) => {
+                return (
+                  <li className="mr-4">
                     <Typography
                       as="a"
-                      href="#"
-                      className="py-1 font-normal !text-gray-500 transition-colors hover:!text-gray-900"
+                      href={item.link}
+                      className="py-1 font-normal text-white transition-colors hover:!text-gray-500"
                     >
-                      {link}
+                      {item.name}
                     </Typography>
                   </li>
-                ))}
-              </ul>
-            ))}
-          </div>
-          <div className="">
-            <Typography variant="h6" className="mb-3 text-left text-white">
-              Subscribe
-            </Typography>
-            <Typography className="!text-gray-500 font-normal mb-4 text-base">
-              Get access to subscriber exclusive deals and be the first who gets
-              informed about fresh sales.
-            </Typography>
-            <Typography
-              variant="small"
-              className="font-medium mb-2 text-left text-white"
-            >
-              Your Email
-            </Typography>
-            <div className="flex mb-3 flex-col lg:flex-row items-start gap-4">
-              <div className="w-full">
-                {/* @ts-ignore */}
-                <Input label="Email" color="gray" />
-                {/* <Typography className="font-medium mt-3 !text-sm !text-gray-500 text-left">
-                  I agree the{" "}
-                  <a
-                    href="#"
-                    className="font-bold underline hover:text-gray-900 transition-colors"
-                  >
-                    Terms and Conditions{" "}
-                  </a>
-                </Typography> */}
-              </div>
-              <Button color="red" className="w-full lg:w-fit" size="md">
-                button
-              </Button>
-            </div>
+                );
+              })}
+            </ul>
           </div>
         </div>
-        <Typography
-          color="blue-gray"
-          className="md:text-center mt-16 font-normal text-white"
-        >
-          &copy; {CURRENT_YEAR} Made with{" "}
-          by{" "}
-          <a href="#" target="_blank">
-            Auramera
-          </a>
-          .
-        </Typography>
+
+        <div>
+          <Typography
+            color="blue-gray"
+            className="text-center mt-2 font-normal text-white"
+          >
+            &copy; {CURRENT_YEAR} Made with by{" "}
+            <a href="#" target="_blank">
+              Auramera
+            </a>
+            .
+          </Typography>
+        </div>
       </div>
     </footer>
   );

@@ -134,7 +134,7 @@ export default function ProfilePage() {
                     <h2 className="text-white font-semibold">
                       {userDeatils?.firstName + " " + userDeatils?.lastName}
                     </h2>
-                    <h2 className="text-white"> {userDeatils?.phoneNumber}</h2>
+                    <h2 className="text-white"> {userDeatils?.phoneNumber} ({userDeatils?.referralCode})</h2>
                   </div>
                   <div className="grid grid-cols-2">
                     <div>
