@@ -15,6 +15,7 @@ export default function ProtectedLayout({ children }: { children: ReactNode }) {
       router.replace("/");
     }
   }, [loading, token, router]);
+  
 
   if (loading) {
     return <Apploader Loadingstate={1}>

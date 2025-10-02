@@ -23,12 +23,12 @@ export default function Cart() {
     }
   }, [productSelector]);
 
-  useEffect(() => {
-    let mewdata = sessionStorage.getItem("cdata");
-    if (mewdata) {
-      dispatch(cartproductList(JSON.parse(mewdata)));
-    }
-  }, []);
+  // useEffect(() => {
+  //   let mewdata = sessionStorage.getItem("cdata");
+  //   if (mewdata) {
+  //     dispatch(cartproductList(JSON.parse(mewdata)));
+  //   }
+  // }, []);
 
   const quantityUpdation = (qty: number, data: any, flag: number) => {
     if (flag == 1 || flag == 2) {

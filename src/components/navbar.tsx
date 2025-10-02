@@ -64,6 +64,7 @@ export function Navbar() {
   const navigation = useRouter();
   const { token, loading } = useAuth(); // your auth logic
   const cartcount = useSelector((state: any) => state?.ProductCart);
+const dispatch = useDispatch();
 
   function handleOpen() {
     setOpen((cur) => !cur);
@@ -74,6 +75,17 @@ export function Navbar() {
       "resize",
       () => window.innerWidth >= 960 && setOpen(false)
     );
+    let mewdata = sessionStorage.getItem("cdata");
+    if (mewdata) {
+      dispatch(cartproductList(JSON.parse(mewdata)));
+    }
+  }, []);
+
+  useEffect(() => {
+    // let mewdata = sessionStorage.getItem("cdata");
+    // if (mewdata) {
+    //   dispatch(cartproductList(JSON.parse(mewdata)));
+    // }
   }, []);
 
   return (
