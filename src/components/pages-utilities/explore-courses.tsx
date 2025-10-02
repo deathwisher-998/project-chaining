@@ -19,8 +19,18 @@ export function ExploreCourses() {
   const productImgref = useRef<any>(null);
   const productSelector = useSelector((state: any) => state?.ProductCart);
 
+  // useEffect(() => {
+  //   getProductlist();
+  // }, []);
+
   useEffect(() => {
-    getProductlist();
+    let mewdata = sessionStorage.getItem("cdata");
+    if (mewdata) {
+      dispatch(cartproductList(JSON.parse(mewdata)));
+      getProductlist();
+    }else{
+      getProductlist();
+    }
   }, []);
 
   async function getProductlist() {

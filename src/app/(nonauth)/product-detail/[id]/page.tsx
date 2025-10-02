@@ -23,8 +23,18 @@ export default function Productdetail() {
   const productSelector = useSelector((state: any) => state?.ProductCart);
   const dispatch = useDispatch();
 
+  // useEffect(() => {
+  //   Productdetails(productid);
+  // }, []);
+
   useEffect(() => {
-    Productdetails(productid);
+    let mewdata = sessionStorage.getItem("cdata");
+    if (mewdata) {
+      dispatch(cartproductList(JSON.parse(mewdata)));
+      Productdetails(productid);
+    }else{
+      Productdetails(productid);
+    }
   }, []);
 
   useEffect(() => {
