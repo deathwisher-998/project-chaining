@@ -26,8 +26,12 @@ export function ExploreCourses() {
   useEffect(() => {
     let mewdata = sessionStorage.getItem("cdata");
     if (mewdata) {
+      console.log("d");
+      setproductLoader(1);
       dispatch(cartproductList(JSON.parse(mewdata)));
-      getProductlist();
+      setTimeout(() => {
+        getProductlist()
+      }, 1000);
     }else{
       getProductlist();
     }
@@ -35,7 +39,6 @@ export function ExploreCourses() {
 
   async function getProductlist() {
     try {
-      setproductLoader(1);
       const response: any = await Productlist().then((res) => res);
       if (response.succeeded && response.data?.length > 0) {
         productsRef.current = response.data;
