@@ -15,8 +15,6 @@ export default function Cart() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('productSelector', productSelector);
-    
     if (productSelector.cartproductlist) {
       const data: any = JSON.parse(productSelector?.cartproductlist);
       setcartproductlist((e: any) => data);
@@ -26,6 +24,8 @@ export default function Cart() {
   }, [productSelector]);
 
   const quantityUpdation = (qty: number, data: any, flag: number) => {
+    console.log('s');
+    
     if (flag == 1 || flag == 2) {
       const updatedList = cartproductlist.map((item: any) => {
         if (data.id == item.id) {

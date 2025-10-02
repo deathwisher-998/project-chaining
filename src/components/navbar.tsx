@@ -63,6 +63,12 @@ export function Navbar() {
   const navigation = useRouter();
   const { token, loading } = useAuth(); // your auth logic
   const cartcount = useSelector((state: any) => state?.ProductCart);
+  
+
+  useEffect(() => {
+   console.log('cartcount', cartcount);
+   
+  },[cartcount])
 
   function handleOpen() {
     setOpen((cur) => !cur);
@@ -123,8 +129,9 @@ export function Navbar() {
                   {cartcount.productQuantity ? cartcount.productQuantity : "0"}
                 </span>
               </Button>
-              
-              {token && <div>
+
+              {token && (
+                <div>
                   <Button
                     variant="text"
                     className="text-white"
@@ -135,9 +142,10 @@ export function Navbar() {
                         navigation.replace("/");
                     }}
                   >
-                     Log Out
+                    Log Out
                   </Button>
-                </div> }
+                </div>
+              )}
             </div>
             <IconButton
               variant="text"
@@ -162,7 +170,10 @@ export function Navbar() {
                   </NavItem>
                 ))}
               </ul> */}
-              <div className="flex items-center gap-4" style={{flexDirection:"column"}}>
+              <div
+                className="flex items-center gap-4"
+                style={{ flexDirection: "column" }}
+              >
                 <div>
                   <Button
                     variant="text"
@@ -194,19 +205,21 @@ export function Navbar() {
                   </Button>
                 </div>
 
-                {token && <div>
-                  <Button
-                    variant="text"
-                    className="text-white"
-                    onClick={() => {
-                      localStorage.removeItem("token"),
-                        localStorage.removeItem("uId"),
-                        navigation.replace("/");
-                    }}
-                  >
-                     Log Out
-                  </Button>
-                </div> }
+                {token && (
+                  <div>
+                    <Button
+                      variant="text"
+                      className="text-white"
+                      onClick={() => {
+                        localStorage.removeItem("token"),
+                          localStorage.removeItem("uId"),
+                          navigation.replace("/");
+                      }}
+                    >
+                      Log Out
+                    </Button>
+                  </div>
+                )}
               </div>
             </div>
           </Collapse>

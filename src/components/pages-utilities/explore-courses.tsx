@@ -98,7 +98,10 @@ export function ExploreCourses() {
   }
 
   const addandremovetocart = (data: any) => {
+    console.log('s 1');
+    
     if (data) {
+       console.log('s 2');
       const productdata = products.map((item: any) => {
         if (item.id == data) {
           return { ...item, ["addtocart"]: !item.addtocart ? true : false };
