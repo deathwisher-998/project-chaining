@@ -49,10 +49,10 @@ function Logincomponent() {
         });
         const response: loginResponse = res;
         if (response.token) {
-          usersList(payload.email);
           setloadingState((e) => 0);
           setReset((e) => {});
           localStorage.setItem("token", response.token);
+          localStorage.setItem("uId", response?.userId);
           navigate.replace("/");
         } else {
           toast.error("Invalid Credentials");
@@ -67,20 +67,6 @@ function Logincomponent() {
     }
   }
 
-  async function usersList(id: string) {
-    try {
-      if (id) {
-        const response: any = await userList().then((res) => res);
-        if (response?.length > 0) {
-          response.filter((item: any) => {
-            if (item.email == id) {
-              localStorage.setItem("uId", item?.id);
-            }
-          });
-        }
-      }
-    } catch (err) {}
-  }
 
   return (
     <>
@@ -89,7 +75,7 @@ function Logincomponent() {
           <div className="bg-gray-100">
             <Loginheader />
             <ToastContainer />
-            <div className="flex items-center justify-center pt-40 sm:min-h-screen bg-gray-100 px-10 sm:pt-0">
+            <div className="flex items-center justify-center pt-20 pb-20  md:min-h-screen bg-gray-100 px-10 md:pt-0 md:pb-0">
               <div
                 className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8"
                 style={{ backgroundColor: "#17212b" }}
