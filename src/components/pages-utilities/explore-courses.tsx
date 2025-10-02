@@ -26,12 +26,8 @@ export function ExploreCourses() {
   useEffect(() => {
     let mewdata = sessionStorage.getItem("cdata");
     if (mewdata) {
-      console.log("d");
-      setproductLoader(1);
       dispatch(cartproductList(JSON.parse(mewdata)));
-      setTimeout(() => {
-        getProductlist()
-      }, 1000);
+      getProductlist()
     }else{
       getProductlist();
     }
@@ -39,6 +35,7 @@ export function ExploreCourses() {
 
   async function getProductlist() {
     try {
+      setproductLoader(1);
       const response: any = await Productlist().then((res) => res);
       if (response.succeeded && response.data?.length > 0) {
         productsRef.current = response.data;
@@ -61,8 +58,11 @@ export function ExploreCourses() {
           })
         );
 
-        if (productSelector.cartproductlist) {
-          const data: any = JSON.parse(productSelector?.cartproductlist);
+        let mewdata:any = sessionStorage.getItem("cdata");
+        mewdata = JSON.parse(mewdata)
+
+        if (productSelector.cartproductlist || mewdata?.cartproductlist) {
+          const data: any = JSON.parse(productSelector?.cartproductlist || mewdata?.cartproductlist);
 
           productsRef.current = productsRef.current.map((it: any) => {
             let matched = false;
@@ -111,10 +111,7 @@ export function ExploreCourses() {
   }
 
   const addandremovetocart = (data: any) => {
-    console.log('s 1');
-    
     if (data) {
-       console.log('s 2');
       const productdata = products.map((item: any) => {
         if (item.id == data) {
           return { ...item, ["addtocart"]: !item.addtocart ? true : false };

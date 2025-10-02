@@ -32,7 +32,7 @@ export default function Productdetail() {
     if (mewdata) {
       dispatch(cartproductList(JSON.parse(mewdata)));
       Productdetails(productid);
-    }else{
+    } else {
       Productdetails(productid);
     }
   }, []);
@@ -47,8 +47,13 @@ export default function Productdetail() {
         setpageloader(1);
         const response: any = await productDetails(id).then((res) => res);
         if (response.succeeded && response.data) {
-          if (productSelector.cartproductlist) {
-            const data: any = JSON.parse(productSelector?.cartproductlist);
+          let mewdata: any = sessionStorage.getItem("cdata");
+          mewdata = JSON.parse(mewdata);
+
+          if (productSelector.cartproductlist || mewdata?.cartproductlist) {
+            const data: any = JSON.parse(
+              productSelector?.cartproductlist || mewdata?.cartproductlist
+            );
             let cartadd = data.filter((it: any) => it.id == response.data?.id);
 
             if (cartadd.length > 0) {
@@ -161,13 +166,11 @@ export default function Productdetail() {
           setproductDetailsdata((e: any) => obj);
           const dataAddedlist = [...datalist, obj];
           let scartData = {
-              cartproductlist:
-                dataAddedlist?.length > 0
-                  ? JSON.stringify(dataAddedlist)
-                  : null,
-              productQuantity:
-                dataAddedlist?.length > 0 ? dataAddedlist.length : null,
-          }
+            cartproductlist:
+              dataAddedlist?.length > 0 ? JSON.stringify(dataAddedlist) : null,
+            productQuantity:
+              dataAddedlist?.length > 0 ? dataAddedlist.length : null,
+          };
           sessionStorage.setItem("cdata", JSON.stringify(scartData));
           dispatch(
             cartproductList({
