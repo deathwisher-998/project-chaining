@@ -19,13 +19,53 @@ export default function Cart() {
       const data: any = JSON.parse(productSelector?.cartproductlist);
       setcartproductlist((e: any) => data);
     } else {
-      setcartproductlist((e: any) => []);
+      let getsdata: any = sessionStorage.getItem("ctData");
+      console.log('ds', getsdata);
+      
+      if (getsdata) {
+        getsdata = JSON.parse(getsdata);
+        let cartproductlist = getsdata?.cartproductlist;
+        console.log('getsdata', getsdata);
+        
+        if (cartproductlist) {
+          // cartproductlist = JSON.parse(cartproductlist);
+          // if (cartproductlist?.length > 0) {
+          //   setcartproductlist((e: any) => cartproductlist);
+          //   dispatch(
+          //     cartproductList({
+          //       cartproductlist:
+          //         cartproductlist?.length > 0
+          //           ? JSON.stringify(cartproductlist)
+          //           : null,
+          //       productQuantity:
+          //         cartproductlist?.length > 0 ? cartproductlist.length : null,
+          //     })
+          //   );
+          // }
+        } else {
+          // dispatch(
+          //   cartproductList({
+          //     cartproductlist: null,
+          //     productQuantity: null,
+          //   })
+          // );
+          // setcartproductlist((e: any) => []);
+        }
+      } else {
+        // dispatch(
+        //   cartproductList({
+        //     cartproductlist: null,
+        //     productQuantity: null,
+        //   })
+        // );
+        setcartproductlist((e: any) => []);
+      }
     }
   }, [productSelector]);
 
   const quantityUpdation = (qty: number, data: any, flag: number) => {
-    console.log('s');
-    
+    console.log("s");
+
     if (flag == 1 || flag == 2) {
       const updatedList = cartproductlist.map((item: any) => {
         if (data.id == item.id) {
@@ -66,9 +106,9 @@ export default function Cart() {
       let carttotallist = data.map((it: any) => {
         return { ...it, ["total"]: it.salePrice * it.cartquantity };
       });
-      total = carttotallist.reduce((acc:any, numval:any) => {
-         return acc + numval.total
-      },0)
+      total = carttotallist.reduce((acc: any, numval: any) => {
+        return acc + numval.total;
+      }, 0);
     }
     return total;
   }
@@ -77,15 +117,22 @@ export default function Cart() {
     <>
       <Apploader Loadingstate={0}>
         {cartproductlist.length > 0 ? (
-          <div className={`p-0 mt-20 ${cartproductlist.length > 3 ? "mb-60" :"mb-80" }`}>
+          <div
+            className={`p-0 mt-20 ${
+              cartproductlist.length > 3 ? "mb-60" : "mb-80"
+            }`}
+          >
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {/* Left - Product List */}
-              <div className="md:col-span-2 bg-white rounded-xl shadow-md p-6" style={{border:"1px solid #ccc"}}>
+              <div
+                className="md:col-span-2 bg-white rounded-xl shadow-md p-6"
+                style={{ border: "1px solid #ccc" }}
+              >
                 <div className="space-y-4">
                   {/* Product Item */}
-                  {cartproductlist.map((item: any) => {
+                  {cartproductlist.map((item: any, i:number) => {
                     return (
-                      <div className="flex items-center justify-between border-b pb-2 custom-res-cart">
+                      <div className="flex items-center justify-between border-b pb-2 custom-res-cart" key={i}>
                         <div className="flex items-center space-x-4">
                           <img
                             src="/image/product-image/blankets-img.jpg"
@@ -155,7 +202,10 @@ export default function Cart() {
               </div>
 
               {/* Right - Checkout Summary */}
-              <div className="rounded-xl shadow-md p-6" style={{backgroundColor:"#c3eeff"}}>
+              <div
+                className="rounded-xl shadow-md p-6"
+                style={{ backgroundColor: "#c3eeff" }}
+              >
                 <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
                 <div className="space-y-3">
                   <div className="flex justify-between">
@@ -177,9 +227,9 @@ export default function Cart() {
                 </div>
 
                 <Link href={"/order-success"}>
-                <button className="w-full mt-6 bg-gray-900 hover:bg-gray-700 text-white font-medium py-3 rounded-lg transition">
-                  Proceed to Checkout
-                </button>
+                  <button className="w-full mt-6 bg-gray-900 hover:bg-gray-700 text-white font-medium py-3 rounded-lg transition">
+                    Proceed to Checkout
+                  </button>
                 </Link>
               </div>
             </div>

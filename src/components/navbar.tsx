@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import {
   Navbar as MTNavbar,
   Collapse,
@@ -18,7 +18,8 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
 import Link from "next/link";
 import { routes } from "@/routes/routes";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { cartproductList } from "@/app/globalstore/cart/actions";
 
 const NAV_MENU = [
   {
@@ -63,12 +64,17 @@ export function Navbar() {
   const navigation = useRouter();
   const { token, loading } = useAuth(); // your auth logic
   const cartcount = useSelector((state: any) => state?.ProductCart);
-  
+  const dispatch = useDispatch();
+
+  const cartDataMemo = useMemo(() => {
+    return cartcount;
+  }, [cartcount]);
 
   useEffect(() => {
-   console.log('cartcount', cartcount);
-   
-  },[cartcount])
+    if (cartDataMemo) {
+      sessionStorage.setItem("ctData", JSON.stringify(cartDataMemo));
+    }
+  }, [cartDataMemo]);
 
   function handleOpen() {
     setOpen((cur) => !cur);

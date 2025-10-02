@@ -80,7 +80,7 @@ export default function ProfilePage() {
             <tbody className="divide-y divide-gray-200">
               {levelData.map((item:any, index:number) => {
                 return(
-                  <tr className="hover:bg-indigo-50 transition">
+                  <tr className="hover:bg-indigo-50 transition" key={index}>
                 <td className="px-6 py-4">{(index + 1)}</td>
                 <td className="px-6 py-4 font-medium text-gray-800">{item.firstName + " " + item.lastName}</td>
                 <td className="px-6 py-4 text-gray-600">{item.phoneNumber}</td>
@@ -180,6 +180,7 @@ export default function ProfilePage() {
                     return (
                       <Button
                         size="sm"
+                        key={i}
                         onClick={() => setactiveLevel((e) => item?.level)}
                         className="border-2 rounded-md p-2 text-center border-black"
                         color={activeLevel == item.level ? "gray" : "white"}

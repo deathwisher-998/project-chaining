@@ -24,9 +24,9 @@ export function Footer() {
                 flexWrap: "wrap",
               }}
             >
-              {links.map((item: any) => {
+              {links.map((item: any, i:number) => {
                 return (
-                  <li className="mr-4">
+                  <li className="mr-4" key={i}>
                     <Typography
                       as="a"
                       href={item.link}
