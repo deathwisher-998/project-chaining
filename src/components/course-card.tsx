@@ -66,7 +66,7 @@ export function CourseCard({
         </div> */}
         <Link
           href={{
-            pathname: routes.nonauth.productdetail + id,
+            pathname: routes.nonauth.productdetail + id.slice(0,5),
             query: { id: id },
           }}
           className="text-blue-gray-900 transition-colors hover:text-gray-900"
@@ -76,18 +76,19 @@ export function CourseCard({
           </Typography>
         </Link>
         <Typography className="mb-6 font-normal !text-gray-500">
-          {discription}
+          {discription.slice(0, 100)  + "..."}
         </Typography>
-        <div className="flex">
-          <Typography className="mb-6 font-bold text-black">
+        <div className="flex justify-between">
+          <div className="flex">
+            <Typography className="mb-6 font-bold text-black">
             Price {salePrice} Rs
           </Typography>
-          <Typography className="ml-5 line-through">
+          <Typography className="ml-2 line-through">
             {regularPrice} Rs
           </Typography>
-        </div>
-        {!addtocart ? (
-          <>
+          </div>
+
+          {!addtocart && <div>
             <Button
               variant="outlined"
               size="sm"
@@ -96,12 +97,9 @@ export function CourseCard({
             >
               Add to cart
             </Button>
-
-            {/* <Button variant="gradient" size="sm" onClick={() => addcart(id)}>
-              Buy now
-            </Button> */}
-          </>
-        ) : (
+          </div> }
+        </div>
+        {addtocart && 
           <>
             {" "}
             <Button
@@ -118,7 +116,7 @@ export function CourseCard({
               Remove
             </Button>{" "}
           </>
-        )}
+        }
         {/* <Button variant="outlined">{label}</Button> */}
       </CardBody>
     </Card>

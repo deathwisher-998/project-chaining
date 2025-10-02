@@ -33,7 +33,7 @@ function Registercomponent() {
 
   const onSubmit: SubmitHandler<Registrationforminput> = async (data) => {
     if (data) {
-      let payload = { ...data, ["referralCode"]: "" };
+      let payload = { ...data, ["referralCode"]: data.referralCode ? data.referralCode : "" };
       Logintoken(payload);
     }
   };
@@ -47,10 +47,12 @@ function Registercomponent() {
         });
         const response: any = res;
         if (response.succeeded) {
-          setloadingState((e) => 0);
-          setReset({});
           toast.success(response?.messages[0]);
-          navigate.push("/login");
+          setReset({});
+          setTimeout(() => {
+            setloadingState((e) => 0);
+            navigate.push("/login");
+          }, 1000);
         } else {
           setloadingState((e) => 0);
           toast.error(response?.messages[0]);

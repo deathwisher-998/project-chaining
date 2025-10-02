@@ -1,3 +1,4 @@
+
 // components
 import { Navbar, Footer } from "@/components";
 
@@ -10,19 +11,15 @@ import Testimonial from "@/components/pages-utilities/testimonial";
 import Events from "@/components/pages-utilities/events";
 import StudentsFeedback from "@/components/pages-utilities/students-feedback";
 import TrustedCompany from "@/components/pages-utilities/trusted-companies";
+import { useEffect } from "react";
 
 export default function Campaign() {
+
   return (
     <>
       <Navbar />
       <Hero />
-      <OutImpressiveStats />
-      <CoursesCategories />
       <ExploreCourses />
-      <Testimonial />
-      <Events />
-      <StudentsFeedback />
-      <TrustedCompany />
       <Footer />
     </>
   );

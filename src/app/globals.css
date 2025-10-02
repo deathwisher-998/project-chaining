@@ -25,3 +25,15 @@
 .mybgForlogin{
   background-color: #000 !important;
 }
+
+
+@media screen and (min-width:300px) and (max-width:600px) {
+  .custom-res-cart{
+    flex-direction: column;
+  }
+
+  .custom-res-cart-c1{
+     width: 100%;
+     justify-content: space-between;
+  }
+}

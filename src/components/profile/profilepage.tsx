@@ -31,8 +31,7 @@ export default function ProfilePage() {
         const response = await userDetails(id).then((res) => res);
         if (response) {
           setuserDeatils((e: any) => response);
-          // getUserlevels(id)
-          getUserlevels("a6ec48fb-09ff-4020-acd9-c02709d9c3a3");
+          getUserlevels(id)
         } else {
           setuserDeatils((e: any) => null);
           setloading((e) => 0);
@@ -79,10 +78,10 @@ export default function ProfilePage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {levelData.map((item:any) => {
+              {levelData.map((item:any, index:number) => {
                 return(
                   <tr className="hover:bg-indigo-50 transition">
-                <td className="px-6 py-4">1</td>
+                <td className="px-6 py-4">{(index + 1)}</td>
                 <td className="px-6 py-4 font-medium text-gray-800">{item.firstName + " " + item.lastName}</td>
                 <td className="px-6 py-4 text-gray-600">{item.phoneNumber}</td>
                 <td className="px-6 py-4 font-medium text-gray-800">0</td>
@@ -134,7 +133,7 @@ export default function ProfilePage() {
                     <h2 className="text-white font-semibold">
                       {userDeatils?.firstName + " " + userDeatils?.lastName}
                     </h2>
-                    <h2 className="text-white"> {userDeatils?.phoneNumber} ({userDeatils?.referralCode})</h2>
+                    <h2 className="text-white"> {userDeatils?.phoneNumber}</h2>
                   </div>
                   <div className="grid grid-cols-2">
                     <div>
@@ -143,8 +142,8 @@ export default function ProfilePage() {
                       <p className="text-white">3/2 subordinates</p>
                     </div>
                     <div className="ml-10">
-                      <h3 className="font-bold text-white">Personal Gains</h3>
-                      <p className="text-white">13728.00</p>
+                      <h3 className="font-bold text-white">Referral Code</h3>
+                      <p className="text-white">{userDeatils?.referralCode}</p>
                     </div>
                   </div>
                 </div>

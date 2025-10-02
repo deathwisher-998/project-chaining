@@ -189,7 +189,9 @@ export default function Productdetail() {
               data={productDetailsdata}
               addcart={addandremovetocart}
             />
-            <SuggestedProducts data={products} />
+            <div className="px-5 md:px-0">
+              <SuggestedProducts data={products} />
+            </div>
           </>
         ) : (
           <>

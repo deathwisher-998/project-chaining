@@ -7,6 +7,7 @@ import { Button } from "@material-tailwind/react";
 import { Apploader } from "../loader/loading";
 import { cartproductList } from "@/app/globalstore/cart/actions";
 import { TrashIcon } from "@heroicons/react/24/solid";
+import Link from "next/link";
 
 export default function Cart() {
   const [cartproductlist, setcartproductlist] = useState<any>([]);
@@ -74,15 +75,15 @@ export default function Cart() {
     <>
       <Apploader Loadingstate={0}>
         {cartproductlist.length > 0 ? (
-          <div className="p-0 mt-20 mb-20">
+          <div className={`p-0 mt-20 ${cartproductlist.length > 3 ? "mb-60" :"mb-80" }`}>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {/* Left - Product List */}
-              <div className="md:col-span-2 bg-white rounded-xl shadow-md p-6">
+              <div className="md:col-span-2 bg-white rounded-xl shadow-md p-6" style={{border:"1px solid #ccc"}}>
                 <div className="space-y-4">
                   {/* Product Item */}
                   {cartproductlist.map((item: any) => {
                     return (
-                      <div className="flex items-center justify-between border-b pb-2">
+                      <div className="flex items-center justify-between border-b pb-2 custom-res-cart">
                         <div className="flex items-center space-x-4">
                           <img
                             src="/image/product-image/blankets-img.jpg"
@@ -94,7 +95,7 @@ export default function Cart() {
                             {/* <p className="text-sm text-gray-500">Size: M</p> */}
                           </div>
                         </div>
-                        <div className="flex items-center">
+                        <div className="flex items-center custom-res-cart-c1">
                           <div className="mr-5 pt-5">
                             <p className="font-semibold">
                               {item.salePrice * item.cartquantity} Rs
@@ -152,7 +153,7 @@ export default function Cart() {
               </div>
 
               {/* Right - Checkout Summary */}
-              <div className="bg-white rounded-xl shadow-md p-6">
+              <div className="rounded-xl shadow-md p-6" style={{backgroundColor:"#c3eeff"}}>
                 <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
                 <div className="space-y-3">
                   <div className="flex justify-between">
@@ -173,9 +174,11 @@ export default function Cart() {
                   </div>
                 </div>
 
+                <Link href={"/order-success"}>
                 <button className="w-full mt-6 bg-gray-900 hover:bg-gray-700 text-white font-medium py-3 rounded-lg transition">
                   Proceed to Checkout
                 </button>
+                </Link>
               </div>
             </div>
           </div>

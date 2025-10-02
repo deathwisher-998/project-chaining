@@ -19,14 +19,14 @@ export default function SuggestedProducts({ data }: suggestedProduct) {
   const imgUrl = config.imgBaseurl;
 
   return (
-    <div className="bg-gray-50 p-6 rounded-lg shadow-md mb-20">
+    <div className="p-6 rounded-lg shadow-md mb-20 pb-8 pt-8" style={{backgroundColor:"#c90754"}}>
       {data && (
         <>
-          <Typography variant="h5" className="mb-4 font-bold text-gray-800">
+          <Typography variant="h3" className="mb-4 font-bold text-white">
             Suggested Products
           </Typography>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-5">
             {data.map((product) => (
               <Card
                 key={product.id}
@@ -42,7 +42,7 @@ export default function SuggestedProducts({ data }: suggestedProduct) {
                 <CardBody>
                   <Link
                     href={{
-                      pathname: routes.nonauth.productdetail + product.id,
+                      pathname: routes.nonauth.productdetail + product.id.slice(0, 5),
                       query: { id: product.id },
                     }}
                   >

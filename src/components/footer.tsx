@@ -5,9 +5,9 @@ const CURRENT_YEAR = new Date().getFullYear();
 
 const links = [
   { name: "Home", link: "/" },
-  { name: "Policy", link: "/" },
-  { name: "About", link: "/" },
-  { name: "Company", link: "/" },
+  { name: "Policy", link: "/policy" },
+  { name: "About", link: "/about" },
+  { name: "Company", link: "/company" },
   { name: "Contact Us", link: "/" },
 ];
 
@@ -17,14 +17,20 @@ export function Footer() {
       <div className="container max-w-6xl flex flex-col mx-auto">
         <div className="w-full flex justify-center border-b border-gray-600 pb-1">
           <div className="flex col-span-2 items-center gap-10 mb-1 lg:mb-0 md:gap-36">
-            <ul style={{ display: "inline-flex", justifyContent:"center", flexWrap:"wrap" }}>
+            <ul
+              style={{
+                display: "inline-flex",
+                justifyContent: "center",
+                flexWrap: "wrap",
+              }}
+            >
               {links.map((item: any) => {
                 return (
                   <li className="mr-4">
                     <Typography
                       as="a"
                       href={item.link}
-                      className="py-1 font-normal text-white transition-colors hover:!text-gray-500"
+                      className="py-1 font-normal text-white transition-colors hover:!text-gray-500 underline"
                     >
                       {item.name}
                     </Typography>

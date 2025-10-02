@@ -101,7 +101,8 @@ export default function ProductDetails({ id, data, addcart }: Productdetail) {
               </div>
 
               {/* Quantity Selector */}
-              <div className="flex items-center gap-4 mt-6">
+              <div className="flex justify-between">
+                <div className="flex items-center gap-4 mt-6">
                 <button
                   onClick={decreaseQty}
                   className="px-3 py-2 bg-gray-200 rounded-md hover:bg-gray-300"
@@ -117,8 +118,8 @@ export default function ProductDetails({ id, data, addcart }: Productdetail) {
                 </button>
               </div>
 
-              {/* Action Buttons */}
-              {!productData.addtocart ? (
+              <div>
+                {!productData.addtocart && (
                 <div className="flex gap-4 mt-8">
                   <Button
                     onClick={() => addcart(data, quantity)}
@@ -126,14 +127,13 @@ export default function ProductDetails({ id, data, addcart }: Productdetail) {
                   >
                     Add to Cart
                   </Button>
-                  {/* <Button
-                    className="flex-1 py-3 rounded-lg font-semibold text-black"
-                    variant="outlined"
-                  >
-                    Buy Now
-                  </Button> */}
                 </div>
-              ) : (
+              )}
+              </div>
+              </div>
+
+              {/* Action Buttons */}
+              {productData.addtocart &&
                 <div className="flex gap-4 mt-8">
                   <Button
                     className="flex-1 py-3 bg-gray-900 text-white rounded-lg font-semibold hover:bg-gray-700 transition"
@@ -153,7 +153,7 @@ export default function ProductDetails({ id, data, addcart }: Productdetail) {
                     Remove
                   </Button>
                 </div>
-              )}
+              }
             </div>
           </div>
         </div>
