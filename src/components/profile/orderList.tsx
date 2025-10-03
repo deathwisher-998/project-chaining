@@ -17,31 +17,9 @@ export default function Orderlists({ odrerlisting }: { odrerlisting: any }) {
     setOpen(open === value ? 0 : value);
   };
 
-  // Sample data
-  const orders = [
-    {
-      id: 1,
-      orderNo: "ORD-1001",
-      date: "2025-10-03",
-      status: "Delivered",
-      total: "$120.50",
-      items: [
-        { name: "Product A", qty: 2, price: "$40" },
-        { name: "Product B", qty: 1, price: "$40.50" },
-      ],
-    },
-    {
-      id: 2,
-      orderNo: "ORD-1002",
-      date: "2025-10-01",
-      status: "Pending",
-      total: "$89.00",
-      items: [{ name: "Product C", qty: 3, price: "$30" }],
-    },
-  ];
-
   return (
-    <div className="w-full mx-auto">
+   <>
+    {odrerlisting?.length > 0 ? <div className="w-full mx-auto">
       {odrerlisting.map((order: any) => (
         <Accordion key={order.id} open={open === order.id}>
           {/* Accordion Header */}
@@ -87,6 +65,9 @@ export default function Orderlists({ odrerlisting }: { odrerlisting: any }) {
           </AccordionBody>
         </Accordion>
       ))}
-    </div>
+    </div> : <div className="text-center mt-10 mb-10">
+       <h1 className="text-xl font-semibold">No Order Found</h1>
+    </div> }
+   </>
   );
 }

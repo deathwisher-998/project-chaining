@@ -13,7 +13,7 @@ import {
 import { Apploader } from "../loader/loading";
 import { cartproductList } from "@/app/globalstore/cart/actions";
 import { TrashIcon } from "@heroicons/react/24/solid";
-import { userAddress } from "@/helpers/services/users";
+import { userAddress, userAddressByid } from "@/helpers/services/users";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createOrder } from "@/helpers/services/order";
@@ -59,7 +59,8 @@ export default function Cart() {
   async function useraddress() {
     try {
       setcartLoading(1);
-      const response: any = await userAddress().then((res) => res);
+      const uID = localStorage.getItem("uId");
+      const response: any = await userAddressByid(uID).then((res) => res);
       if (response.succeeded && response.data?.length > 0) {
         setaddressList((e: any) => response.data);
       } else {
@@ -158,7 +159,7 @@ export default function Cart() {
       setcartLoading((e) => 0);
       if (!selectedId) {
         toast.error("Please select Address");
-      }else{
+      } else {
         toast.error("Error while placing order");
       }
     }
@@ -402,57 +403,75 @@ export default function Cart() {
         <>
           <DialogHeader>Select Address</DialogHeader>
           <DialogBody className="bg-dark rounded-lg">
-            <div
-              className="space-y-4"
-              style={{ height: "400px", overflowX: "scroll" }}
-            >
-              {" "}
-              {addressList.map((addr: any, ind: number) => (
-                <div
-                  key={ind}
-                  onClick={() => [
-                    setSelectedId(addr.id),
-                    localStorage.setItem("adsData", JSON.stringify(addr)),
-                  ]}
-                  className={`cursor-pointer border rounded-lg p-4 shadow-sm transition ${
-                    selectedId === addr.id
-                      ? "border-blue-500 bg-blue-50"
-                      : "border-gray-200 bg-white"
-                  }`}
-                >
-                  {" "}
-                  <div className="flex items-start justify-between">
+            {addressList?.length > 0 && (
+              <div
+                className="space-y-4"
+                style={{ height: "400px", overflowX: "scroll" }}
+              >
+                {" "}
+                {addressList.map((addr: any, ind: number) => (
+                  <div
+                    key={ind}
+                    onClick={() => [
+                      setSelectedId(addr.id),
+                      localStorage.setItem("adsData", JSON.stringify(addr)),
+                    ]}
+                    className={`cursor-pointer border rounded-lg p-4 shadow-sm transition ${
+                      selectedId === addr.id
+                        ? "border-blue-500 bg-blue-50"
+                        : "border-gray-200 bg-white"
+                    }`}
+                  >
                     {" "}
-                    <div>
+                    <div className="flex items-start justify-between">
                       {" "}
-                      <p className="font-semibold text-gray-900">
-                        {addr.type}
-                      </p>{" "}
-                      <p className="text-sm text-gray-600">
-                        {addr.phoneNumber}
-                      </p>{" "}
-                      <p className="mt-1 text-gray-700">
-                        {addr.addressLin1} {addr.addressLin2}
-                      </p>{" "}
-                      <p className="text-gray-700">
+                      <div>
                         {" "}
-                        {addr.country}, {addr.city} - {addr.postalCode}{" "}
-                      </p>{" "}
-                      <p className="text-gray-700">{addr.country}</p>{" "}
+                        <p className="font-semibold text-gray-900">
+                          {addr.type}
+                        </p>{" "}
+                        <p className="text-sm text-gray-600">
+                          {addr.phoneNumber}
+                        </p>{" "}
+                        <p className="mt-1 text-gray-700">
+                          {addr.addressLin1} {addr.addressLin2}
+                        </p>{" "}
+                        <p className="text-gray-700">
+                          {" "}
+                          {addr.country}, {addr.city} - {addr.postalCode}{" "}
+                        </p>{" "}
+                        <p className="text-gray-700">{addr.country}</p>{" "}
+                      </div>{" "}
+                      <div className="ml-4">
+                        {" "}
+                        <input
+                          type="radio"
+                          checked={selectedId === addr.id}
+                          onChange={() => setSelectedId(addr.id)}
+                          className="w-5 h-5 text-blue-600 border-gray-300 focus:ring-blue-500"
+                        />{" "}
+                      </div>{" "}
                     </div>{" "}
-                    <div className="ml-4">
-                      {" "}
-                      <input
-                        type="radio"
-                        checked={selectedId === addr.id}
-                        onChange={() => setSelectedId(addr.id)}
-                        className="w-5 h-5 text-blue-600 border-gray-300 focus:ring-blue-500"
-                      />{" "}
-                    </div>{" "}
-                  </div>{" "}
+                  </div>
+                ))}{" "}
+              </div>
+            )}
+
+            {addressList.length == 0 && (
+              <div className="pt-10 pb-10">
+                <div className="text-center">
+                  <h1 className="text-xl font-semibold text-black mb-5">
+                    Please Add Address to complete order
+                  </h1>
+                  <Button
+                    variant="outlined"
+                    onClick={() => navigation.push("/profile/crxdA78")}
+                  >
+                    Add Address
+                  </Button>
                 </div>
-              ))}{" "}
-            </div>{" "}
+              </div>
+            )}
           </DialogBody>
           <DialogFooter>
             <Button

@@ -7,6 +7,7 @@ import {
   userLevel,
   userAddress,
   createAddress,
+  userAddressByid
 } from "@/helpers/services/users";
 import {
   Button,
@@ -20,6 +21,9 @@ import Createaddress from "./createAddress";
 import { ToastContainer, toast } from "react-toastify";
 import { Orderlist } from "@/helpers/services/order";
 import Orderlists from "./orderList";
+import {
+  CheckBadgeIcon
+} from "@heroicons/react/24/solid";
 
 export default function ProfilePage({ id }: { id: any }) {
   const [loading, setloading] = useState(1);
@@ -54,7 +58,8 @@ export default function ProfilePage({ id }: { id: any }) {
 
   async function useraddress() {
     try {
-      const response: any = await userAddress().then((res) => res);
+      const id = localStorage.getItem('uId')
+      const response: any = await userAddressByid(id).then((res) => res);
       if (response.succeeded && response.data?.length > 0) {
         setuserAddressDetail((e: any) => response.data);
         if (id) {
@@ -137,7 +142,7 @@ export default function ProfilePage({ id }: { id: any }) {
                     <td className="px-6 py-4 text-gray-600">
                       {item.phoneNumber}
                     </td>
-                    <td className="px-6 py-4 font-medium text-gray-800">0</td>
+                    <td className="px-6 py-4 font-medium text-gray-800">{item.commission}</td>
                     <td className="px-6 py-4">
                       <span
                         className={`px-3 py-1 text-xs font-semibold rounded-full ${
@@ -242,22 +247,18 @@ export default function ProfilePage({ id }: { id: any }) {
                 <div>
                   <div className="grid grid-cols-1 gap-2">
                     <div>
-                      <h2 className="text-white font-semibold">
+                      <h2 className="text-white text-xl font-semibold underline">
                         {userDeatils?.firstName + " " + userDeatils?.lastName}
                       </h2>
-                      <h2 className="text-white">
-                        {" "}
-                        {userDeatils?.phoneNumber}
-                      </h2>
                     </div>
-                    <div className="grid grid-cols-2">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                       <div>
-                        <h3 className="font-bold text-white">Lv2 Nextlevel</h3>
-                        <p className="text-white">500/2000.00 {"(Recharge)"}</p>
-                        <p className="text-white">3/2 subordinates</p>
+                        <h3 className="font-bold text-xl text-white">Info.</h3>
+                        <p className="text-white">{userDeatils?.phoneNumber}</p> 
+                        <p className="text-white flex items-center">{userDeatils?.email} {userDeatils?.emailConfirmed && <CheckBadgeIcon strokeWidth={2} className="h-5 w-5 ml-2" />}</p>
                       </div>
                       <div className="ml-10">
-                        <h3 className="font-bold text-white">Referral Code</h3>
+                        <h3 className="font-bold text-white text-xl">Referral Code</h3>
                         <p className="text-white">
                           {userDeatils?.referralCode}
                         </p>

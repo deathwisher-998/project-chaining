@@ -39,7 +39,7 @@ export default function AddressSection({ data, addNewaddress }: propsTypes) {
             </button>
           </div>
         </div>
-        <div className="space-y-4">
+       {data?.length > 0 && <div className="space-y-4">
           {" "}
           {data.map((addr: any, ind: number) => (
             <div
@@ -84,7 +84,13 @@ export default function AddressSection({ data, addNewaddress }: propsTypes) {
               </div>{" "}
             </div>
           ))}{" "}
-        </div>{" "}
+        </div>}
+
+        {!data && <>
+            <div className="text-center pt-5 pb-5">
+               <h1 className="text-xl font-semibold">No Address found Please add Address </h1>
+            </div>
+        </> }
       </section>
     </>
   );
