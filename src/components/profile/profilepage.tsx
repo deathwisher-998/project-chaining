@@ -2,8 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Apploader } from "../loader/loading";
-import { userDetails, userLevel } from "@/helpers/services/users";
+import { userDetails, userLevel, userAddress } from "@/helpers/services/users";
 import { Button } from "@material-tailwind/react";
+import AddressSection from "./addressection";
 
 export default function ProfilePage() {
   const [loading, setloading] = useState(1);
@@ -11,6 +12,9 @@ export default function ProfilePage() {
   const teamReportRef = useRef<any>(null);
   const [teamReport, setteamReport] = useState(null);
   const [activeLevel, setactiveLevel] = useState(1);
+  const [activeTab, setactiveTab] = useState(1);
+  const [userAddressDetail, setuserAddressDetail] = useState<any>(null);
+
   const [profile, setProfile] = useState({
     username: "Jatin Arora",
     email: "jatin@example.com",
@@ -23,6 +27,21 @@ export default function ProfilePage() {
     getUserdata();
   }, []);
 
+  async function useraddress() {
+    try {
+      const response: any = await userAddress().then((res) => res);
+      if (response.succeeded && response.data?.length > 0) {
+        setuserAddressDetail((e: any) => response.data);
+      }else{
+        setuserAddressDetail((e: any) => null);
+      }
+      setloading((e) => 0)
+    } catch (error) {
+      setloading((e) => 0)
+      setuserAddressDetail((e: any) => null);
+    }
+  }
+
   async function getUserdata() {
     try {
       setloading((e) => 1);
@@ -31,7 +50,7 @@ export default function ProfilePage() {
         const response = await userDetails(id).then((res) => res);
         if (response) {
           setuserDeatils((e: any) => response);
-          getUserlevels(id)
+          getUserlevels(id);
         } else {
           setuserDeatils((e: any) => null);
           setloading((e) => 0);
@@ -50,11 +69,11 @@ export default function ProfilePage() {
         if (response?.succeeded && response.data?.length > 0) {
           teamReportRef.current = response.data;
           setteamReport((e) => teamReportRef.current);
+          useraddress();
         } else {
           teamReportRef.current = null;
           setteamReport((e) => teamReportRef.current);
         }
-        setloading((e) => 0);
       }
     } catch (error) {
       teamReportRef.current = null;
@@ -63,7 +82,7 @@ export default function ProfilePage() {
     }
   }
 
-  function CreativeTable({levelData}:{levelData:any}) {
+  function CreativeTable({ levelData }: { levelData: any }) {
     return (
       <div>
         <div className="overflow-hidden shadow-sm border border-gray-200">
@@ -73,27 +92,38 @@ export default function ProfilePage() {
                 <th className="px-6 py-4 text-sm font-semibold">ID</th>
                 <th className="px-6 py-4 text-sm font-semibold">Name</th>
                 <th className="px-6 py-4 text-sm font-semibold">Phone No.</th>
-                 <th className="px-6 py-4 text-sm font-semibold">Commission</th>
-                <th className="px-6 py-4 text-sm font-semibold">Email Confirmed</th>
+                <th className="px-6 py-4 text-sm font-semibold">Commission</th>
+                <th className="px-6 py-4 text-sm font-semibold">
+                  Email Confirmed
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {levelData.map((item:any, index:number) => {
-                return(
+              {levelData.map((item: any, index: number) => {
+                return (
                   <tr className="hover:bg-indigo-50 transition" key={index}>
-                <td className="px-6 py-4">{(index + 1)}</td>
-                <td className="px-6 py-4 font-medium text-gray-800">{item.firstName + " " + item.lastName}</td>
-                <td className="px-6 py-4 text-gray-600">{item.phoneNumber}</td>
-                <td className="px-6 py-4 font-medium text-gray-800">0</td>
-                <td className="px-6 py-4">
-                  <span className={`px-3 py-1 text-xs font-semibold rounded-full ${item.emailConfirmed ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"}`}>
-                    {item.emailConfirmed ? "Active" : "InActive"}
-                  </span>
-                </td>
-              </tr>
-                )
+                    <td className="px-6 py-4">{index + 1}</td>
+                    <td className="px-6 py-4 font-medium text-gray-800">
+                      {item.firstName + " " + item.lastName}
+                    </td>
+                    <td className="px-6 py-4 text-gray-600">
+                      {item.phoneNumber}
+                    </td>
+                    <td className="px-6 py-4 font-medium text-gray-800">0</td>
+                    <td className="px-6 py-4">
+                      <span
+                        className={`px-3 py-1 text-xs font-semibold rounded-full ${
+                          item.emailConfirmed
+                            ? "bg-green-100 text-green-600"
+                            : "bg-red-100 text-red-600"
+                        }`}
+                      >
+                        {item.emailConfirmed ? "Active" : "InActive"}
+                      </span>
+                    </td>
+                  </tr>
+                );
               })}
-              
             </tbody>
           </table>
         </div>
@@ -101,12 +131,12 @@ export default function ProfilePage() {
     );
   }
 
-  function dataByActivelevel(id:number){
-    let data = teamReportRef.current.filter((item:any)  => {
-       if(id == item.level){
-         return item
-       }
-    })
+  function dataByActivelevel(id: number) {
+    let data = teamReportRef.current.filter((item: any) => {
+      if (id == item.level) {
+        return item;
+      }
+    });
     return data[0]?.users.length > 0 ? data[0].users : null;
   }
 
@@ -154,49 +184,75 @@ export default function ProfilePage() {
 
         <div className="w-full  bg-white rounded-xl shadow-lg p-8 mt-5">
           <div className="mb-6">
-            <h1 className="text-2xl font-bold">Team Report</h1>
+            <Button
+              size="sm"
+              onClick={() => setactiveTab((e) => 1)}
+              className="border-2 rounded-md p-2 text-center border-black"
+              color={activeTab == 1 ? "gray" : "white"}
+            >
+              <h1 className="text-xl font-bold normal-case">Team Report</h1>
+            </Button>
+
+            <Button
+              size="sm"
+              onClick={() => setactiveTab((e) => 2)}
+              className="border-2 rounded-md p-2 text-center border-black ml-5"
+              color={activeTab == 2 ? "gray" : "white"}
+            >
+              <h1 className="text-xl font-bold normal-case">Address</h1>
+            </Button>
           </div>
 
-          {teamReport && (
+          {activeTab == 1 && (
             <>
-              <div className="grid grid-cols-3 gap-2">
-                <div className="bg-cyan-800 rounded-md p-2 text-center">
-                  <h1 className="font-bold text-white text-xl">56788.00</h1>
-                  <h2 className="text-white">Yesterday teams commission</h2>
-                </div>
-                <div className="bg-cyan-800 rounded-md p-2 text-center">
-                  <h1 className="font-bold text-white text-xl">56788.00</h1>
-                  <h2 className="text-white">Active count today</h2>
-                </div>
-                <div className="bg-cyan-800 rounded-md p-2 text-center">
-                  <h1 className="font-bold text-white text-xl">56788.00</h1>
-                  <h2 className="text-white">Added People</h2>
-                </div>
-              </div>
+              {teamReport && (
+                <>
+                  <div className="grid grid-cols-3 gap-2">
+                    <div className="bg-cyan-800 rounded-md p-2 text-center">
+                      <h1 className="font-bold text-white text-xl">56788.00</h1>
+                      <h2 className="text-white">Yesterday teams commission</h2>
+                    </div>
+                    <div className="bg-cyan-800 rounded-md p-2 text-center">
+                      <h1 className="font-bold text-white text-xl">56788.00</h1>
+                      <h2 className="text-white">Active count today</h2>
+                    </div>
+                    <div className="bg-cyan-800 rounded-md p-2 text-center">
+                      <h1 className="font-bold text-white text-xl">56788.00</h1>
+                      <h2 className="text-white">Added People</h2>
+                    </div>
+                  </div>
 
-              {teamReport?.length > 0 && (
-                <div className="grid grid-cols-10 gap-1 mt-5">
-                  {teamReport?.map((item: any, i: number) => {
-                    return (
-                      <Button
-                        size="sm"
-                        key={i}
-                        onClick={() => setactiveLevel((e) => item?.level)}
-                        className="border-2 rounded-md p-2 text-center border-black"
-                        color={activeLevel == item.level ? "gray" : "white"}
-                      >
-                        Lv {i + 1}
-                      </Button>
-                    );
-                  })}
-                </div>
+                  {teamReport?.length > 0 && (
+                    <div className="grid grid-cols-10 gap-1 mt-5">
+                      {teamReport?.map((item: any, i: number) => {
+                        return (
+                          <Button
+                            size="sm"
+                            key={i}
+                            onClick={() => setactiveLevel((e) => item?.level)}
+                            className="border-2 rounded-md p-2 text-center border-black"
+                            color={activeLevel == item.level ? "gray" : "white"}
+                          >
+                            Lv {i + 1}
+                          </Button>
+                        );
+                      })}
+                    </div>
+                  )}
+
+                  {dataByActivelevel(activeLevel) && (
+                    <div className="mt-5">
+                      <CreativeTable
+                        levelData={dataByActivelevel(activeLevel)}
+                      />
+                    </div>
+                  )}
+                </>
               )}
-
-              {dataByActivelevel(activeLevel) && <div className="mt-5">
-                <CreativeTable levelData={dataByActivelevel(activeLevel)} />
-              </div> }
             </>
           )}
+
+          {activeTab == 2 && <AddressSection data={userAddressDetail} />}
         </div>
       </div>
     </Apploader>

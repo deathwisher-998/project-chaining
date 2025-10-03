@@ -10,4 +10,5 @@ export const productList = "/Product"
 
 // Users levels and detail
 export const User =  "/Users"
+export const Useraddres = "/Address"
 
