@@ -128,14 +128,14 @@ export default function ProductDetails({ id, data, addcart }: Productdetail) {
                 <div className="flex items-center gap-4 mt-6">
                   <button
                     onClick={decreaseQty}
-                    className="px-3 py-2 bg-gray-200 rounded-md hover:bg-gray-300"
+                    className="px-3 py-2 btn-color-by-logo-1 rounded-md hover:bg-gray-300 text-white"
                   >
                     -
                   </button>
                   <span className="text-lg font-semibold">{quantity}</span>
                   <button
                     onClick={increaseQty}
-                    className="px-3 py-2 bg-gray-200 rounded-md hover:bg-gray-300"
+                    className="px-3 py-2 btn-color-by-logo-1 rounded-md text-white hover:bg-gray-300"
                   >
                     +
                   </button>
@@ -146,7 +146,7 @@ export default function ProductDetails({ id, data, addcart }: Productdetail) {
                     <div className="flex gap-4 mt-8">
                       <Button
                         onClick={() => addcart(data, quantity)}
-                        className="flex-1 py-3 bg-gray-900 text-white rounded-lg font-semibold hover:bg-gray-700 transition"
+                        className="flex-1 py-3 btn-color-by-logo-2 text-white rounded-lg font-semibold hover:bg-gray-700 transition"
                       >
                         Add to Cart
                       </Button>
@@ -159,7 +159,7 @@ export default function ProductDetails({ id, data, addcart }: Productdetail) {
               {productData.addtocart && (
                 <div className="flex gap-4 mt-8">
                   <Button
-                    className="flex-1 py-3 bg-gray-900 text-white rounded-lg font-semibold hover:bg-gray-700 transition"
+                    className="flex-1 py-3 btn-color-by-logo-2 text-white rounded-lg font-semibold hover:bg-gray-700 transition"
                     onClick={() =>
                       token
                         ? navigation.push("/cart")

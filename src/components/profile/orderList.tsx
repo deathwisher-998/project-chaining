@@ -66,7 +66,7 @@ export default function Orderlists({ odrerlisting }: { odrerlisting: any }) {
         </Accordion>
       ))}
     </div> : <div className="text-center mt-10 mb-10">
-       <h1 className="text-xl font-semibold">No Order Found</h1>
+       <h1 className="text-xl font-semibold text-color-by-logo-2">No Order Found</h1>
     </div> }
    </>
   );

@@ -142,7 +142,7 @@ export function ExploreCourses() {
     <Apploader Loadingstate={productLoader}>
       <section className="px-8 mt-40 mb-20">
         <div className="container mx-auto mb-24 text-center">
-          <Typography variant="h2" color="blue-gray">
+          <Typography variant="h2"  className="text-color-by-logo-2 underline">
             Our Products
           </Typography>
           <Typography

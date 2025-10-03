@@ -61,3 +61,28 @@
     margin-bottom: 10px;
   }
 }
+
+.btn-color-by-logo-1{
+  background-color: #c8a042 !important;
+}
+
+.btn-color-by-logo-2{
+  background-color: #1d477a !important;
+}
+
+.text-color-by-logo-1{
+  color: #c8a042 !important;
+}
+
+.text-color-by-logo-2{
+  color: #1d477a !important;
+}
+
+.border-color-by-logo-1{
+  border-color: #c8a042 !important;
+}
+
+.border-color-by-logo-2{
+  border-color: #1d477a !important;
+}
+

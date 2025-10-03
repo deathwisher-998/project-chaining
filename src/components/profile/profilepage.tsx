@@ -25,7 +25,7 @@ import {
   CheckBadgeIcon
 } from "@heroicons/react/24/solid";
 
-export default function ProfilePage({ id }: { id: any }) {
+export default function ProfilePage({ routeid }: { routeid: any }) {
   const [loading, setloading] = useState(1);
   const [userDeatils, setuserDeatils] = useState<any>(null);
   const teamReportRef = useRef<any>(null);
@@ -51,10 +51,10 @@ export default function ProfilePage({ id }: { id: any }) {
   }, []);
 
   useEffect(() => {
-    if (id) {
+    if (routeid) {
       addNewadress(true, 1, null);
     }
-  }, [id]);
+  }, [routeid]);
 
   async function useraddress() {
     try {
@@ -62,7 +62,7 @@ export default function ProfilePage({ id }: { id: any }) {
       const response: any = await userAddressByid(id).then((res) => res);
       if (response.succeeded && response.data?.length > 0) {
         setuserAddressDetail((e: any) => response.data);
-        if (id) {
+        if (routeid) {
           setactiveTab((e) => 2);
         }
       } else {
@@ -275,8 +275,7 @@ export default function ProfilePage({ id }: { id: any }) {
               <Button
                 size="sm"
                 onClick={() => setactiveTab((e) => 1)}
-                className="border-2 rounded-md p-1 px-4 text-center border-black"
-                color={activeTab == 1 ? "gray" : "white"}
+                className={`border rounded-md p-1 px-4 text-center ${activeTab == 1 ? "btn-color-by-logo-2 text-white border-color-by-logo-2" : "bg-white text-black border-black"}`}
               >
                 <h1 className="text-xl font-bold normal-case">Team Report</h1>
               </Button>
@@ -284,8 +283,7 @@ export default function ProfilePage({ id }: { id: any }) {
               <Button
                 size="sm"
                 onClick={() => setactiveTab((e) => 2)}
-                className="border-2 rounded-md p-1 px-4 text-center border-black"
-                color={activeTab == 2 ? "gray" : "white"}
+                className={`border rounded-md p-1 px-4 text-center border-black ${activeTab == 2 ? "btn-color-by-logo-2 text-white border-color-by-logo-2" : "bg-white text-black border-black"}`}
               >
                 <h1 className="text-xl font-bold normal-case">Address</h1>
               </Button>
@@ -293,8 +291,7 @@ export default function ProfilePage({ id }: { id: any }) {
               <Button
                 size="sm"
                 onClick={() => [setactiveTab((e) => 3), getOrderbyUserId()]}
-                className="border-2 rounded-md p-1 px-4 text-center border-black"
-                color={activeTab == 3 ? "gray" : "white"}
+                className={`border rounded-md p-1 px-4 text-center border-black ${activeTab == 3 ? "btn-color-by-logo-2 text-white border-color-by-logo-2" : "bg-white text-black border-black"}`}
               >
                 <h1 className="text-xl font-bold normal-case">Orders</h1>
               </Button>
@@ -305,19 +302,19 @@ export default function ProfilePage({ id }: { id: any }) {
                 {teamReport && (
                   <>
                     <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-2">
-                      <div className="bg-cyan-800 rounded-md p-2 text-center">
+                      <div className="btn-color-by-logo-1 rounded-md p-2 text-center">
                         <h1 className="font-bold text-white text-xl">
                           56788.00
                         </h1>
                         <h2 className="text-white">Total Commission</h2>
                       </div>
-                      <div className="bg-cyan-800 rounded-md p-2 text-center">
+                      <div className="btn-color-by-logo-1 rounded-md p-2 text-center">
                         <h1 className="font-bold text-white text-xl">
                           56788.00
                         </h1>
                         <h2 className="text-white">Today Commission</h2>
                       </div>
-                      <div className="bg-cyan-800 rounded-md p-2 text-center">
+                      <div className="btn-color-by-logo-1 rounded-md p-2 text-center">
                         <h1 className="font-bold text-white text-xl">
                           56788.00
                         </h1>

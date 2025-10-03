@@ -52,7 +52,7 @@ export function CourseCard({
     return pathvalue;
   };
 
-  function imageData(data:any) {
+  function imageData(data: any) {
     let path;
     if (data?.length > 0) {
       path = imgurl + imagePathFunc(data[0]?.imagePath);
@@ -114,7 +114,7 @@ export function CourseCard({
                 variant="outlined"
                 size="sm"
                 onClick={() => addcart(id)}
-                className="mr-2"
+                className="mr-2 text-color-by-logo-2 border-color-by-logo-2"
               >
                 Add to cart
               </Button>
@@ -125,8 +125,8 @@ export function CourseCard({
           <>
             {" "}
             <Button
-              variant="gradient"
-              className="mr-2"
+              // variant="gradient"
+              className="mr-2 btn-color-by-logo-2"
               size="sm"
               onClick={() =>
                 token ? navigation.push("/cart") : navigation.push("/login")

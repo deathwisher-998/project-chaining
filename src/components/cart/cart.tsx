@@ -196,11 +196,12 @@ export default function Cart() {
     if (!addr) {
       return (
         <>
-          <div className="mt-10 mb-5 w-full">
+          <div className="mt-10 mb-5 w-full flex justify-center">
             <Button
               variant="outlined"
               size="sm"
               onClick={() => setisOpen(true)}
+              className="text-white border-white"
             >
               {" "}
               Select Shipping Address
@@ -212,7 +213,9 @@ export default function Cart() {
     addr = JSON.parse(addr);
     return (
       <div className="mt-5 mb-2">
-        <h2 className="text-lg font-semibold mb-2">Shipping Address</h2>
+        <h2 className="text-lg font-semibold mb-2 text-white underline">
+          Shipping Address
+        </h2>
         <div
           className={`cursor-pointer border rounded-lg p-4 shadow-sm transition border-gray-200 bg-white`}
         >
@@ -241,6 +244,7 @@ export default function Cart() {
               onClick={() => navigation.push("/profile/crxdA78")}
               size="sm"
               variant="outlined"
+              className="text-white border-white"
             >
               Add Address
             </Button>
@@ -250,6 +254,7 @@ export default function Cart() {
               onClick={() => setisOpen(true)}
               size="sm"
               variant="outlined"
+              className="text-white border-white"
             >
               Change Address
             </Button>
@@ -311,7 +316,9 @@ export default function Cart() {
                             className="w-20 h-20 rounded-lg"
                           />
                           <div>
-                            <h3 className="font-medium">{item.name}</h3>
+                            <h3 className="font-medium text-color-by-logo-2">
+                              {item.name}
+                            </h3>
                             {/* <p className="text-sm text-gray-500">Size: M</p> */}
                           </div>
                         </div>
@@ -334,7 +341,7 @@ export default function Cart() {
                                 onClick={() =>
                                   quantityUpdation(item.cartquantity, item, 2)
                                 }
-                                className="px-3 bg-gray-200 rounded-md hover:bg-gray-300"
+                                className="px-3 btn-color-by-logo-2 rounded-md hover:bg-gray-300 text-white"
                               >
                                 -
                               </button>
@@ -345,7 +352,7 @@ export default function Cart() {
                                 onClick={() =>
                                   quantityUpdation(item.cartquantity, item, 1)
                                 }
-                                className="px-3 bg-gray-200 rounded-md hover:bg-gray-300"
+                                className="px-3 btn-color-by-logo-2 rounded-md hover:bg-gray-300 text-white"
                               >
                                 +
                               </button>
@@ -356,11 +363,12 @@ export default function Cart() {
                                 variant="outlined"
                                 size="sm"
                                 onClick={(e) => quantityUpdation(0, item, 3)}
+                                className="border-color-by-logo-1"
                               >
                                 <TrashIcon
                                   strokeWidth={2}
-                                  className="h-3 w-3"
-                                  stroke="gray"
+                                  className="h-3 w-3 text-color-by-logo-1"
+                                  // stroke={"#1d477a"}
                                 />
                               </Button>
                             </div>
@@ -375,13 +383,17 @@ export default function Cart() {
               {/* Right - Checkout Summary */}
               <div
                 className="rounded-xl shadow-md p-6"
-                style={{ backgroundColor: "#c3eeff" }}
+                style={{ backgroundColor: "#1d477a" }}
               >
-                <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
+                <h2 className="text-xl font-semibold mb-4 text-white">
+                  Order Summary
+                </h2>
                 <div className="space-y-3">
                   <div className="flex justify-between">
-                    <p>Total Items </p>
-                    <p>{cartproductlist?.length} Items</p>
+                    <p className="text-white">Total Items </p>
+                    <p className="text-white">
+                      {cartproductlist?.length} Items
+                    </p>
                   </div>
                   {/* <div className="flex justify-between">
                     <p>Subtotal</p>
@@ -392,8 +404,10 @@ export default function Cart() {
                     <p>$10.00</p>
                   </div> */}
                   <div className="flex justify-between font-semibold text-lg border-t pt-3">
-                    <p>Total</p>
-                    <p>{totalAmount(cartproductlist)} Rs</p>
+                    <p className="text-white">Total</p>
+                    <p className="text-white">
+                      {totalAmount(cartproductlist)} Rs
+                    </p>
                   </div>
                 </div>
 
@@ -401,7 +415,7 @@ export default function Cart() {
 
                 <button
                   onClick={() => Ordercompletetion()}
-                  className="w-full mt-6 bg-gray-900 hover:bg-gray-700 text-white font-medium py-3 rounded-lg transition"
+                  className="w-full mt-6 btn-color-by-logo-1 hover:bg-gray-700 text-white font-medium py-3 rounded-lg transition"
                 >
                   Proceed to Checkout
                 </button>

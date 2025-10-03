@@ -152,7 +152,7 @@ function Logincomponent() {
                        text-white font-semibold rounded-lg shadow-md 
                        focus:outline-none focus:ring-2 focus:ring-offset-2 
                        focus:ring-blue-500 transition"
-                                background={"#f44336"}
+                                background={"#c8a042"}
                                 type="submit"
                               >
                                 Sign In
@@ -173,7 +173,7 @@ function Logincomponent() {
                   Don’t have an account?{" "}
                   <Link
                     href="/register"
-                    className="text-blue-600 hover:underline"
+                    className="text-color-by-logo-1 hover:underline"
                   >
                     Sign up
                   </Link>

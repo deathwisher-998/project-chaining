@@ -68,7 +68,7 @@ export default function SuggestedProducts({ data }: suggestedProduct) {
                   >
                     <Typography
                       variant="h6"
-                      className="font-semibold text-gray-700"
+                      className="font-semibold text-color-by-logo-2"
                     >
                       {product.name}
                     </Typography>

@@ -16,6 +16,7 @@ import {
 } from "@heroicons/react/24/solid";
 import { routes } from "@/routes/routes";
 import Link from "next/link";
+import Image from "next/image";
 
 const NAV_MENU = [
   {
@@ -75,12 +76,17 @@ export function Loginheader() {
               <MTNavbar
                 blurred
                 color="white"
-                className="z-50 mt-6 relative border-0 pr-10 py-3 pl-10 max-w-[100%] pt-5 pb-5 "
+                className="z-50 mt-6 relative border-0 pr-10 py-3 pl-10 max-w-[100%]"
                 style={{backgroundColor:"#17212b"}}
               >
           <div className="flex items-center justify-between">
-            <Typography color="blue-gray" className="text-lg font-bold text-white">
-              <Link href={routes.nonauth.home}>SAMDENA</Link>
+             <Typography
+              color="blue-gray"
+              className="text-lg font-bold text-white"
+            >
+              <Link href={routes.auth.home}>
+               <Image src={"/image/app-logo.png"} width={180} height={70} />
+              </Link>
             </Typography>
             {/* <ul className="ml-10 hidden items-center gap-8 lg:flex">
               {NAV_MENU.map(({ name, icon: Icon, href }) => (
@@ -96,7 +102,7 @@ export function Loginheader() {
               </Link>
 
               <Link href={routes.nonauth.register}>
-                <Button color="red">Register here!</Button>
+                <Button className="btn-color-by-logo-1">Register here!</Button>
               </Link>
             </div>
             <IconButton
@@ -131,7 +137,7 @@ export function Loginheader() {
                 </div>
                <div>
                  <Link href={routes.nonauth.register}>
-                  <Button color="red">Register here!</Button>
+                  <Button className="btn-color-by-logo-1">Register here!</Button>
                 </Link>
                </div>
               </div>

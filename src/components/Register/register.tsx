@@ -33,7 +33,10 @@ function Registercomponent() {
 
   const onSubmit: SubmitHandler<Registrationforminput> = async (data) => {
     if (data) {
-      let payload = { ...data, ["referralCode"]: data.referralCode ? data.referralCode : "" };
+      let payload = {
+        ...data,
+        ["referralCode"]: data.referralCode ? data.referralCode : "",
+      };
       Logintoken(payload);
     }
   };
@@ -287,7 +290,7 @@ function Registercomponent() {
                        text-white font-semibold rounded-lg shadow-md 
                        focus:outline-none focus:ring-2 focus:ring-offset-2 
                        focus:ring-blue-500 transition"
-                                background={"#f44336"}
+                                background={"#c8a042"}
                                 type="submit"
                               >
                                 Register
@@ -307,7 +310,7 @@ function Registercomponent() {
               {/* Sign up */}
               <p className="text-center text-sm text-white">
                 Already have an account?{" "}
-                <Link href="/login" className="text-blue-600 hover:underline">
+                <Link href="/login" className="text-color-by-logo-1 hover:underline">
                   Sign In
                 </Link>
               </p>

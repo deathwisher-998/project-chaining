@@ -5,7 +5,7 @@ export default function Useraccount() {
   return (
     <>
       <Chakraprovider>
-        <ProfilePage id={"crxdA78"} />
+        <ProfilePage routeid={"crxdA78"} />
       </Chakraprovider>
     </>
   );

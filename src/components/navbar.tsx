@@ -20,6 +20,7 @@ import Link from "next/link";
 import { routes } from "@/routes/routes";
 import { useDispatch, useSelector } from "react-redux";
 import { cartproductList } from "@/app/globalstore/cart/actions";
+import Image from "next/image";
 
 const NAV_MENU = [
   {
@@ -110,7 +111,8 @@ export function Navbar() {
         <MTNavbar
           blurred
           color="white"
-          className="z-50 mt-6 relative border-0 pr-10 py-3 pl-10 max-w-[100%] pt-5 pb-5 "
+          className="z-50 mt-6 relative border-0 pr-10 py-3 pl-10 max-w-[100%]"
+          // pt-5 pb-5
           style={{ backgroundColor: "#17212b" }}
         >
           <div className="flex items-center justify-between">
@@ -118,7 +120,9 @@ export function Navbar() {
               color="blue-gray"
               className="text-lg font-bold text-white"
             >
-              <Link href={routes.auth.home}>SAMDENA</Link>
+              <Link href={routes.auth.home}>
+               <Image src={"/image/app-logo.png"} width={180} height={70} />
+              </Link>
             </Typography>
             {/* <ul className="ml-10 hidden items-center gap-8 lg:flex">
               {NAV_MENU.map(({ name, icon: Icon, href }) => (
@@ -142,10 +146,11 @@ export function Navbar() {
               </Button>
 
               <Button
-                color="red"
+                // color="red"
                 onClick={() =>
                   token ? navigation.push("/cart") : navigation.push("/login")
                 }
+                className="btn-color-by-logo-1"
               >
                 Items in Cart{" "}
                 <span className={"cartcount"}>
@@ -210,12 +215,13 @@ export function Navbar() {
 
                 <div>
                   <Button
-                    color="red"
+                    // color="red"
                     onClick={() =>
                       token
                         ? navigation.push("/cart")
                         : navigation.push("/login")
                     }
+                   className="btn-color-by-logo-1"
                   >
                     Items in Cart{" "}
                     {cartcount.productQuantity

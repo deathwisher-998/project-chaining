@@ -26,14 +26,14 @@ export default function AddressSection({ data, addNewaddress }: propsTypes) {
         {" "}
         <div className="flex justify-between mb-4 items-center">
           <div>
-            <h2 className="text-xl font-semibold text-gray-800">
+            <h2 className="text-xl font-semibold text-color-by-logo-2">
               Select Delivery Address
             </h2>
           </div>
           <div>
             <button
               onClick={() => addNewaddress(true, 1, null)}
-              className="w-full sm:w-auto bg-blue-600 text-white px-6 py-2 rounded-lg shadow hover:bg-blue-700 transition"
+              className="w-full sm:w-auto btn-color-by-logo-1 text-white px-6 py-2 rounded-lg shadow hover:bg-blue-700 transition"
             >
               Add New
             </button>
@@ -88,7 +88,7 @@ export default function AddressSection({ data, addNewaddress }: propsTypes) {
 
         {!data && <>
             <div className="text-center pt-5 pb-5">
-               <h1 className="text-xl font-semibold">No Address found Please add Address </h1>
+               <h1 className="text-xl font-semibold text-color-by-logo-2">No Address found Please add Address </h1>
             </div>
         </> }
       </section>
