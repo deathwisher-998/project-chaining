@@ -113,7 +113,7 @@ export default function Cart() {
                         className="flex items-center justify-between border-b pb-2 custom-res-cart"
                         key={i}
                       >
-                        <div className="flex items-center space-x-4">
+                        <div className="flex items-center space-x-4 custom-res-cart-3">
                           <img
                             src="/image/product-image/blankets-img.jpg"
                             alt="Product"
