@@ -7,3 +7,4 @@ export const userList = (data) => api.get(url.User);
 export const userDetails = (data) => api.get(url.User + `/${data}`);
 export const userLevel = (data) => api.get(url.User + `/${data}/Levels`);
 export const userAddress = (data) => api.get(url.Useraddres);
+export const createAddress = (data) => api.post(url.Useraddres,data)

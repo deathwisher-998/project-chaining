@@ -12,32 +12,52 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
-.cartcount{
-    background-color: #fff;
-    padding: 2.5px 5px;
-    border-radius: 100%;
-    color: #000;
+.cartcount {
+  background-color: #fff;
+  padding: 2.5px 5px;
+  border-radius: 100%;
+  color: #000;
 }
 
-.mybgForlogin{
+.mybgForlogin {
   background-color: #000 !important;
 }
 
+.tabs-btn-profile {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
 
-@media screen and (min-width:300px) and (max-width:600px) {
-  .custom-res-cart{
+.tabs-btn-profile button {
+  margin-right: 15px;
+}
+
+@media screen and (min-width: 300px) and (max-width: 600px) {
+  .custom-res-cart {
     flex-direction: column;
   }
 
-  .custom-res-cart-3{
+  .custom-res-cart-3 {
     width: 100%;
   }
 
-  .custom-res-cart-c1{
-     width: 100%;
-     justify-content: space-between;
+  .custom-res-cart-c1 {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .tabs-btn-profile {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+
+  .tabs-btn-profile button {
+    margin-right: 0px;
+    margin-bottom: 10px;
   }
 }

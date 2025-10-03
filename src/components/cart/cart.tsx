@@ -3,16 +3,31 @@
 import { useEffect, useState } from "react";
 import Cartproductcard from "./cart-productcard";
 import { useDispatch, useSelector } from "react-redux";
-import { Button } from "@material-tailwind/react";
+import {
+  Button,
+  Dialog,
+  DialogBody,
+  DialogFooter,
+  DialogHeader,
+} from "@material-tailwind/react";
 import { Apploader } from "../loader/loading";
 import { cartproductList } from "@/app/globalstore/cart/actions";
 import { TrashIcon } from "@heroicons/react/24/solid";
+import { userAddress } from "@/helpers/services/users";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { createOrder } from "@/helpers/services/order";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function Cart() {
   const [cartproductlist, setcartproductlist] = useState<any>([]);
   const productSelector = useSelector((state: any) => state?.ProductCart);
   const dispatch = useDispatch();
+  const [addressList, setaddressList] = useState([]);
+  const [cartLoading, setcartLoading] = useState(0);
+  const [selectedId, setSelectedId] = useState(null);
+  const [isOpen, setisOpen] = useState(false);
+  const navigation = useRouter();
 
   useEffect(() => {
     if (productSelector.cartproductlist) {
@@ -23,12 +38,39 @@ export default function Cart() {
     }
   }, [productSelector]);
 
-  // useEffect(() => {
-  //   let mewdata = sessionStorage.getItem("cdata");
-  //   if (mewdata) {
-  //     dispatch(cartproductList(JSON.parse(mewdata)));
-  //   }
-  // }, []);
+  useEffect(() => {
+    let mewdata = localStorage.getItem("cdata");
+    if (mewdata) {
+      dispatch(cartproductList(JSON.parse(mewdata)));
+    }
+
+    let addressID = localStorage.getItem("adsData");
+    if (addressID) {
+      let id = JSON.parse(addressID);
+      if (id?.id) {
+        setSelectedId((e) => id?.id);
+      }
+    } else {
+      setSelectedId((e) => null);
+    }
+    useraddress();
+  }, []);
+
+  async function useraddress() {
+    try {
+      setcartLoading(1);
+      const response: any = await userAddress().then((res) => res);
+      if (response.succeeded && response.data?.length > 0) {
+        setaddressList((e: any) => response.data);
+      } else {
+        setaddressList((e) => []);
+      }
+      setcartLoading((e) => 0);
+    } catch (error) {
+      setcartLoading((e) => 0);
+      setaddressList((e) => []);
+    }
+  }
 
   const quantityUpdation = (qty: number, data: any, flag: number) => {
     if (flag == 1 || flag == 2) {
@@ -47,7 +89,7 @@ export default function Cart() {
           updatedList?.length > 0 ? JSON.stringify(updatedList) : null,
         productQuantity: updatedList?.length > 0 ? updatedList.length : null,
       };
-      sessionStorage.setItem("cdata", JSON.stringify(scartData));
+      localStorage.setItem("cdata", JSON.stringify(scartData));
       dispatch(
         cartproductList({
           cartproductlist:
@@ -66,7 +108,7 @@ export default function Cart() {
           updatedList?.length > 0 ? JSON.stringify(updatedList) : null,
         productQuantity: updatedList?.length > 0 ? updatedList.length : null,
       };
-      sessionStorage.setItem("cdata", JSON.stringify(scartData));
+      localStorage.setItem("cdata", JSON.stringify(scartData));
       dispatch(
         cartproductList({
           cartproductlist:
@@ -90,9 +132,135 @@ export default function Cart() {
     return total;
   }
 
+  async function Ordercompletetion() {
+    try {
+      setcartLoading((e) => 1);
+      let payload = await payloadSetup(
+        productSelector.cartproductlist &&
+          JSON.parse(productSelector.cartproductlist)
+      );
+      let response: any = await createOrder(payload).then((res) => res);
+      if (response.succeeded) {
+        localStorage.removeItem("cdata");
+        localStorage.removeItem("adsData");
+        navigation.push("/order-success");
+        dispatch(
+          cartproductList({
+            cartproductlist: null,
+            productQuantity: null,
+          })
+        );
+      } else {
+        toast.error("Error while placing order");
+      }
+      setcartLoading((e) => 0);
+    } catch (error) {
+      setcartLoading((e) => 0);
+      if (!selectedId) {
+        toast.error("Please select Address");
+      }else{
+        toast.error("Error while placing order");
+      }
+    }
+  }
+
+  function payloadSetup(data: any) {
+    let obj;
+    if (data.length > 0) {
+      obj = {
+        id: "",
+        userId: localStorage.getItem("uId"),
+        addressId: selectedId,
+        status: "",
+        items: data.map((it: any) => {
+          return {
+            id: "",
+            productId: it.id ? it.id : "",
+            price:
+              it.salePrice && it.cartquantity
+                ? it.salePrice * it.cartquantity
+                : 0,
+            quantity: it.cartquantity ? it.cartquantity : 0,
+          };
+        }),
+      };
+    }
+
+    return obj;
+  }
+
+  function cartAddress() {
+    let addr: any = localStorage.getItem("adsData");
+    if (!addr) {
+      return (
+        <>
+          <div className="mt-10 mb-5 w-full">
+            <Button
+              variant="outlined"
+              size="sm"
+              onClick={() => setisOpen(true)}
+            >
+              {" "}
+              Select Shipping Address
+            </Button>
+          </div>
+        </>
+      );
+    }
+    addr = JSON.parse(addr);
+    return (
+      <div className="mt-5 mb-2">
+        <h2 className="text-lg font-semibold mb-2">Shipping Address</h2>
+        <div
+          className={`cursor-pointer border rounded-lg p-4 shadow-sm transition border-gray-200 bg-white`}
+        >
+          {" "}
+          <div className="flex items-start justify-between">
+            {" "}
+            <div>
+              {" "}
+              <p className="font-semibold text-gray-900">{addr.type}</p>{" "}
+              <p className="text-sm text-gray-600">{addr.phoneNumber}</p>{" "}
+              <p className="mt-1 text-gray-700">
+                {addr.addressLin1} {addr.addressLin2}
+              </p>{" "}
+              <p className="text-gray-700">
+                {" "}
+                {addr.country}, {addr.city} - {addr.postalCode}{" "}
+              </p>{" "}
+              <p className="text-gray-700">{addr.country}</p>{" "}
+            </div>{" "}
+          </div>{" "}
+        </div>
+
+        <div className="flex justify-between mt-5">
+          <div>
+            <Button
+              onClick={() => navigation.push("/profile/crxdA78")}
+              size="sm"
+              variant="outlined"
+            >
+              Add Address
+            </Button>
+          </div>
+          <div>
+            <Button
+              onClick={() => setisOpen(true)}
+              size="sm"
+              variant="outlined"
+            >
+              Change Address
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <>
-      <Apploader Loadingstate={0}>
+      <Apploader Loadingstate={cartLoading}>
+        <ToastContainer />
         {cartproductlist.length > 0 ? (
           <div
             className={`p-0 mt-20 ${
@@ -206,11 +374,14 @@ export default function Cart() {
                   </div>
                 </div>
 
-                <Link href={"/order-success"}>
-                  <button className="w-full mt-6 bg-gray-900 hover:bg-gray-700 text-white font-medium py-3 rounded-lg transition">
-                    Proceed to Checkout
-                  </button>
-                </Link>
+                <div>{cartAddress()}</div>
+
+                <button
+                  onClick={() => Ordercompletetion()}
+                  className="w-full mt-6 bg-gray-900 hover:bg-gray-700 text-white font-medium py-3 rounded-lg transition"
+                >
+                  Proceed to Checkout
+                </button>
               </div>
             </div>
           </div>
@@ -226,6 +397,74 @@ export default function Cart() {
           </>
         )}
       </Apploader>
+
+      <Dialog open={isOpen} dismiss={false}>
+        <>
+          <DialogHeader>Select Address</DialogHeader>
+          <DialogBody className="bg-dark rounded-lg">
+            <div
+              className="space-y-4"
+              style={{ height: "400px", overflowX: "scroll" }}
+            >
+              {" "}
+              {addressList.map((addr: any, ind: number) => (
+                <div
+                  key={ind}
+                  onClick={() => [
+                    setSelectedId(addr.id),
+                    localStorage.setItem("adsData", JSON.stringify(addr)),
+                  ]}
+                  className={`cursor-pointer border rounded-lg p-4 shadow-sm transition ${
+                    selectedId === addr.id
+                      ? "border-blue-500 bg-blue-50"
+                      : "border-gray-200 bg-white"
+                  }`}
+                >
+                  {" "}
+                  <div className="flex items-start justify-between">
+                    {" "}
+                    <div>
+                      {" "}
+                      <p className="font-semibold text-gray-900">
+                        {addr.type}
+                      </p>{" "}
+                      <p className="text-sm text-gray-600">
+                        {addr.phoneNumber}
+                      </p>{" "}
+                      <p className="mt-1 text-gray-700">
+                        {addr.addressLin1} {addr.addressLin2}
+                      </p>{" "}
+                      <p className="text-gray-700">
+                        {" "}
+                        {addr.country}, {addr.city} - {addr.postalCode}{" "}
+                      </p>{" "}
+                      <p className="text-gray-700">{addr.country}</p>{" "}
+                    </div>{" "}
+                    <div className="ml-4">
+                      {" "}
+                      <input
+                        type="radio"
+                        checked={selectedId === addr.id}
+                        onChange={() => setSelectedId(addr.id)}
+                        className="w-5 h-5 text-blue-600 border-gray-300 focus:ring-blue-500"
+                      />{" "}
+                    </div>{" "}
+                  </div>{" "}
+                </div>
+              ))}{" "}
+            </div>{" "}
+          </DialogBody>
+          <DialogFooter>
+            <Button
+              size="sm"
+              variant="outlined"
+              onClick={() => setisOpen(false)}
+            >
+              Close
+            </Button>
+          </DialogFooter>
+        </>
+      </Dialog>
     </>
   );
 }

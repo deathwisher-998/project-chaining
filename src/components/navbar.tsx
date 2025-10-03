@@ -64,7 +64,7 @@ export function Navbar() {
   const navigation = useRouter();
   const { token, loading } = useAuth(); // your auth logic
   const cartcount = useSelector((state: any) => state?.ProductCart);
-const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   function handleOpen() {
     setOpen((cur) => !cur);
@@ -75,18 +75,34 @@ const dispatch = useDispatch();
       "resize",
       () => window.innerWidth >= 960 && setOpen(false)
     );
-    let mewdata = sessionStorage.getItem("cdata");
+    let mewdata = localStorage.getItem("cdata");
     if (mewdata) {
       dispatch(cartproductList(JSON.parse(mewdata)));
     }
   }, []);
 
   useEffect(() => {
-    // let mewdata = sessionStorage.getItem("cdata");
+    // let mewdata = localStorage.getItem("cdata");
     // if (mewdata) {
     //   dispatch(cartproductList(JSON.parse(mewdata)));
     // }
   }, []);
+
+  function logoutReload() {
+    localStorage.removeItem("token"),
+      localStorage.removeItem("uId"),
+      localStorage.removeItem("cdata");
+    localStorage.removeItem("adsData");
+
+    dispatch(
+      cartproductList({
+        cartproductlist: null,
+        productQuantity: null,
+      })
+    );
+
+    window.location.href = '/'
+  }
 
   return (
     <div className="px-10 sticky top-4 z-50">
@@ -143,11 +159,7 @@ const dispatch = useDispatch();
                     variant="text"
                     className="text-white"
                     size="sm"
-                    onClick={() => {
-                      localStorage.removeItem("token"),
-                        localStorage.removeItem("uId"),
-                        navigation.replace("/");
-                    }}
+                    onClick={() => {logoutReload()}}
                   >
                     Log Out
                   </Button>

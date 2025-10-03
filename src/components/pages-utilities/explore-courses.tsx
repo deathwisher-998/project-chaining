@@ -24,7 +24,7 @@ export function ExploreCourses() {
   // }, []);
 
   useEffect(() => {
-    let mewdata = sessionStorage.getItem("cdata");
+    let mewdata = localStorage.getItem("cdata");
     if (mewdata) {
       dispatch(cartproductList(JSON.parse(mewdata)));
       getProductlist()
@@ -58,7 +58,7 @@ export function ExploreCourses() {
           })
         );
 
-        let mewdata:any = sessionStorage.getItem("cdata");
+        let mewdata:any = localStorage.getItem("cdata");
         mewdata = JSON.parse(mewdata)
 
         if (productSelector.cartproductlist || mewdata?.cartproductlist) {
@@ -130,7 +130,7 @@ export function ExploreCourses() {
             storelist?.length > 0 ? JSON.stringify(storelist) : null,
           productQuantity: storelist?.length > 0 ? storelist.length : null,
         }
-      sessionStorage.setItem('cdata', JSON.stringify(scartData))
+      localStorage.setItem('cdata', JSON.stringify(scartData))
       dispatch(
         cartproductList({
           cartproductlist:

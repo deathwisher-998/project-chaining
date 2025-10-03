@@ -52,7 +52,7 @@ export default function ProductDetails({ id, data, addcart }: Productdetail) {
               productQuantity:
                 productlist?.length > 0 ? productlist.length : null,
             };
-            sessionStorage.setItem("cdata", JSON.stringify(scartData));
+            localStorage.setItem("cdata", JSON.stringify(scartData));
             dispatch(
               cartproductList({
                 cartproductlist:

@@ -12,3 +12,7 @@ export const productList = "/Product"
 export const User =  "/Users"
 export const Useraddres = "/Address"
 
+
+// Order Listing and Order
+export const Order = "/Order"
+

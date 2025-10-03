@@ -2,11 +2,26 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Apploader } from "../loader/loading";
-import { userDetails, userLevel, userAddress } from "@/helpers/services/users";
-import { Button } from "@material-tailwind/react";
+import {
+  userDetails,
+  userLevel,
+  userAddress,
+  createAddress,
+} from "@/helpers/services/users";
+import {
+  Button,
+  Dialog,
+  DialogBody,
+  DialogFooter,
+  DialogHeader,
+} from "@material-tailwind/react";
 import AddressSection from "./addressection";
+import Createaddress from "./createAddress";
+import { ToastContainer, toast } from "react-toastify";
+import { Orderlist } from "@/helpers/services/order";
+import Orderlists from "./orderList";
 
-export default function ProfilePage() {
+export default function ProfilePage({ id }: { id: any }) {
   const [loading, setloading] = useState(1);
   const [userDeatils, setuserDeatils] = useState<any>(null);
   const teamReportRef = useRef<any>(null);
@@ -14,6 +29,9 @@ export default function ProfilePage() {
   const [activeLevel, setactiveLevel] = useState(1);
   const [activeTab, setactiveTab] = useState(1);
   const [userAddressDetail, setuserAddressDetail] = useState<any>(null);
+  const [isOpen, setisOpen] = useState(false);
+  const [formSubmit, setformSubmit] = useState(0);
+  const [orderList, setorderList] = useState<any>(null);
 
   const [profile, setProfile] = useState({
     username: "Jatin Arora",
@@ -25,19 +43,29 @@ export default function ProfilePage() {
   useEffect(() => {
     setactiveLevel((e) => 1);
     getUserdata();
+    getOrderbyUserId();
   }, []);
+
+  useEffect(() => {
+    if (id) {
+      addNewadress(true, 1, null);
+    }
+  }, [id]);
 
   async function useraddress() {
     try {
       const response: any = await userAddress().then((res) => res);
       if (response.succeeded && response.data?.length > 0) {
         setuserAddressDetail((e: any) => response.data);
-      }else{
+        if (id) {
+          setactiveTab((e) => 2);
+        }
+      } else {
         setuserAddressDetail((e: any) => null);
       }
-      setloading((e) => 0)
+      setloading((e) => 0);
     } catch (error) {
-      setloading((e) => 0)
+      setloading((e) => 0);
       setuserAddressDetail((e: any) => null);
     }
   }
@@ -85,7 +113,7 @@ export default function ProfilePage() {
   function CreativeTable({ levelData }: { levelData: any }) {
     return (
       <div>
-        <div className="overflow-hidden shadow-sm border border-gray-200">
+        <div className="overflow-scroll shadow-sm border border-gray-200">
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-gradient-to-r from-gray-800 to-gray-700 text-white">
@@ -140,121 +168,218 @@ export default function ProfilePage() {
     return data[0]?.users.length > 0 ? data[0].users : null;
   }
 
+  const addNewadress = (value: boolean, flag: number, data: any) => {
+    if (value && flag == 1) {
+      setisOpen((e) => value);
+    } else if (value && flag == 2) {
+      setisOpen((e) => false);
+    } else if (flag == 3) {
+      setformSubmit((e) => 1);
+      CreateAddress(data);
+    }
+  };
+
+  async function getOrderbyUserId() {
+    try {
+      const userid = localStorage.getItem("uId");
+      if (userid) {
+        const response: any = await Orderlist(userid).then((res) => res);
+        if (response?.succeeded && response.data?.length > 0) {
+          setorderList((e: any) => response.data);
+        } else {
+          setorderList((e: any) => null);
+        }
+      }
+    } catch (error) {
+      setorderList((e: any) => response.data);
+    }
+  }
+
+  async function CreateAddress(data: any) {
+    try {
+      if (data) {
+        let userid = localStorage.getItem("uId");
+        let payload = {
+          ...data,
+          ["id"]: "",
+          ["type"]: "Home",
+          ["userID"]: userid,
+        };
+        const response: any = await createAddress(payload).then((res) => res);
+        if (response?.succeeded) {
+          setisOpen((e) => false);
+          toast.success("New Address added Successfully");
+          setloading((e) => 1);
+          useraddress();
+        }
+
+        setformSubmit((e) => 0);
+      }
+    } catch (error) {
+      setformSubmit((e) => 0);
+    }
+  }
+
   return (
-    <Apploader Loadingstate={loading}>
-      <div className="mt-10 p-5 mb-10">
-        <div className="w-full  bg-gradient-to-r from-gray-800 via-gray-700 to-gray-600 rounded-xl shadow-lg p-8">
-          <div className="mb-6">
-            <h1 className="text-2xl font-bold text-white">Personal Centre</h1>
-          </div>
-
-          {userDeatils && (
-            <div className="flex items-center mb-6">
-              <div className="mr-5">
-                <div className="w-24 h-24 rounded-full bg-white text-black flex items-center justify-center text-2xl font-bold shadow-md">
-                  {userDeatils.firstName.charAt(0) +
-                    "" +
-                    userDeatils.lastName.charAt(0)}
-                </div>
-              </div>
-              <div>
-                <div className="grid grid-cols-1 gap-2">
-                  <div>
-                    <h2 className="text-white font-semibold">
-                      {userDeatils?.firstName + " " + userDeatils?.lastName}
-                    </h2>
-                    <h2 className="text-white"> {userDeatils?.phoneNumber}</h2>
-                  </div>
-                  <div className="grid grid-cols-2">
-                    <div>
-                      <h3 className="font-bold text-white">Lv2 Nextlevel</h3>
-                      <p className="text-white">500/2000.00 {"(Recharge)"}</p>
-                      <p className="text-white">3/2 subordinates</p>
-                    </div>
-                    <div className="ml-10">
-                      <h3 className="font-bold text-white">Referral Code</h3>
-                      <p className="text-white">{userDeatils?.referralCode}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+    <>
+      <Apploader Loadingstate={loading}>
+        <ToastContainer />
+        <div className="mt-10 p-5 mb-10">
+          <div className="w-full  bg-gradient-to-r from-gray-800 via-gray-700 to-gray-600 rounded-xl shadow-lg p-8">
+            <div className="mb-6">
+              <h1 className="text-2xl font-bold text-white">Personal Centre</h1>
             </div>
-          )}
-        </div>
 
-        <div className="w-full  bg-white rounded-xl shadow-lg p-8 mt-5">
-          <div className="mb-6">
-            <Button
-              size="sm"
-              onClick={() => setactiveTab((e) => 1)}
-              className="border-2 rounded-md p-2 text-center border-black"
-              color={activeTab == 1 ? "gray" : "white"}
-            >
-              <h1 className="text-xl font-bold normal-case">Team Report</h1>
-            </Button>
-
-            <Button
-              size="sm"
-              onClick={() => setactiveTab((e) => 2)}
-              className="border-2 rounded-md p-2 text-center border-black ml-5"
-              color={activeTab == 2 ? "gray" : "white"}
-            >
-              <h1 className="text-xl font-bold normal-case">Address</h1>
-            </Button>
-          </div>
-
-          {activeTab == 1 && (
-            <>
-              {teamReport && (
-                <>
-                  <div className="grid grid-cols-3 gap-2">
-                    <div className="bg-cyan-800 rounded-md p-2 text-center">
-                      <h1 className="font-bold text-white text-xl">56788.00</h1>
-                      <h2 className="text-white">Yesterday teams commission</h2>
+            {userDeatils && (
+              <div className="flex items-center mb-6">
+                <div className="mr-5">
+                  <div className="w-24 h-24 rounded-full bg-white text-black flex items-center justify-center text-2xl font-bold shadow-md">
+                    {userDeatils.firstName.charAt(0) +
+                      "" +
+                      userDeatils.lastName.charAt(0)}
+                  </div>
+                </div>
+                <div>
+                  <div className="grid grid-cols-1 gap-2">
+                    <div>
+                      <h2 className="text-white font-semibold">
+                        {userDeatils?.firstName + " " + userDeatils?.lastName}
+                      </h2>
+                      <h2 className="text-white">
+                        {" "}
+                        {userDeatils?.phoneNumber}
+                      </h2>
                     </div>
-                    <div className="bg-cyan-800 rounded-md p-2 text-center">
-                      <h1 className="font-bold text-white text-xl">56788.00</h1>
-                      <h2 className="text-white">Active count today</h2>
-                    </div>
-                    <div className="bg-cyan-800 rounded-md p-2 text-center">
-                      <h1 className="font-bold text-white text-xl">56788.00</h1>
-                      <h2 className="text-white">Added People</h2>
+                    <div className="grid grid-cols-2">
+                      <div>
+                        <h3 className="font-bold text-white">Lv2 Nextlevel</h3>
+                        <p className="text-white">500/2000.00 {"(Recharge)"}</p>
+                        <p className="text-white">3/2 subordinates</p>
+                      </div>
+                      <div className="ml-10">
+                        <h3 className="font-bold text-white">Referral Code</h3>
+                        <p className="text-white">
+                          {userDeatils?.referralCode}
+                        </p>
+                      </div>
                     </div>
                   </div>
+                </div>
+              </div>
+            )}
+          </div>
 
-                  {teamReport?.length > 0 && (
-                    <div className="grid grid-cols-10 gap-1 mt-5">
-                      {teamReport?.map((item: any, i: number) => {
-                        return (
-                          <Button
-                            size="sm"
-                            key={i}
-                            onClick={() => setactiveLevel((e) => item?.level)}
-                            className="border-2 rounded-md p-2 text-center border-black"
-                            color={activeLevel == item.level ? "gray" : "white"}
-                          >
-                            Lv {i + 1}
-                          </Button>
-                        );
-                      })}
+          <div className="w-full  bg-white rounded-xl shadow-lg p-8 mt-5">
+            <div className="mb-6 tabs-btn-profile">
+              <Button
+                size="sm"
+                onClick={() => setactiveTab((e) => 1)}
+                className="border-2 rounded-md p-1 px-4 text-center border-black"
+                color={activeTab == 1 ? "gray" : "white"}
+              >
+                <h1 className="text-xl font-bold normal-case">Team Report</h1>
+              </Button>
+
+              <Button
+                size="sm"
+                onClick={() => setactiveTab((e) => 2)}
+                className="border-2 rounded-md p-1 px-4 text-center border-black"
+                color={activeTab == 2 ? "gray" : "white"}
+              >
+                <h1 className="text-xl font-bold normal-case">Address</h1>
+              </Button>
+
+              <Button
+                size="sm"
+                onClick={() => [setactiveTab((e) => 3), getOrderbyUserId()]}
+                className="border-2 rounded-md p-1 px-4 text-center border-black"
+                color={activeTab == 3 ? "gray" : "white"}
+              >
+                <h1 className="text-xl font-bold normal-case">Orders</h1>
+              </Button>
+            </div>
+
+            {activeTab == 1 && (
+              <>
+                {teamReport && (
+                  <>
+                    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-2">
+                      <div className="bg-cyan-800 rounded-md p-2 text-center">
+                        <h1 className="font-bold text-white text-xl">
+                          56788.00
+                        </h1>
+                        <h2 className="text-white">Total Commission</h2>
+                      </div>
+                      <div className="bg-cyan-800 rounded-md p-2 text-center">
+                        <h1 className="font-bold text-white text-xl">
+                          56788.00
+                        </h1>
+                        <h2 className="text-white">Today Commission</h2>
+                      </div>
+                      <div className="bg-cyan-800 rounded-md p-2 text-center">
+                        <h1 className="font-bold text-white text-xl">
+                          56788.00
+                        </h1>
+                        <h2 className="text-white">Total User</h2>
+                      </div>
                     </div>
-                  )}
 
-                  {dataByActivelevel(activeLevel) && (
-                    <div className="mt-5">
-                      <CreativeTable
-                        levelData={dataByActivelevel(activeLevel)}
-                      />
-                    </div>
-                  )}
-                </>
-              )}
-            </>
-          )}
+                    {teamReport?.length > 0 && (
+                      <div className="grid grid-cols-4 md:grid-cols-10 lg:grid-cols-10 gap-1 mt-5">
+                        {teamReport?.map((item: any, i: number) => {
+                          return (
+                            <Button
+                              size="sm"
+                              key={i}
+                              onClick={() => setactiveLevel((e) => item?.level)}
+                              className="border-2 rounded-md p-2 text-center border-black"
+                              color={
+                                activeLevel == item.level ? "gray" : "white"
+                              }
+                            >
+                              Lv {i + 1}
+                            </Button>
+                          );
+                        })}
+                      </div>
+                    )}
 
-          {activeTab == 2 && <AddressSection data={userAddressDetail} />}
+                    {dataByActivelevel(activeLevel) && (
+                      <div className="mt-5">
+                        <CreativeTable
+                          levelData={dataByActivelevel(activeLevel)}
+                        />
+                      </div>
+                    )}
+                  </>
+                )}
+              </>
+            )}
+
+            {activeTab == 2 && (
+              <AddressSection
+                data={userAddressDetail}
+                addNewaddress={addNewadress}
+              />
+            )}
+            {activeTab == 3 && <Orderlists odrerlisting={orderList} />}
+          </div>
         </div>
-      </div>
-    </Apploader>
+      </Apploader>
+
+      <Dialog open={isOpen} dismiss={false}>
+        <Apploader Loadingstate={formSubmit}>
+          <>
+            <DialogHeader>Add New Address</DialogHeader>
+            <DialogBody
+              className="bg-dark rounded-lg"
+              style={{ backgroundColor: "#17212b" }}
+            >
+              <Createaddress onCancel={addNewadress} onCreate={addNewadress} />
+            </DialogBody>
+          </>
+        </Apploader>
+      </Dialog>
+    </>
   );
 }

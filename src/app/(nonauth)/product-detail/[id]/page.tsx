@@ -28,7 +28,7 @@ export default function Productdetail() {
   // }, []);
 
   useEffect(() => {
-    let mewdata = sessionStorage.getItem("cdata");
+    let mewdata = localStorage.getItem("cdata");
     if (mewdata) {
       dispatch(cartproductList(JSON.parse(mewdata)));
       Productdetails(productid);
@@ -47,7 +47,7 @@ export default function Productdetail() {
         setpageloader(1);
         const response: any = await productDetails(id).then((res) => res);
         if (response.succeeded && response.data) {
-          let mewdata: any = sessionStorage.getItem("cdata");
+          let mewdata: any = localStorage.getItem("cdata");
           mewdata = JSON.parse(mewdata);
 
           if (productSelector.cartproductlist || mewdata?.cartproductlist) {
@@ -146,7 +146,7 @@ export default function Productdetail() {
               notincart?.length > 0 ? JSON.stringify(notincart) : null,
             productQuantity: notincart?.length > 0 ? notincart.length : null,
           };
-          sessionStorage.setItem("cdata", JSON.stringify(scartData));
+          localStorage.setItem("cdata", JSON.stringify(scartData));
           dispatch(
             cartproductList({
               cartproductlist:
@@ -171,7 +171,7 @@ export default function Productdetail() {
             productQuantity:
               dataAddedlist?.length > 0 ? dataAddedlist.length : null,
           };
-          sessionStorage.setItem("cdata", JSON.stringify(scartData));
+          localStorage.setItem("cdata", JSON.stringify(scartData));
           dispatch(
             cartproductList({
               cartproductlist:
@@ -210,7 +210,7 @@ export default function Productdetail() {
           productdata?.length > 0 ? JSON.stringify(productdata) : null,
         productQuantity: productdata?.length > 0 ? productdata.length : null,
       };
-      sessionStorage.setItem("cdata", JSON.stringify(scartData));
+      localStorage.setItem("cdata", JSON.stringify(scartData));
       dispatch(
         cartproductList({
           cartproductlist:
