@@ -18,6 +18,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createOrder } from "@/helpers/services/order";
 import { ToastContainer, toast } from "react-toastify";
+import config from "@/config";
 
 export default function Cart() {
   const [cartproductlist, setcartproductlist] = useState<any>([]);
@@ -258,6 +259,27 @@ export default function Cart() {
     );
   }
 
+  const imgUrl = config.imgBaseurl;
+  const imagePathFunc = (data: any) => {
+    let pathvalue = data;
+    if (pathvalue) {
+      pathvalue = pathvalue.replace(/\\/g, "/");
+    }
+
+    return pathvalue;
+  };
+
+  function imageData(data: any) {
+    let path;
+    if (data?.length > 0) {
+      path = imgUrl + imagePathFunc(data[0]?.imagePath);
+    } else {
+      path = "/image/product-image/blankets-img.jpg";
+    }
+
+    return path;
+  }
+
   return (
     <>
       <Apploader Loadingstate={cartLoading}>
@@ -284,7 +306,7 @@ export default function Cart() {
                       >
                         <div className="flex items-center space-x-4 custom-res-cart-3">
                           <img
-                            src="/image/product-image/blankets-img.jpg"
+                            src={imageData(item.productImages)}
                             alt="Product"
                             className="w-20 h-20 rounded-lg"
                           />

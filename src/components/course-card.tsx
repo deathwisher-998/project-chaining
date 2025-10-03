@@ -43,13 +43,33 @@ export function CourseCard({
   const { token, loading } = useAuth(); // your auth logic
   const navigation = useRouter();
 
+  const imagePathFunc = (data: any) => {
+    let pathvalue = data;
+    if (pathvalue) {
+      pathvalue = pathvalue.replace(/\\/g, "/");
+    }
+
+    return pathvalue;
+  };
+
+  function imageData(data:any) {
+    let path;
+    if (data?.length > 0) {
+      path = imgurl + imagePathFunc(data[0]?.imagePath);
+    } else {
+      path = "/image/product-image/blankets-img.jpg";
+    }
+
+    return path;
+  }
+
   return (
     <Card className="border">
       <CardHeader className="h-64">
         <Image
           width={768}
           height={768}
-          src={productImages ? (imgurl + productImages) : "/image/product-image/blankets-img.jpg"}
+          src={imageData(productImages)}
           alt={name}
           className="h-full w-full object-cover scale-[1.1]"
         />
@@ -66,7 +86,7 @@ export function CourseCard({
         </div> */}
         <Link
           href={{
-            pathname: routes.nonauth.productdetail + id.slice(0,5),
+            pathname: routes.nonauth.productdetail + id.slice(0, 5),
             query: { id: id },
           }}
           className="text-blue-gray-900 transition-colors hover:text-gray-900"
@@ -76,30 +96,32 @@ export function CourseCard({
           </Typography>
         </Link>
         <Typography className="mb-6 font-normal !text-gray-500">
-          {discription.slice(0, 100)  + "..."}
+          {discription.slice(0, 100) + "..."}
         </Typography>
         <div className="flex justify-between">
           <div className="flex">
             <Typography className="mb-6 font-bold text-black">
-            Price {salePrice} Rs
-          </Typography>
-          <Typography className="ml-2 line-through">
-            {regularPrice} Rs
-          </Typography>
+              Price {salePrice} Rs
+            </Typography>
+            <Typography className="ml-2 line-through">
+              {regularPrice} Rs
+            </Typography>
           </div>
 
-          {!addtocart && <div>
-            <Button
-              variant="outlined"
-              size="sm"
-              onClick={() => addcart(id)}
-              className="mr-2"
-            >
-              Add to cart
-            </Button>
-          </div> }
+          {!addtocart && (
+            <div>
+              <Button
+                variant="outlined"
+                size="sm"
+                onClick={() => addcart(id)}
+                className="mr-2"
+              >
+                Add to cart
+              </Button>
+            </div>
+          )}
         </div>
-        {addtocart && 
+        {addtocart && (
           <>
             {" "}
             <Button
@@ -116,7 +138,7 @@ export function CourseCard({
               Remove
             </Button>{" "}
           </>
-        }
+        )}
         {/* <Button variant="outlined">{label}</Button> */}
       </CardBody>
     </Card>

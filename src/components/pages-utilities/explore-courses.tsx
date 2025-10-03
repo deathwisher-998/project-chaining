@@ -43,24 +43,21 @@ export function ExploreCourses() {
           item.addtocart = false;
           item.cartquantity = 1;
         });
-
-        productsRef.current = await Promise.all(
-          productsRef.current.map(async (product: any) => {
-            const imgRes = await productImages(product.id).then((res) => res);
-            const images = await imgRes;
-            return {
-              ...product,
-              productImages:
-                images.data?.length > 0
-                  ? imagePathFunc(images.data[0]?.imagePath)
-                  : null,
-            };
-          })
-        );
-
+        // productsRef.current = await Promise.all(
+        //   productsRef.current.map(async (product: any) => {
+        //     const imgRes = await productImages(product.id).then((res) => res);
+        //     const images = await imgRes;
+        //     return {
+        //       ...product,
+        //       productImages:
+        //         images.data?.length > 0
+        //           ? imagePathFunc(images.data[0]?.imagePath)
+        //           : null,
+        //     };
+        //   })
+        // );
         let mewdata:any = localStorage.getItem("cdata");
         mewdata = JSON.parse(mewdata)
-
         if (productSelector.cartproductlist || mewdata?.cartproductlist) {
           const data: any = JSON.parse(productSelector?.cartproductlist || mewdata?.cartproductlist);
 

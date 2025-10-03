@@ -67,6 +67,27 @@ export default function ProductDetails({ id, data, addcart }: Productdetail) {
     }
   }, [quantity]);
 
+
+  const imagePathFunc = (data: any) => {
+    let pathvalue = data;
+    if (pathvalue) {
+      pathvalue = pathvalue.replace(/\\/g, "/");
+    }
+
+    return pathvalue;
+  };
+
+  function imageData(data:any) {
+    let path;
+    if (data?.length > 0) {
+      path = imgurl + imagePathFunc(data[0]?.imagePath);
+    } else {
+      path = "/image/product-image/blankets-img.jpg";
+    }
+
+    return path;
+  }
+
   return (
     <>
       {productData && (
@@ -75,11 +96,7 @@ export default function ProductDetails({ id, data, addcart }: Productdetail) {
             {/* Product Image */}
             <div className="flex justify-center items-center">
               <img
-                src={
-                  productData.productImages
-                    ? imgurl + productData.productImages
-                    : "/image/product-image/blankets-img.jpg"
-                }
+                src={imageData(productData.productImages)}
                 alt="Product"
                 className="rounded-xl w-[100%] object-cover"
               />

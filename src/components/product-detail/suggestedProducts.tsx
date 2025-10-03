@@ -18,6 +18,26 @@ export default function SuggestedProducts({ data }: suggestedProduct) {
 
   const imgUrl = config.imgBaseurl;
 
+  const imagePathFunc = (data: any) => {
+    let pathvalue = data;
+    if (pathvalue) {
+      pathvalue = pathvalue.replace(/\\/g, "/");
+    }
+
+    return pathvalue;
+  };
+
+  function imageData(data:any) {
+    let path;
+    if (data?.length > 0) {
+      path = imgUrl + imagePathFunc(data[0]?.imagePath);
+    } else {
+      path = "/image/product-image/blankets-img.jpg";
+    }
+
+    return path;
+  }
+
   return (
     <div className="p-6 rounded-lg shadow-md mb-20 pb-8 pt-8" style={{backgroundColor:"#c90754"}}>
       {data && (
@@ -34,7 +54,7 @@ export default function SuggestedProducts({ data }: suggestedProduct) {
               >
                 <CardHeader floated={false} className="h-40">
                   <img
-                    src={product.productImages ? (imgUrl + product.productImages) : "/image/product-image/blankets-img.jpg"}
+                    src={imageData(product.productImages)}
                     alt={product.name}
                     className="h-full w-full object-cover rounded-lg"
                   />

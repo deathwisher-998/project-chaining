@@ -90,20 +90,6 @@ export default function Productdetail() {
         item.cartquantity = 1;
       });
 
-      productsRef.current = await Promise.all(
-        productsRef.current.map(async (product: any) => {
-          const imgRes = await productImages(product.id).then((res) => res);
-          const images = await imgRes;
-          return {
-            ...product,
-            productImages:
-              images.data?.length > 0
-                ? imagePathFunc(images.data[0]?.imagePath)
-                : null,
-          };
-        })
-      );
-
       productsRef.current = productsRef.current.filter(
         (items: any) => items.id != productid
       );
