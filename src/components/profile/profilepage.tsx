@@ -33,7 +33,6 @@ export default function ProfilePage({ routeid }: { routeid: any }) {
   const teamReportRef = useRef<any>(null);
   const [teamReport, setteamReport] = useState(null);
   const [activeLevel, setactiveLevel] = useState(1);
-  const [activeTab, setactiveTab] = useState(1);
   const [userAddressDetail, setuserAddressDetail] = useState<any>(null);
   const [isOpen, setisOpen] = useState(false);
   const [formSubmit, setformSubmit] = useState(0);
@@ -67,7 +66,7 @@ export default function ProfilePage({ routeid }: { routeid: any }) {
       if (response.succeeded && response.data?.length > 0) {
         setuserAddressDetail((e: any) => response.data);
         if (routeid) {
-          setactiveTab((e) => 2);
+          setactiveMenu((e) => 4);
         }
       } else {
         setuserAddressDetail((e: any) => null);
