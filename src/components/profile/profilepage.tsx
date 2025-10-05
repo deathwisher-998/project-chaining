@@ -7,7 +7,7 @@ import {
   userLevel,
   userAddress,
   createAddress,
-  userAddressByid
+  userAddressByid,
 } from "@/helpers/services/users";
 import {
   Button,
@@ -21,9 +21,7 @@ import Createaddress from "./createAddress";
 import { ToastContainer, toast } from "react-toastify";
 import { Orderlist } from "@/helpers/services/order";
 import Orderlists from "./orderList";
-import {
-  CheckBadgeIcon
-} from "@heroicons/react/24/solid";
+import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 
 export default function ProfilePage({ routeid }: { routeid: any }) {
   const [loading, setloading] = useState(1);
@@ -58,7 +56,7 @@ export default function ProfilePage({ routeid }: { routeid: any }) {
 
   async function useraddress() {
     try {
-      const id = localStorage.getItem('uId')
+      const id = localStorage.getItem("uId");
       const response: any = await userAddressByid(id).then((res) => res);
       if (response.succeeded && response.data?.length > 0) {
         setuserAddressDetail((e: any) => response.data);
@@ -142,7 +140,9 @@ export default function ProfilePage({ routeid }: { routeid: any }) {
                     <td className="px-6 py-4 text-gray-600">
                       {item.phoneNumber}
                     </td>
-                    <td className="px-6 py-4 font-medium text-gray-800">{item.commission}</td>
+                    <td className="px-6 py-4 font-medium text-gray-800">
+                      {item.commission}
+                    </td>
                     <td className="px-6 py-4">
                       <span
                         className={`px-3 py-1 text-xs font-semibold rounded-full ${
@@ -225,6 +225,45 @@ export default function ProfilePage({ routeid }: { routeid: any }) {
     }
   }
 
+  function countCommissionorUser(data: any, flag: number) {
+    if (flag == 1) {
+      const totalCommission = data.reduce((total: any, level: any) => {
+        const levelSum = level.users.reduce((sum: any, user: any) => {
+          return sum + (user.commission || 0);
+        }, 0);
+        return total + levelSum;
+      }, 0);
+      return totalCommission + ".00";
+    } else if (flag == 2) {
+      let todayCommission;
+      let currentDate = new Date().toISOString();
+      currentDate = currentDate.split("T")[0];
+      let listOftodayCommission = data.filter((item: any) => {
+        if (
+          item.commissionDate &&
+          item?.commissionDate[0]?.split("T")[0] == currentDate
+        ) {
+          return;
+        }
+      });
+      if (listOftodayCommission.length > 0) {
+        listOftodayCommission.reduce((total: any, level: any) => {
+          const levelSum = level.users.reduce((sum: any, user: any) => {
+            return sum + (user.commission || 0);
+          }, 0);
+          return total + levelSum;
+        }, 0);
+      }
+
+      return todayCommission ? todayCommission : "0";
+    } else if (flag == 3) {
+      const totalusers = data.reduce((total: any, level: any) => {
+        return total + level.users?.length;
+      }, 0);
+      return totalusers ? totalusers : 0;
+    }
+  }
+
   return (
     <>
       <Apploader Loadingstate={loading}>
@@ -254,11 +293,21 @@ export default function ProfilePage({ routeid }: { routeid: any }) {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                       <div>
                         <h3 className="font-bold text-xl text-white">Info.</h3>
-                        <p className="text-white">{userDeatils?.phoneNumber}</p> 
-                        <p className="text-white flex items-center">{userDeatils?.email} {userDeatils?.emailConfirmed && <CheckBadgeIcon strokeWidth={2} className="h-5 w-5 ml-2" />}</p>
+                        <p className="text-white">{userDeatils?.phoneNumber}</p>
+                        <p className="text-white flex items-center">
+                          {userDeatils?.email}{" "}
+                          {userDeatils?.emailConfirmed && (
+                            <CheckBadgeIcon
+                              strokeWidth={2}
+                              className="h-5 w-5 ml-2"
+                            />
+                          )}
+                        </p>
                       </div>
                       <div className="ml-10">
-                        <h3 className="font-bold text-white text-xl">Referral Code</h3>
+                        <h3 className="font-bold text-white text-xl">
+                          Referral Code
+                        </h3>
                         <p className="text-white">
                           {userDeatils?.referralCode}
                         </p>
@@ -275,7 +324,11 @@ export default function ProfilePage({ routeid }: { routeid: any }) {
               <Button
                 size="sm"
                 onClick={() => setactiveTab((e) => 1)}
-                className={`border rounded-md p-1 px-4 text-center ${activeTab == 1 ? "btn-color-by-logo-2 text-white border-color-by-logo-2" : "bg-white text-black border-black"}`}
+                className={`border rounded-md p-1 px-4 text-center ${
+                  activeTab == 1
+                    ? "btn-color-by-logo-2 text-white border-color-by-logo-2"
+                    : "bg-white text-black border-black"
+                }`}
               >
                 <h1 className="text-xl font-bold normal-case">Team Report</h1>
               </Button>
@@ -283,7 +336,11 @@ export default function ProfilePage({ routeid }: { routeid: any }) {
               <Button
                 size="sm"
                 onClick={() => setactiveTab((e) => 2)}
-                className={`border rounded-md p-1 px-4 text-center border-black ${activeTab == 2 ? "btn-color-by-logo-2 text-white border-color-by-logo-2" : "bg-white text-black border-black"}`}
+                className={`border rounded-md p-1 px-4 text-center border-black ${
+                  activeTab == 2
+                    ? "btn-color-by-logo-2 text-white border-color-by-logo-2"
+                    : "bg-white text-black border-black"
+                }`}
               >
                 <h1 className="text-xl font-bold normal-case">Address</h1>
               </Button>
@@ -291,7 +348,11 @@ export default function ProfilePage({ routeid }: { routeid: any }) {
               <Button
                 size="sm"
                 onClick={() => [setactiveTab((e) => 3), getOrderbyUserId()]}
-                className={`border rounded-md p-1 px-4 text-center border-black ${activeTab == 3 ? "btn-color-by-logo-2 text-white border-color-by-logo-2" : "bg-white text-black border-black"}`}
+                className={`border rounded-md p-1 px-4 text-center border-black ${
+                  activeTab == 3
+                    ? "btn-color-by-logo-2 text-white border-color-by-logo-2"
+                    : "bg-white text-black border-black"
+                }`}
               >
                 <h1 className="text-xl font-bold normal-case">Orders</h1>
               </Button>
@@ -304,19 +365,19 @@ export default function ProfilePage({ routeid }: { routeid: any }) {
                     <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-2">
                       <div className="btn-color-by-logo-1 rounded-md p-2 text-center">
                         <h1 className="font-bold text-white text-xl">
-                          56788.00
+                          {countCommissionorUser(teamReport, 1)}
                         </h1>
                         <h2 className="text-white">Total Commission</h2>
                       </div>
                       <div className="btn-color-by-logo-1 rounded-md p-2 text-center">
                         <h1 className="font-bold text-white text-xl">
-                          56788.00
+                          {countCommissionorUser(teamReport, 2)}
                         </h1>
                         <h2 className="text-white">Today Commission</h2>
                       </div>
                       <div className="btn-color-by-logo-1 rounded-md p-2 text-center">
                         <h1 className="font-bold text-white text-xl">
-                          56788.00
+                          {countCommissionorUser(teamReport, 3)}
                         </h1>
                         <h2 className="text-white">Total User</h2>
                       </div>

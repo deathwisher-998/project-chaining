@@ -3,6 +3,7 @@
 import Logincomponent from "@/components/login/Login-page";
 import Chakraprovider from "@/components/Provider/Provider";
 import { useEffect } from "react";
+import LoginPage from "./pagenew";
 
 
 export default function Login() {
@@ -15,6 +16,7 @@ export default function Login() {
     <>
       <Chakraprovider>
         <Logincomponent />
+        {/* <LoginPage /> */}
       </Chakraprovider>
     </>
   );
