@@ -25,8 +25,8 @@ export default function Orderlists({ odrerlisting }: { odrerlisting: any }) {
           {/* Accordion Header */}
           <AccordionHeader
             onClick={() => handleOpen(order.id)}
-            className="flex justify-between items-center gap-2 px-4"
-            style={{ backgroundColor: "#d3d3d3", borderBottomColor: "#fff" }}
+            className={`flex justify-between items-center gap-2 px-4 rounded-md ${open === order.id && 'shadow-md'}`}
+            style={{ backgroundColor: "#c5c5c5", borderBottomColor: "#fff" }}
           >
             <div className="w-full grid grid-cols-2">
               <div>
@@ -52,10 +52,10 @@ export default function Orderlists({ odrerlisting }: { odrerlisting: any }) {
               {order.orderItems.map((item, index) => (
                 <div
                   key={index}
-                  className="border rounded-lg p-3 shadow-sm flex flex-col"
+                  className="border rounded-lg p-3 shadow-sm bg-white flex flex-col"
                 >
-                  <span className="font-semibold">{item.product.name}</span>
-                  <span className="text-sm text-gray-500">
+                  <span className="font-semibold text-black">{item.product.name}</span>
+                  <span className="text-sm text-gray-800">
                     Qty: {item.quantity}
                   </span>
                   <span className="font-semibold">{item.price}</span>

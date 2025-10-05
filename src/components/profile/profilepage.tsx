@@ -21,10 +21,14 @@ import Createaddress from "./createAddress";
 import { ToastContainer, toast } from "react-toastify";
 import { Orderlist } from "@/helpers/services/order";
 import Orderlists from "./orderList";
-import { CheckBadgeIcon } from "@heroicons/react/24/solid";
+import {
+  CheckBadgeIcon,
+  ChevronDoubleRightIcon,
+} from "@heroicons/react/24/solid";
+import Sidemenudata from "@/components/profile/sidemenujson/sidemenu.json";
 
 export default function ProfilePage({ routeid }: { routeid: any }) {
-  const [loading, setloading] = useState(1);
+  const [loading, setloading] = useState(0);
   const [userDeatils, setuserDeatils] = useState<any>(null);
   const teamReportRef = useRef<any>(null);
   const [teamReport, setteamReport] = useState(null);
@@ -34,6 +38,8 @@ export default function ProfilePage({ routeid }: { routeid: any }) {
   const [isOpen, setisOpen] = useState(false);
   const [formSubmit, setformSubmit] = useState(0);
   const [orderList, setorderList] = useState<any>(null);
+  const Sidemenu = Sidemenudata;
+  const [activeMenu, setactiveMenu] = useState(1);
 
   const [profile, setProfile] = useState({
     username: "Jatin Arora",
@@ -268,162 +274,171 @@ export default function ProfilePage({ routeid }: { routeid: any }) {
     <>
       <Apploader Loadingstate={loading}>
         <ToastContainer />
-        <div className="mt-10 p-5 mb-10">
-          <div className="w-full  bg-gradient-to-r from-gray-800 via-gray-700 to-gray-600 rounded-xl shadow-lg p-8">
-            <div className="mb-6">
-              <h1 className="text-2xl font-bold text-white">Personal Centre</h1>
+        <div className="mt-10 mb-10 min-h-[600px]">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 p-5">
+            <div className="md:col-span-3 btn-color-by-logo-2 rounded-md shadow-lg p-4 pt-5 pb-5">
+              {Sidemenu.map((item) => {
+                return (
+                  <div
+                    className={`side-menuitem-section  flex items-center justify-between p-3 rounded-xl mb-3 ${
+                      activeMenu == item.id && "btn-color-by-logo-1"
+                    }`}
+                    style={{cursor:"pointer"}}
+                    key={item.id}
+                    onClick={() => setactiveMenu((e) => item.id)}
+                  >
+                    <h1 className="font-semibold text-lg text-white">
+                      {item.name}
+                    </h1>
+                    {activeMenu == item.id && (
+                      <ChevronDoubleRightIcon
+                        strokeWidth={2}
+                        color="#fff"
+                        className="h-5 w-5 ml-2"
+                      />
+                    )}
+                  </div>
+                );
+              })}
             </div>
 
-            {userDeatils && (
-              <div className="flex items-center mb-6">
-                <div className="mr-5">
-                  <div className="w-24 h-24 rounded-full bg-white text-black flex items-center justify-center text-2xl font-bold shadow-md">
-                    {userDeatils.firstName.charAt(0) +
-                      "" +
-                      userDeatils.lastName.charAt(0)}
-                  </div>
-                </div>
+            <div className="md:col-span-9 bg-gray-100 rounded-md p-5">
+              {activeMenu == 1 && (
                 <div>
-                  <div className="grid grid-cols-1 gap-2">
-                    <div>
-                      <h2 className="text-white text-xl font-semibold underline">
-                        {userDeatils?.firstName + " " + userDeatils?.lastName}
-                      </h2>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                      <div>
-                        <h3 className="font-bold text-xl text-white">Info.</h3>
-                        <p className="text-white">{userDeatils?.phoneNumber}</p>
-                        <p className="text-white flex items-center">
-                          {userDeatils?.email}{" "}
-                          {userDeatils?.emailConfirmed && (
-                            <CheckBadgeIcon
-                              strokeWidth={2}
-                              className="h-5 w-5 ml-2"
-                            />
-                          )}
-                        </p>
+                  {userDeatils && (
+                    <>
+                      <div className="flex items-center mb-6">
+                        <div className="mr-5">
+                          <div className="w-24 h-24 rounded-full bg-gray-800 text-black flex items-center justify-center text-2xl font-bold shadow-md text-white">
+                            {userDeatils.firstName.charAt(0) +
+                              "" +
+                              userDeatils.lastName.charAt(0)}
+                          </div>
+                        </div>
+                        <div>
+                          <div className="grid grid-cols-1 gap-2">
+                            <div>
+                              <h2 className="text-black text-xl font-semibold underline">
+                                {userDeatils?.firstName +
+                                  " " +
+                                  userDeatils?.lastName}
+                              </h2>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <div className="ml-10">
-                        <h3 className="font-bold text-white text-xl">
-                          Referral Code
-                        </h3>
-                        <p className="text-white">
-                          {userDeatils?.referralCode}
-                        </p>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                        <div>
+                          <h3 className="font-bold text-xl text-black">
+                            Info.
+                          </h3>
+                          <p className="text-black">
+                            {userDeatils?.phoneNumber}
+                          </p>
+                          <p className="text-black flex items-center">
+                            {userDeatils?.email}{" "}
+                            {userDeatils?.emailConfirmed && (
+                              <CheckBadgeIcon
+                                strokeWidth={2}
+                                color="#c8a042"
+                                className="h-5 w-5 ml-2"
+                              />
+                            )}
+                          </p>
+                        </div>
+                        <div className="ml-10">
+                          <h3 className="font-bold text-black text-xl">
+                            Referral Code
+                          </h3>
+                          <p className="text-black">
+                            {userDeatils?.referralCode}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  </div>
+                    </>
+                  )}
                 </div>
-              </div>
-            )}
-          </div>
+              )}
 
-          <div className="w-full  bg-white rounded-xl shadow-lg p-8 mt-5">
-            <div className="mb-6 tabs-btn-profile">
-              <Button
-                size="sm"
-                onClick={() => setactiveTab((e) => 1)}
-                className={`border rounded-md p-1 px-4 text-center ${
-                  activeTab == 1
-                    ? "btn-color-by-logo-2 text-white border-color-by-logo-2"
-                    : "bg-white text-black border-black"
-                }`}
-              >
-                <h1 className="text-xl font-bold normal-case">Team Report</h1>
-              </Button>
+              {activeMenu == 2 && (
+                <div>
+                  {teamReport && (
+                    <>
+                      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-2">
+                        <div className="btn-color-by-logo-1 rounded-md p-2 text-center">
+                          <h1 className="font-bold text-white text-xl">
+                            {countCommissionorUser(teamReport, 1)}
+                          </h1>
+                          <h2 className="text-white">Total Commission</h2>
+                        </div>
+                        <div className="btn-color-by-logo-1 rounded-md p-2 text-center">
+                          <h1 className="font-bold text-white text-xl">
+                            {countCommissionorUser(teamReport, 2)}
+                          </h1>
+                          <h2 className="text-white">Today Commission</h2>
+                        </div>
+                        <div className="btn-color-by-logo-1 rounded-md p-2 text-center">
+                          <h1 className="font-bold text-white text-xl">
+                            {countCommissionorUser(teamReport, 3)}
+                          </h1>
+                          <h2 className="text-white">Total User</h2>
+                        </div>
+                      </div>
 
-              <Button
-                size="sm"
-                onClick={() => setactiveTab((e) => 2)}
-                className={`border rounded-md p-1 px-4 text-center border-black ${
-                  activeTab == 2
-                    ? "btn-color-by-logo-2 text-white border-color-by-logo-2"
-                    : "bg-white text-black border-black"
-                }`}
-              >
-                <h1 className="text-xl font-bold normal-case">Address</h1>
-              </Button>
+                      {teamReport?.length > 0 && (
+                        <div className="grid grid-cols-4 md:grid-cols-10 lg:grid-cols-10 gap-1 mt-5">
+                          {teamReport?.map((item: any, i: number) => {
+                            return (
+                              <Button
+                                size="sm"
+                                key={i}
+                                onClick={() =>
+                                  setactiveLevel((e) => item?.level)
+                                }
+                                className="border-2 rounded-md p-2 text-center border-black"
+                                color={
+                                  activeLevel == item.level ? "gray" : "white"
+                                }
+                              >
+                                Lv {i + 1}
+                              </Button>
+                            );
+                          })}
+                        </div>
+                      )}
 
-              <Button
-                size="sm"
-                onClick={() => [setactiveTab((e) => 3), getOrderbyUserId()]}
-                className={`border rounded-md p-1 px-4 text-center border-black ${
-                  activeTab == 3
-                    ? "btn-color-by-logo-2 text-white border-color-by-logo-2"
-                    : "bg-white text-black border-black"
-                }`}
-              >
-                <h1 className="text-xl font-bold normal-case">Orders</h1>
-              </Button>
+                      {dataByActivelevel(activeLevel) && (
+                        <div className="mt-5">
+                          <CreativeTable
+                            levelData={dataByActivelevel(activeLevel)}
+                          />
+                        </div>
+                      )}
+                    </>
+                  )}
+                </div>
+              )}
+
+              {activeMenu == 3 && (
+                <>
+                  <Orderlists odrerlisting={orderList} />
+                </>
+              )}
+
+              {activeMenu == 4 && (
+                <>
+                  <AddressSection
+                    data={userAddressDetail}
+                    addNewaddress={addNewadress}
+                  />
+                </>
+              )}
             </div>
-
-            {activeTab == 1 && (
-              <>
-                {teamReport && (
-                  <>
-                    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-2">
-                      <div className="btn-color-by-logo-1 rounded-md p-2 text-center">
-                        <h1 className="font-bold text-white text-xl">
-                          {countCommissionorUser(teamReport, 1)}
-                        </h1>
-                        <h2 className="text-white">Total Commission</h2>
-                      </div>
-                      <div className="btn-color-by-logo-1 rounded-md p-2 text-center">
-                        <h1 className="font-bold text-white text-xl">
-                          {countCommissionorUser(teamReport, 2)}
-                        </h1>
-                        <h2 className="text-white">Today Commission</h2>
-                      </div>
-                      <div className="btn-color-by-logo-1 rounded-md p-2 text-center">
-                        <h1 className="font-bold text-white text-xl">
-                          {countCommissionorUser(teamReport, 3)}
-                        </h1>
-                        <h2 className="text-white">Total User</h2>
-                      </div>
-                    </div>
-
-                    {teamReport?.length > 0 && (
-                      <div className="grid grid-cols-4 md:grid-cols-10 lg:grid-cols-10 gap-1 mt-5">
-                        {teamReport?.map((item: any, i: number) => {
-                          return (
-                            <Button
-                              size="sm"
-                              key={i}
-                              onClick={() => setactiveLevel((e) => item?.level)}
-                              className="border-2 rounded-md p-2 text-center border-black"
-                              color={
-                                activeLevel == item.level ? "gray" : "white"
-                              }
-                            >
-                              Lv {i + 1}
-                            </Button>
-                          );
-                        })}
-                      </div>
-                    )}
-
-                    {dataByActivelevel(activeLevel) && (
-                      <div className="mt-5">
-                        <CreativeTable
-                          levelData={dataByActivelevel(activeLevel)}
-                        />
-                      </div>
-                    )}
-                  </>
-                )}
-              </>
-            )}
-
-            {activeTab == 2 && (
-              <AddressSection
-                data={userAddressDetail}
-                addNewaddress={addNewadress}
-              />
-            )}
-            {activeTab == 3 && <Orderlists odrerlisting={orderList} />}
           </div>
         </div>
+
+       
       </Apploader>
 
       <Dialog open={isOpen} dismiss={false}>
