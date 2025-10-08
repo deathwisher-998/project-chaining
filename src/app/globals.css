@@ -86,3 +86,6 @@
   border-color: #1d477a !important;
 }
 
+.login-sectionbanner{
+  background-image:url('/image/login-pattern.jpg');
+}

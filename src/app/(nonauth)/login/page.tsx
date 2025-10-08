@@ -16,7 +16,6 @@ export default function Login() {
     <>
       <Chakraprovider>
         <Logincomponent />
-        {/* <LoginPage /> */}
       </Chakraprovider>
     </>
   );
