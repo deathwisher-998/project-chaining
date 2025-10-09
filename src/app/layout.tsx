@@ -4,8 +4,6 @@ import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import { Layout, FixedPlugin } from "@/components";
 import { Providers } from "./globalstore/provider";
-import { AuthProvider } from "@/context/AuthContext";
-import Chakraprovider from "@/components/Provider/Provider";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -14,9 +12,9 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "NextJS Tailwind Course Landing Page",
+  title: "Samdena",
   description:
-    "Introducing Tailwind Course Landing Page, a versatile and engaging landing page template designed using Tailwind CSS and Material Tailwind.",
+    "Shop your favourite product now",
 };
 
 export default function RootLayout({

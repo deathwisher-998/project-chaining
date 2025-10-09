@@ -282,7 +282,7 @@ export default function ProfilePage({ routeid }: { routeid: any }) {
                     className={`side-menuitem-section  flex items-center justify-between p-3 rounded-xl mb-3 ${
                       activeMenu == item.id && "btn-color-by-logo-1"
                     }`}
-                    style={{cursor:"pointer"}}
+                    style={{ cursor: "pointer" }}
                     key={item.id}
                     onClick={() => setactiveMenu((e) => item.id)}
                   >
@@ -346,7 +346,7 @@ export default function ProfilePage({ routeid }: { routeid: any }) {
                             )}
                           </p>
                         </div>
-                        <div className="ml-10">
+                        <div className="ml-0 md:ml-10">
                           <h3 className="font-bold text-black text-xl">
                             Referral Code
                           </h3>
@@ -436,8 +436,6 @@ export default function ProfilePage({ routeid }: { routeid: any }) {
             </div>
           </div>
         </div>
-
-       
       </Apploader>
 
       <Dialog open={isOpen} dismiss={false}>

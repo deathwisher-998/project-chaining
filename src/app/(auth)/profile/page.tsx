@@ -1,7 +1,8 @@
 import ProfilePage from "@/components/profile/profilepage";
 import Chakraprovider from "@/components/Provider/Provider";
+import React from "react";
 
-export default function Useraccount() {
+function Useraccount() {
   return (
     <>
       <Chakraprovider>
@@ -10,3 +11,6 @@ export default function Useraccount() {
     </>
   );
 }
+
+
+export default React.memo(Useraccount)

@@ -24,7 +24,7 @@ export default function AddressSection({ data, addNewaddress }: propsTypes) {
     <>
       <section className="w-full mx-auto">
         {" "}
-        <div className="flex justify-between mb-4 items-center">
+        <div className="flex justify-between flex-col sm:flex-row mb-4 items-center">
           <div>
             <h2 className="text-xl font-semibold text-color-by-logo-2">
               Select Delivery Address
