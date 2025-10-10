@@ -4,11 +4,6 @@ import React from "react";
 import { useKeenSlider } from "keen-slider/react";
 
 const Carousel = () => {
-  // const [sliderRef] = useKeenSlider({
-  //   loop: true,
-  //   mode: "free-snap",
-  //   slides: { perView: 1, spacing: 15 },
-  // });
 
   const [sliderRef, instanceRef] = useKeenSlider({
     loop: true,
@@ -18,14 +13,14 @@ const Carousel = () => {
   React.useEffect(() => {
     const interval = setInterval(() => {
       instanceRef.current?.next();
-    }, 3000);
+    }, 4000);
     return () => clearInterval(interval);
   }, [instanceRef]);
 
   const slides = [
-    { id: 1, image: "/image/slide1.jpeg", title: "Beautiful Nature" },
-    { id: 2, image: "/image/slide2.jpeg", title: "Peaceful Lake" },
-    { id: 3, image: "/image/slide3.jpeg", title: "Sunset Vibes" },
+    { id: 1, image: "/image/slide1.png", title: "Beautiful Nature" },
+    { id: 2, image: "/image/slide2.png", title: "Peaceful Lake" },
+    { id: 3, image: "/image/slide3.png", title: "Sunset Vibes" },
   ];
 
   return (
@@ -40,7 +35,7 @@ const Carousel = () => {
               <img
                 src={slide.image}
                 alt={slide.title}
-                className="w-full h-[450px] md:h-[650px]  object-cover md:object-fill"
+                className="w-full h-[350px] md:h-[650px]  object-cover md:object-cover"
               />
             </div>
           ))}

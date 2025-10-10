@@ -140,14 +140,14 @@ export function ExploreCourses() {
 
   return (
     <Apploader Loadingstate={productLoader}>
-      <section className="px-8 mt-20 md:mt-30 mb-20">
-        <div className="container mx-auto mb-24 text-center">
-          <Typography variant="h2"  className="text-color-by-logo-2 underline">
+      <section className="px-8 mt-10 md:mt-20 mb-20">
+        <div className="container mx-auto mb-20 md:mb-24 text-center">
+          <Typography variant="h2"  className="text-color-by-logo-2 underline text-2xl md:text-4xl md:mb-5">
             Our Products
           </Typography>
           <Typography
             variant="lead"
-            className="mt-2 mx-auto w-full px-4 !text-gray-500 lg:w-6/12 lg:px-8"
+            className="mt-2 mx-auto w-full px-4 !text-gray-500 lg:w-6/12 lg:px-8 text-sm md:text-xl"
           >
             Browse through 1,000+ web development courses and find the one that
             fits your needs.
