@@ -1,5 +1,6 @@
 import "./globals.css";
 import "react-toastify/dist/ReactToastify.css"; 
+import 'keen-slider/keen-slider.min.css';
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import { Layout, FixedPlugin } from "@/components";

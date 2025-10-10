@@ -140,7 +140,7 @@ export function ExploreCourses() {
 
   return (
     <Apploader Loadingstate={productLoader}>
-      <section className="px-8 mt-40 mb-20">
+      <section className="px-8 mt-20 md:mt-30 mb-20">
         <div className="container mx-auto mb-24 text-center">
           <Typography variant="h2"  className="text-color-by-logo-2 underline">
             Our Products

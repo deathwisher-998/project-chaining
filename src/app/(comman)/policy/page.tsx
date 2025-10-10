@@ -1,7 +1,7 @@
 export default function Policypage() {
   return (
     <>
-      <div className="container mx-auto mt-20 mb-20">
+      <div className="container mx-auto mt-10 mb-10 px-10 md:px-0 md:mb-20 md:mt-20">
         <h1 className="text-2xl font-semibold underline"> Payment Policy</h1>
         <p className="text-lg mt-5">
           Any Associate can buy Samdena deal’s products on their registered ID

@@ -5,13 +5,13 @@ import { Button, Typography, Card } from "@material-tailwind/react";
 
 function Hero() {
   return (
-    <div className="!flex h-[55vh] w-full items-center justify-between px-10 mb-20">
+    <div className="!flex h-[30vh] md:h-[55vh] w-full items-center justify-between px-10 mb-20">
       <Image
         width={1200}
         height={800}
         src="/image/homebanner.jpg"
         alt="bg-img"
-        className="absolute inset-0 ml-auto w-[100%] h-[650px] object-cover object-center"
+        className="absolute inset-0 ml-auto w-[100%] h-[450px] md:h-[650px] object-fill md:object-cover object-center"
       />
       <div className="container mx-auto mt-10">
         <div className="grid grid-cols-12 text-center lg:text-left">

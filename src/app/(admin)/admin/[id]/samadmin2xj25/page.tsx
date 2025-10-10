@@ -1,8 +1,14 @@
+import Adminlogincomponent from "@/components/admin/components/login/login";
+import Chakraprovider from "@/components/Provider/Provider";
 import React from "react";
 function Adminpage() {
   return (
     <>
-      <h1> Adminpage</h1>
+      <React.Fragment>
+         <Chakraprovider>
+            <Adminlogincomponent />
+         </Chakraprovider>
+      </React.Fragment>
     </>
   );
 }

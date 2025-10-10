@@ -36,7 +36,7 @@
   margin-right: 15px;
 }
 
-@media screen and (min-width: 300px) and (max-width: 600px) {
+@media screen and (min-width: 300px) and (max-width: 650px) {
   .custom-res-cart {
     flex-direction: column;
   }
@@ -60,32 +60,37 @@
     margin-right: 0px;
     margin-bottom: 10px;
   }
+
+  .logo-sz {
+    width: 120px;
+    height: auto;
+  }
 }
 
-.btn-color-by-logo-1{
+.btn-color-by-logo-1 {
   background-color: #c8a042 !important;
 }
 
-.btn-color-by-logo-2{
+.btn-color-by-logo-2 {
   background-color: #1d477a !important;
 }
 
-.text-color-by-logo-1{
+.text-color-by-logo-1 {
   color: #c8a042 !important;
 }
 
-.text-color-by-logo-2{
+.text-color-by-logo-2 {
   color: #1d477a !important;
 }
 
-.border-color-by-logo-1{
+.border-color-by-logo-1 {
   border-color: #c8a042 !important;
 }
 
-.border-color-by-logo-2{
+.border-color-by-logo-2 {
   border-color: #1d477a !important;
 }
 
-.login-sectionbanner{
-  background-image:url('/image/login-pattern.jpg');
+.login-sectionbanner {
+  background-image: url("/image/login-pattern.jpg");
 }

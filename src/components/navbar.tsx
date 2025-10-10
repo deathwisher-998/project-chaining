@@ -106,14 +106,14 @@ export function Navbar() {
   }
 
   return (
-    <div className="px-10 sticky top-4 z-50">
+    <div className="sticky top-0 z-50">
       <div className="mx-auto w-full">
         <MTNavbar
           blurred
           color="white"
-          className="z-50 mt-6 relative border-0 pr-10 py-3 pl-10 max-w-[100%]"
+          className="z-50 relative border-0 pr-2 py-3 pl-2 md:pl-10 md:pr-10 max-w-[100%]"
           // pt-5 pb-5
-          style={{ backgroundColor: "#17212b" }}
+          style={{ backgroundColor: "#17212b", borderRadius:0 }}
         >
           <div className="flex items-center justify-between">
             <Typography
@@ -121,7 +121,7 @@ export function Navbar() {
               className="text-lg font-bold text-white"
             >
               <Link href={routes.auth.home}>
-               <Image src={"/image/app-logo.png"} width={180} height={70} />
+               <Image src={"/image/app-logo.png"} width={180} height={70} className="logo-sz" />
               </Link>
             </Typography>
             {/* <ul className="ml-10 hidden items-center gap-8 lg:flex">

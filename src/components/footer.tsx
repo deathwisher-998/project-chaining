@@ -5,7 +5,7 @@ const LINKS = [
     title: "Company",
     items: [
       { name: "About", link: "/about" },
-      { name: "Company", link: "/company" },
+      { name: "Company", link: "/about-company" },
     ],
   },
   {
@@ -26,7 +26,7 @@ export function Footer() {
       className="px-8 pt-20 pb-8 mt-40"
       style={{ backgroundColor: "#17212b" }}
     >
-      <div className="container max-w-6xl flex flex-col mx-auto">
+      <div className="container flex flex-col mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-3 !w-full ">
           <div className="flex col-span-1 gap-24 mb-10 md:gap-20">
             {LINKS.map(({ title, items }) => (
@@ -69,7 +69,7 @@ export function Footer() {
               </Typography>
             </div>
           </div>
-          <div>
+          <div className="mt-10 sm:mt-0">
             <Typography variant="h6" className="mb-3 text-left text-white">
               Location
             </Typography>
@@ -86,7 +86,7 @@ export function Footer() {
             </div>
           </div>
         </div>
-        <div className="flex justify-between mt-10 border-t pt-7">
+        <div className="flex justify-center md:justify-between mt-10 border-t pt-7">
           <div>
             <Typography
               color="blue-gray"
