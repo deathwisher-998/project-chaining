@@ -110,7 +110,7 @@ const ProductCard: React.FC<ProductProps> = ({
 
       {!addtocart && (
         <CardFooter
-          className={`flex items-center justify-between px-4 py-3 border-t border-gray-200`}
+          className={`flex flex-col sm:flex-row items-left sm:items-center justify-between px-4 py-3 border-t border-gray-200`}
         >
           <div className="flex">
             <Typography className="font-bold text-black">
@@ -126,7 +126,7 @@ const ProductCard: React.FC<ProductProps> = ({
               variant="outlined"
               size="sm"
               onClick={() => addcart(id)}
-              className="mr-2 text-color-by-logo-2 border-color-by-logo-2"
+              className="mr-2 text-color-by-logo-2 border-color-by-logo-2 mt-2 sm:mt-0"
             >
               Add to cart
             </Button>
@@ -146,7 +146,7 @@ const ProductCard: React.FC<ProductProps> = ({
           </div>
 
           <>
-            <div className="flex justify-end">
+            <div className="flex justify-start sm:justify-end mt-2 sm:mt-0">
               {" "}
               <Button
                 // variant="gradient"

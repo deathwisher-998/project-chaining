@@ -11,11 +11,11 @@ export default function Addproduct() {
 
   let obj = {
     id: "",
-    categoryId: "5d70a287-c4b2-45b8-a420-fe363f85699c",
-    name: "Black Embroidered Viscose Rayon Straight Suit Set With Dupatta",
-    skU: "400587R-S",
-    regularPrice: 4699,
-    salePrice: 1199,
+    categoryId: "0a452f4f-38c8-474e-9e01-21d1e386f7fa",
+    name: "Heavy GSM Placement Print T-Shirt | Blue",
+    skU: "4505466-09R",
+    regularPrice: 1399,
+    salePrice: 839,
     quantity: 100,
     discription: "",
     isActive: true,
@@ -31,7 +31,7 @@ export default function Addproduct() {
     // console.log('imageFilePath.current', imageFilePath.current);
     let obj = {
       Id: "",
-      ProductId: "159bc703-03c2-4cd0-951f-81be1b53b03a",
+      ProductId: "5400f023-3bbe-48a0-ba31-b96a997e949b",
       Thumbnail: false,
       DisplayOrder: 1,
       Image: imageFilePath.current,
