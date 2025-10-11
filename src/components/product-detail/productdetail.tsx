@@ -67,7 +67,6 @@ export default function ProductDetails({ id, data, addcart }: Productdetail) {
     }
   }, [quantity]);
 
-
   const imagePathFunc = (data: any) => {
     let pathvalue = data;
     if (pathvalue) {
@@ -77,7 +76,7 @@ export default function ProductDetails({ id, data, addcart }: Productdetail) {
     return pathvalue;
   };
 
-  function imageData(data:any) {
+  function imageData(data: any) {
     let path;
     if (data?.length > 0) {
       path = imgurl + imagePathFunc(data[0]?.imagePath);
@@ -95,11 +94,19 @@ export default function ProductDetails({ id, data, addcart }: Productdetail) {
           <div className="max-w-8xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 bg-white rounded-2xl border-2 p-8">
             {/* Product Image */}
             <div className="flex justify-center items-center">
-              <img
+              {/* <img
                 src={imageData(productData.productImages)}
                 alt="Product"
                 className="rounded-xl w-[100%] object-cover"
-              />
+              /> */}
+              <div
+                className="w-full h-[400px] md:h-[400px] bg-gray-200 front-slider-hero rounded-md"
+                style={{
+                  backgroundImage: `url(${imageData(
+                    productData.productImages
+                  )})`,
+                }}
+              ></div>
             </div>
 
             {/* Product Info */}

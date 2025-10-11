@@ -49,15 +49,16 @@ function Logincomponent() {
         const res: any = await token(payload).then((res: any) => {
           return res;
         });
-        const response: loginResponse = res;
-        if (response.token) {
+        const response:any = res;
+        if (response.succeeded) {
+          toast.success("Login Successfully");
           setloadingState((e) => 0);
           setReset((e) => {});
-          localStorage.setItem("token", response.token);
-          localStorage.setItem("uId", response?.userId);
+          localStorage.setItem("token", response.data?.token);
+          localStorage.setItem("uId", response.data?.userId);
           navigate.replace("/");
         } else {
-          toast.error("Invalid Credentials");
+          toast.error(response?.messages[0]);
           setloadingState((e) => 0);
         }
       }

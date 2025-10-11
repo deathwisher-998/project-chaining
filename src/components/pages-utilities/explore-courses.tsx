@@ -10,6 +10,8 @@ import { cartproductList, addToCartFunc } from "@/app/globalstore/cart/actions";
 import { Productlist } from "@/helpers/services/product";
 import { Apploader } from "../loader/loading";
 import { productImage } from "@/helpers/services/product";
+import Productgrid from "../product-card-new/productcardgrid";
+import ProductCard from "../product-card-new/productcard";
 
 export function ExploreCourses() {
   const [products, setproducts] = useState<any>([]);
@@ -27,8 +29,8 @@ export function ExploreCourses() {
     let mewdata = localStorage.getItem("cdata");
     if (mewdata) {
       dispatch(cartproductList(JSON.parse(mewdata)));
-      getProductlist()
-    }else{
+      getProductlist();
+    } else {
       getProductlist();
     }
   }, []);
@@ -56,10 +58,12 @@ export function ExploreCourses() {
         //     };
         //   })
         // );
-        let mewdata:any = localStorage.getItem("cdata");
-        mewdata = JSON.parse(mewdata)
+        let mewdata: any = localStorage.getItem("cdata");
+        mewdata = JSON.parse(mewdata);
         if (productSelector.cartproductlist || mewdata?.cartproductlist) {
-          const data: any = JSON.parse(productSelector?.cartproductlist || mewdata?.cartproductlist);
+          const data: any = JSON.parse(
+            productSelector?.cartproductlist || mewdata?.cartproductlist
+          );
 
           productsRef.current = productsRef.current.map((it: any) => {
             let matched = false;
@@ -123,11 +127,11 @@ export function ExploreCourses() {
         (item: any) => item.addtocart == true
       );
       let scartData = {
-          cartproductlist:
-            storelist?.length > 0 ? JSON.stringify(storelist) : null,
-          productQuantity: storelist?.length > 0 ? storelist.length : null,
-        }
-      localStorage.setItem('cdata', JSON.stringify(scartData))
+        cartproductlist:
+          storelist?.length > 0 ? JSON.stringify(storelist) : null,
+        productQuantity: storelist?.length > 0 ? storelist.length : null,
+      };
+      localStorage.setItem("cdata", JSON.stringify(scartData));
       dispatch(
         cartproductList({
           cartproductlist:
@@ -141,22 +145,20 @@ export function ExploreCourses() {
   return (
     <Apploader Loadingstate={productLoader}>
       <section className="px-8 mt-10 md:mt-20 mb-20">
-        <div className="container mx-auto mb-20 md:mb-24 text-center">
-          <Typography variant="h2"  className="text-color-by-logo-2 underline text-2xl md:text-4xl md:mb-5">
+        <div className="container mx-auto mb-20 md:mb-10 text-center">
+          <Typography
+            variant="h2"
+            className="text-color-by-logo-2 text-2xl md:text-4xl md:mb-5 font-light"
+          >
             Our Products
           </Typography>
-          <Typography
-            variant="lead"
-            className="mt-2 mx-auto w-full px-4 !text-gray-500 lg:w-6/12 lg:px-8 text-sm md:text-xl"
-          >
-            Browse through 1,000+ web development courses and find the one that
-            fits your needs.
-          </Typography>
         </div>
-        <div className="container mx-auto grid grid-cols-1 gap-x-10 gap-y-24 md:grid-cols-2 lg:grid-cols-3 lg:gap-x-14">
+        <div className="container mx-auto grid grid-cols-1 gap-x-10 gap-y-24 md:grid-cols-2 lg:grid-cols-3 lg:gap-x-8">
           {products.map((props, idx) => (
-            <CourseCard key={idx} {...props} addcart={addandremovetocart} />
+            <ProductCard key={idx} {...props} addcart={addandremovetocart} />
           ))}
+          {/* <ProductGrid  />
+          <CourseCard key={idx} {...props} addcart={addandremovetocart} /> */}
         </div>
       </section>
     </Apploader>

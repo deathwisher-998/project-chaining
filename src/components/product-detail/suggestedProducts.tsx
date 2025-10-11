@@ -52,12 +52,21 @@ export default function SuggestedProducts({ data }: suggestedProduct) {
                 key={product.id}
                 className="shadow-md hover:shadow-xl transition-shadow duration-300"
               >
-                <CardHeader floated={false} className="h-40">
-                  <img
+                <CardHeader floated={false}>
+                  {/* <img
                     src={imageData(product.productImages)}
                     alt={product.name}
                     className="h-full w-full object-cover rounded-lg"
                   />
+                   */}
+                   <div
+                className="w-full h-[300px] md:h-[350px] bg-gray-200 front-slider-hero rounded-md"
+                style={{
+                  backgroundImage: `url(${imageData(
+                    product.productImages
+                  )})`,
+                }}
+              ></div>
                 </CardHeader>
                 <CardBody>
                   <Link

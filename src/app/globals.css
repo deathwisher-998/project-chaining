@@ -94,3 +94,9 @@
 .login-sectionbanner {
   background-image: url("/image/login-pattern.jpg");
 }
+
+.front-slider-hero{
+  background-size: cover;
+  background-position: top center;
+  background-repeat: no-repeat;
+}

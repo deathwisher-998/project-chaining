@@ -38,6 +38,7 @@ function Registercomponent() {
       let payload = {
         ...data,
         ["referralCode"]: data.referralCode ? data.referralCode : "",
+        ['lastName']:data.lastName ? data.lastName : ""
       };
       Logintoken(payload);
     }
@@ -53,11 +54,12 @@ function Registercomponent() {
         const response: any = res;
         if (response.succeeded) {
           toast.success(response?.messages[0]);
+          toast.success("Please Check Your Email to Confirm Your Account");
           setReset({});
           setTimeout(() => {
             setloadingState((e) => 0);
             navigate.push("/login");
-          }, 1000);
+          }, 2000);
         } else {
           setloadingState((e) => 0);
           toast.error(response?.messages[0]);
@@ -156,7 +158,7 @@ function Registercomponent() {
                                         }
                                       >
                                         <Field.Label className="text-white">
-                                          Lastname <Field.RequiredIndicator />
+                                          Lastname
                                         </Field.Label>
                                         <Input
                                           type="text"
@@ -165,9 +167,6 @@ function Registercomponent() {
                                           className="p-2"
                                           {...register("lastName")}
                                         />
-                                        <Field.ErrorText>
-                                          {errors?.lastName?.message}
-                                        </Field.ErrorText>
                                       </Field.Root>
                                     </div>
 

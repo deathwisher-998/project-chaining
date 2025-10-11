@@ -99,15 +99,15 @@ export function Footer() {
                 as="p"
                 className="py-1 font-normal !text-gray-500 transition-colors hover:!text-white text-color-by-logo-1"
               >
-                info@email.com
+                info@samdenadeals.com
               </Typography>
             </div>
             <div>
               <Typography
                 as="p"
-                className="py-1 font-normal !text-gray-500 transition-colors hover:!text-white text-color-by-logo-1"
+                className="py-1 font-normal !text-gray-500 transition-colors"
               >
-                +91 9820299282
+                F-2/788 Ratiya Marg Main Road Sangam Vihar New Delhi - 110080
               </Typography>
             </div>
           </div>
@@ -123,8 +123,10 @@ export function Footer() {
                 style={{ border: 0 }}
                 loading="lazy"
                 allowFullScreen
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14018.50997277646!2d77.20482905!3d28.62678885!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd3d79da3cf7%3A0x2f8b77b3b944bcd4!2sConnaught%20Place%2C%20New%20Delhi!5e0!3m2!1sen!2sin!4v1696600000000!5m2!1sen!2sin"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3506.284840820003!2d77.24422977612434!3d28.501076675736872!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce10c4a4eb141%3A0xd800f0b25cf5d3eb!2sRatiya%20Marg%2C%20Sangam%20Vihar%2C%20New%20Delhi%2C%20Delhi%20110080!5e0!3m2!1sen!2sin!4v1760168791864!5m2!1sen!2sin"
               ></iframe>
+
+              
             </div>
           </div>
         </div>

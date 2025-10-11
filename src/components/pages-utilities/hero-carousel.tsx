@@ -4,7 +4,6 @@ import React from "react";
 import { useKeenSlider } from "keen-slider/react";
 
 const Carousel = () => {
-
   const [sliderRef, instanceRef] = useKeenSlider({
     loop: true,
     slides: { perView: 1 },
@@ -32,11 +31,15 @@ const Carousel = () => {
               key={slide.id}
               className="keen-slider__slide flex items-center justify-center bg-gray-200 overflow-hidden relative cursor-grab"
             >
-              <img
+              {/* <img
                 src={slide.image}
                 alt={slide.title}
                 className="w-full h-[350px] md:h-[650px]  object-cover md:object-cover"
-              />
+              /> */}
+              <div
+                className="w-full h-[350px] md:h-[650px] bg-gray-200 front-slider-hero"
+                style={{ backgroundImage: `url(${slide.image})` }}
+              ></div>
             </div>
           ))}
         </div>
