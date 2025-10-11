@@ -31,11 +31,6 @@ const Carousel = () => {
               key={slide.id}
               className="keen-slider__slide flex items-center justify-center bg-gray-200 overflow-hidden relative cursor-grab"
             >
-              {/* <img
-                src={slide.image}
-                alt={slide.title}
-                className="w-full h-[350px] md:h-[650px]  object-cover md:object-cover"
-              /> */}
               <div
                 className="w-full h-[350px] md:h-[650px] bg-gray-200 front-slider-hero"
                 style={{ backgroundImage: `url(${slide.image})` }}

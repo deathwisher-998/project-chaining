@@ -10,7 +10,6 @@ import { cartproductList, addToCartFunc } from "@/app/globalstore/cart/actions";
 import { Productlist } from "@/helpers/services/product";
 import { Apploader } from "../loader/loading";
 import { productImage } from "@/helpers/services/product";
-import Productgrid from "../product-card-new/productcardgrid";
 import ProductCard from "../product-card-new/productcard";
 
 export function ExploreCourses() {
@@ -157,8 +156,7 @@ export function ExploreCourses() {
           {products.map((props, idx) => (
             <ProductCard key={idx} {...props} addcart={addandremovetocart} />
           ))}
-          {/* <ProductGrid  />
-          <CourseCard key={idx} {...props} addcart={addandremovetocart} /> */}
+          {/* <CourseCard key={idx} {...props} addcart={addandremovetocart} /> */}
         </div>
       </section>
     </Apploader>

@@ -104,7 +104,7 @@ const ProductCard: React.FC<ProductProps> = ({
           color="gray"
           className="text-sm mt-2 line-clamp-2 leading-relaxed"
         >
-          {discription.slice(0, 100) + "..."}
+          {discription ? discription.slice(0, 100) + "..." : ""}
         </Typography>
       </CardBody>
 
