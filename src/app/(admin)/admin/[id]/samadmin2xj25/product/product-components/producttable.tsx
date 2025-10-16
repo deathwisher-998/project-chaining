@@ -3,9 +3,10 @@ import React from "react";
 
 interface Product {
   products: any;
+  onviewImage:(data:any)=> void;
 }
 
-const ProductTable = ({ products }: Product) => {
+const ProductTable = ({ products, onviewImage}: Product) => {
   return (
     <div className="overflow-x-auto bg-white shadow-md rounded-lg p-4 mb-10">
       <table className="min-w-full text-sm text-left text-gray-600">
@@ -14,7 +15,7 @@ const ProductTable = ({ products }: Product) => {
             <th className="px-4 py-3">#</th>
             <th className="px-4 py-3">Name</th>
             <th className="px-4 py-3">SKU</th>
-            <th className="px-4 py-3">Regular Price</th>
+            <th className="px-4 py-3">Product Image</th>
             <th className="px-4 py-3">Sale Price</th>
             <th className="px-4 py-3">Quantity</th>
             <th className="px-4 py-3">Status</th>
@@ -34,9 +35,16 @@ const ProductTable = ({ products }: Product) => {
                     {item.name}
                   </td>
                   <td className="px-4 py-3">{item.skU}</td>
-                  <td className="px-4 py-3">{item.regularPrice.toFixed(2)}</td>
+                  <td className="px-4 py-3">
+                    <p className="font-semibold cursor-pointer" onClick={() => onviewImage(item)}>
+                      {"No of images" + ` (${item.productImages?.length})`}
+                    </p>
+                  </td>
                   <td className="px-4 py-3 text-green-600">
-                    {item.salePrice.toFixed(2)}
+                    <div>
+                      <p>{item.salePrice.toFixed(2)} Rs</p>
+                      <p className="line-through">{item.regularPrice.toFixed(2)} Rs</p>
+                    </div>
                   </td>
                   <td className="px-4 py-3">{item.quantity}</td>
                   <td className="px-4 py-3">

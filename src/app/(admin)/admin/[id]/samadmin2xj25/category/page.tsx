@@ -17,11 +17,13 @@ import CategoryTable from "./category-components/categoryTable";
 import Addcategoyform from "./category-components/add-category";
 import axios from "axios";
 import config from "@/config";
+import { useRouter } from "next/navigation";
 
 export default function Categorypage() {
   const [loading, setloading] = useState(1);
   const [Categorylist, setCategorylist] = useState(null);
   const [isOpen, setisOpen] = useState(false);
+  const navigation = useRouter();
 
   useEffect(() => {
     getCatgoryList();
@@ -68,16 +70,18 @@ export default function Categorypage() {
             return res;
           });
         if (response.succeeded) {
-          toast.success("Category created successfully",{closeOnClick:true});
+          toast.success("Category created successfully", {
+            closeOnClick: true,
+          });
           setisOpen((e) => false);
           getCatgoryList();
         } else {
-          toast.success("Something went wrong",{closeOnClick:true});
+          toast.success("Something went wrong", { closeOnClick: true });
         }
         setloading((e) => 0);
       }
     } catch (err) {
-      toast.success("Something went wrong",{closeOnClick:true});
+      toast.success("Something went wrong", { closeOnClick: true });
       setloading((e) => 0);
     }
   };
@@ -100,11 +104,42 @@ export default function Categorypage() {
     }
   }
 
+  function logOut() {
+    localStorage.clear();
+    navigation.replace("/admin/33/samadmin2xj25");
+    window.location.reload();
+  }
   return (
     <>
       <ToastContainer />
       <Apploader Loadingstate={loading}>
         <div className="container mx-auto">
+          <div className="bg-gray-800 rounded-md mt-5 p-5 flex justify-end">
+            <div className="flex">
+              <p
+                className="text-white font-semibold underline cursor-pointer"
+                onClick={() =>
+                  navigation.replace("/admin/33/samadmin2xj25/product")
+                }
+              >
+                Products
+              </p>
+              <p
+                className="text-white font-semibold ml-5 underline cursor-pointer"
+                onClick={() =>
+                  navigation.replace("/admin/33/samadmin2xj25/category")
+                }
+              >
+                Category
+              </p>
+              <p
+                className="text-white font-semibold ml-5 underline cursor-pointer"
+                onClick={logOut}
+              >
+                Log Out
+              </p>
+            </div>
+          </div>
           <div className="flex justify-between align-center mb-5 mt-5">
             <div>
               <h1 className="m-0 p-0 font-semibold text-lg">Category List</h1>
