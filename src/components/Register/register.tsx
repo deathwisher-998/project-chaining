@@ -137,7 +137,7 @@ function Registercomponent() {
                                         </Field.Label>
                                         <Input
                                           type="text"
-                                          placeholder="Your name"
+                                          placeholder="Firstname"
                                           variant="subtle"
                                           className="p-2"
                                           {...register("firstName")}
@@ -162,7 +162,7 @@ function Registercomponent() {
                                         </Field.Label>
                                         <Input
                                           type="text"
-                                          placeholder="Your name"
+                                          placeholder="Lastname"
                                           variant="subtle"
                                           className="p-2"
                                           {...register("lastName")}
@@ -182,7 +182,7 @@ function Registercomponent() {
                                         </Field.Label>
                                         <Input
                                           type="text"
-                                          placeholder="Your name"
+                                          placeholder="Email"
                                           variant="subtle"
                                           className="p-2"
                                           {...register("email")}
@@ -207,7 +207,7 @@ function Registercomponent() {
                                         </Field.Label>
                                         <Input
                                           type="text"
-                                          placeholder="Your name"
+                                          placeholder="Username"
                                           variant="subtle"
                                           className="p-2"
                                           {...register("userName")}
@@ -232,7 +232,7 @@ function Registercomponent() {
                                         </Field.Label>
                                         <Input
                                           type="password"
-                                          placeholder="Your name"
+                                          placeholder="Password"
                                           variant="subtle"
                                           className="p-2"
                                           {...register("password")}
@@ -258,7 +258,7 @@ function Registercomponent() {
                                         </Field.Label>
                                         <Input
                                           type="password"
-                                          placeholder="Your name"
+                                          placeholder="Confirm Password"
                                           variant="subtle"
                                           className="p-2"
                                           {...register("confirmPassword")}
@@ -283,7 +283,7 @@ function Registercomponent() {
                                         </Field.Label>
                                         <Input
                                           type="text"
-                                          placeholder="Your name"
+                                          placeholder="Phone No"
                                           variant="subtle"
                                           className="p-2"
                                           min={10}
@@ -303,7 +303,7 @@ function Registercomponent() {
                                         </Field.Label>
                                         <Input
                                           type="text"
-                                          placeholder="Your name"
+                                          placeholder="Referral Code"
                                           variant="subtle"
                                           className="p-2"
                                           min={10}

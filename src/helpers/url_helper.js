@@ -16,3 +16,5 @@ export const Useraddres = "/Address"
 // Order Listing and Order
 export const Order = "/Order"
 
+// Categorys
+export const Category = "/Category"

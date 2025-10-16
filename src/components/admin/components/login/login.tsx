@@ -34,8 +34,6 @@ function Adminlogincomponent() {
     if (data.email && data.password) {
       let payload = { ...data };
       Logintoken(payload);
-      // localStorage.setItem("token", "nedjkde");
-      // navigate.replace("/");
     }
   };
 
@@ -46,13 +44,14 @@ function Adminlogincomponent() {
         const res: any = await token(payload).then((res: any) => {
           return res;
         });
-        const response: loginResponse = res;
-        if (response.token) {
+        const response:any = res;
+        if (response.succeeded) {
           setloadingState((e) => 0);
           setReset((e) => {});
-          localStorage.setItem("admintoken", response.token);
-          localStorage.setItem("uId", response?.userId);
-          navigate.replace("/admin/33/samadmin2xj25");
+          localStorage.setItem("admintoken", response.data?.token);
+          localStorage.setItem("adminId", response.data?.userId);
+          localStorage.setItem("role", response.data?.role);
+          navigate.replace("/admin/33/samadmin2xj25/product");
         } else {
           toast.error("Invalid Credentials");
           setloadingState((e) => 0);
