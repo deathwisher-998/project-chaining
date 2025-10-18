@@ -17,8 +17,19 @@ export default function Orderlists({ odrerlisting }: { odrerlisting: any }) {
     setOpen(open === value ? 0 : value);
   };
 
-  function orderDate(date: string) {
-    return "";
+  function formatDate(inputDate: string): string {
+    const date = new Date(inputDate);
+
+    // Options for desired format
+    const options: Intl.DateTimeFormatOptions = {
+      weekday: "short", // e.g., Wed
+      day: "2-digit", // e.g., 03
+      month: "long", // e.g., October
+      year: "numeric", // e.g., 2025
+    };
+
+    // Use toLocaleDateString with English locale
+    return date.toLocaleDateString("en-US", options);
   }
 
   return (
@@ -41,8 +52,7 @@ export default function Orderlists({ odrerlisting }: { odrerlisting: any }) {
                 <div className="w-full grid grid-cols-2">
                   <div>
                     <span className="font-semibold">
-                      {/* {"Order On" + orderDate(order?.orderItems[0]?.createdOn)} */}
-                      {"Order On"}
+                      {"Order On - " + (order?.createdOn ? formatDate(order?.createdOn) : "")}
                     </span>
                   </div>
                   <div className="text-right">
@@ -62,13 +72,27 @@ export default function Orderlists({ odrerlisting }: { odrerlisting: any }) {
                 <div className="bg-gray-800 rounded-md mb-3 px-4 py-2">
                   <div>
                     <p className="font-semibold text-white">
-                      Shipping Address : {order?.address?.addressLin1 + ", " + `${order?.address?.addressLin2 ? order?.address?.addressLin2 + ", " : ""}` + order?.address?.postalCode + ", " + order?.address?.country + ", " + order?.address?.city}
+                      Shipping Address :{" "}
+                      {order?.address?.addressLin1 +
+                        ", " +
+                        `${
+                          order?.address?.addressLin2
+                            ? order?.address?.addressLin2 + ", "
+                            : ""
+                        }` +
+                        order?.address?.postalCode +
+                        ", " +
+                        order?.address?.country +
+                        ", " +
+                        order?.address?.city}
                     </p>
-                    <p className="font-semibold text-white">Contact No: {order?.address?.phoneNumber}</p>
+                    <p className="font-semibold text-white">
+                      Contact No: {order?.address?.phoneNumber}
+                    </p>
                   </div>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {order.orderItems.map((item:any, index:number) => (
+                  {order.orderItems.map((item: any, index: number) => (
                     <div
                       key={index}
                       className="border rounded-lg p-3 shadow-sm bg-white flex flex-col"

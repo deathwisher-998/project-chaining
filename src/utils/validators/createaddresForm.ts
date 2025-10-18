@@ -11,11 +11,11 @@ export const Createaddressschema = z.object({
   country: z
     .string()
     .min(1, { message: "Field is required" })
-    .regex(/^[A-Za-z]+$/, { message: "Invalid Input" }),
+    .regex(/^[A-Za-z]+( [A-Za-z]+)*$/, { message: "Invalid Input" }),
   city: z
     .string()
     .min(1, { message: "Field is required" })
-    .regex(/^[A-Za-z]+$/, { message: "Invalid Input" }),
+    .regex(/^[A-Za-z]+( [A-Za-z]+)*$/, { message: "Invalid Input" }),
   phoneNumber: z
     .string()
     .min(10, { message: "Field is required" })

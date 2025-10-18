@@ -44,16 +44,6 @@ export default function Cart() {
     if (mewdata) {
       dispatch(cartproductList(JSON.parse(mewdata)));
     }
-
-    let addressID = localStorage.getItem("adsData");
-    if (addressID) {
-      let id = JSON.parse(addressID);
-      if (id?.id) {
-        setSelectedId((e) => id?.id);
-      }
-    } else {
-      setSelectedId((e) => null);
-    }
     useraddress();
   }, []);
 
@@ -64,6 +54,19 @@ export default function Cart() {
       const response: any = await userAddressByid(uID).then((res) => res);
       if (response.succeeded && response.data?.length > 0) {
         setaddressList((e: any) => response.data);
+        let addressID = localStorage.getItem("adsData");
+        if (addressID) {
+          let id = JSON.parse(addressID);
+          const databyId = response.data.filter((item:any) => item.id == id?.id);
+          if(databyId.length > 0){
+            localStorage.setItem("adsData", JSON.stringify(databyId[0]))
+          }
+          if (id?.id) {
+            setSelectedId((e) => id?.id);
+          }
+        } else {
+          setSelectedId((e) => null);
+        }
       } else {
         setaddressList((e) => []);
       }

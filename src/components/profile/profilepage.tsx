@@ -26,6 +26,7 @@ import {
   ChevronDoubleRightIcon,
 } from "@heroicons/react/24/solid";
 import Sidemenudata from "@/components/profile/sidemenujson/sidemenu.json";
+import { useRouter } from "next/navigation";
 
 export default function ProfilePage({ routeid }: { routeid: any }) {
   const [loading, setloading] = useState(0);
@@ -39,6 +40,7 @@ export default function ProfilePage({ routeid }: { routeid: any }) {
   const [orderList, setorderList] = useState<any>(null);
   const Sidemenu = Sidemenudata;
   const [activeMenu, setactiveMenu] = useState(1);
+  const navigation = useRouter();
 
   const [profile, setProfile] = useState({
     username: "Jatin Arora",
@@ -105,11 +107,11 @@ export default function ProfilePage({ routeid }: { routeid: any }) {
         if (response?.succeeded && response.data?.length > 0) {
           teamReportRef.current = response.data;
           setteamReport((e) => teamReportRef.current);
-          useraddress();
         } else {
           teamReportRef.current = null;
           setteamReport((e) => teamReportRef.current);
         }
+        useraddress();
       }
     } catch (error) {
       teamReportRef.current = null;
@@ -221,6 +223,10 @@ export default function ProfilePage({ routeid }: { routeid: any }) {
           toast.success("New Address added Successfully");
           setloading((e) => 1);
           useraddress();
+          if(response.data && routeid){
+             localStorage.setItem("adsData", JSON.stringify({id:response.data})),
+             navigation.replace("/cart")
+          }
         }
 
         setformSubmit((e) => 0);
