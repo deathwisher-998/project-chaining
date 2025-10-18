@@ -45,14 +45,16 @@ export default function Orderlists({ odrerlisting }: { odrerlisting: any }) {
                   open === order.id && "shadow-md"
                 }`}
                 style={{
-                  backgroundColor: "#77f6d6",
+                  backgroundColor: "#c2a153",
                   borderBottomColor: "#fff",
+                  color: "#fff",
                 }}
               >
                 <div className="w-full grid grid-cols-2">
                   <div>
                     <span className="font-semibold">
-                      {"Order On - " + (order?.createdOn ? formatDate(order?.createdOn) : "")}
+                      {"Order On - " +
+                        (order?.createdOn ? formatDate(order?.createdOn) : "")}
                     </span>
                   </div>
                   <div className="text-right">
@@ -73,18 +75,22 @@ export default function Orderlists({ odrerlisting }: { odrerlisting: any }) {
                   <div>
                     <p className="font-semibold text-white">
                       Shipping Address :{" "}
-                      {order?.address?.addressLin1 +
-                        ", " +
-                        `${
-                          order?.address?.addressLin2
-                            ? order?.address?.addressLin2 + ", "
-                            : ""
-                        }` +
-                        order?.address?.postalCode +
-                        ", " +
-                        order?.address?.country +
-                        ", " +
-                        order?.address?.city}
+                      {order?.address && (
+                        <>
+                          {order?.address?.addressLin1 +
+                            ", " +
+                            `${
+                              order?.address?.addressLin2
+                                ? order?.address?.addressLin2 + ", "
+                                : ""
+                            }` +
+                            order?.address?.postalCode +
+                            ", " +
+                            order?.address?.country +
+                            ", " +
+                            order?.address?.city}
+                        </>
+                      )}
                     </p>
                     <p className="font-semibold text-white">
                       Contact No: {order?.address?.phoneNumber}

@@ -42,7 +42,7 @@ export default function AddressSection({ data, addNewaddress }: propsTypes) {
        {data?.length > 0 && <div className="space-y-4">
           {" "}
           {data.map((addr: any, ind: number) => (
-            <div
+            addr.isActive && <div
               key={ind}
               onClick={() => [
                 setSelectedId(addr.id),

@@ -27,6 +27,7 @@ import {
 } from "@heroicons/react/24/solid";
 import Sidemenudata from "@/components/profile/sidemenujson/sidemenu.json";
 import { useRouter } from "next/navigation";
+import WithdrawSection from "./withdrawsection";
 
 export default function ProfilePage({ routeid }: { routeid: any }) {
   const [loading, setloading] = useState(0);
@@ -53,6 +54,11 @@ export default function ProfilePage({ routeid }: { routeid: any }) {
     setactiveLevel((e) => 1);
     getUserdata();
     getOrderbyUserId();
+    const orderTrack = localStorage.getItem('checkorder');
+    if(orderTrack){
+      localStorage.removeItem('checkorder');
+      setactiveMenu((e) => 3)
+    }
   }, []);
 
   useEffect(() => {
@@ -434,6 +440,15 @@ export default function ProfilePage({ routeid }: { routeid: any }) {
               {activeMenu == 4 && (
                 <>
                   <AddressSection
+                    data={userAddressDetail}
+                    addNewaddress={addNewadress}
+                  />
+                </>
+              )}
+              
+              {activeMenu == 5 && (
+                <>
+                  <WithdrawSection
                     data={userAddressDetail}
                     addNewaddress={addNewadress}
                   />

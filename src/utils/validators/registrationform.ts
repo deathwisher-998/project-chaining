@@ -4,17 +4,17 @@ export const Registrationformschema = z.object({
   firstName: z
     .string()
     .min(1, { message: "Firstname is required" })
-    .regex(/^[A-Za-z]+$/, { message: "First name must contain only letters" }),
+    .regex(/^[A-Za-z ]+$/, { message: "First name must contain only letters" }),
 
   lastName: z.string().optional(),
   email: z
     .string()
     .min(1, { message: "Email is required" })
     .email({ message: "Invalid email address" }),
-  userName: z
-    .string()
-    .min(5, { message: "Username must be at least 5 characters" })
-    .regex(/^[a-zA-Z0-9_]+$/, { message: "Only letters, numbers, and underscores are allowed" }),
+  // userName: z
+  //   .string()
+  //   .min(5, { message: "Username must be at least 5 characters" })
+  //   .regex(/^[a-zA-Z0-9_]+$/, { message: "Only letters, numbers, and underscores are allowed" }),
   password: z
     .string()
     .min(8, { message: "Password must be at least 8 characters long" })

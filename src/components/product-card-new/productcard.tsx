@@ -54,6 +54,7 @@ const ProductCard: React.FC<ProductProps> = ({
   };
 
   function imageData(data: any) {
+    data = data.filter(img=>img.isActive);
     let path;
     if (data?.length > 0) {
       path = imgurl + imagePathFunc(data[0]?.imagePath);

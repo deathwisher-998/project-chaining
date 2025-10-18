@@ -38,7 +38,8 @@ function Registercomponent() {
       let payload = {
         ...data,
         ["referralCode"]: data.referralCode ? data.referralCode : "",
-        ['lastName']:data.lastName ? data.lastName : ""
+        ["lastName"]: data.lastName ? data.lastName : "",
+        ["userName"]: data.email,
       };
       Logintoken(payload);
     }
@@ -193,7 +194,7 @@ function Registercomponent() {
                                       </Field.Root>
                                     </div>
 
-                                    <div>
+                                    {/* <div>
                                       <Field.Root
                                         required
                                         invalid={
@@ -216,7 +217,7 @@ function Registercomponent() {
                                           {errors?.userName?.message}
                                         </Field.ErrorText>
                                       </Field.Root>
-                                    </div>
+                                    </div> */}
 
                                     <div>
                                       <Field.Root

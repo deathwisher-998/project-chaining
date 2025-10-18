@@ -154,7 +154,7 @@ export function ExploreCourses() {
         </div>
         <div className="container mx-auto grid grid-cols-1 gap-x-10 gap-y-10 lg:gap-y-16 md:grid-cols-2 lg:grid-cols-3 lg:gap-x-8">
           {products.map((props, idx) => (
-            <ProductCard key={idx} {...props} addcart={addandremovetocart} />
+            props.isActive &&<ProductCard key={idx} {...props} addcart={addandremovetocart} />
           ))}
           {/* <CourseCard key={idx} {...props} addcart={addandremovetocart} /> */}
         </div>
