@@ -15,6 +15,7 @@ import {
   DialogBody,
   DialogFooter,
   DialogHeader,
+  Input,
 } from "@material-tailwind/react";
 import AddressSection from "./addressection";
 import Createaddress from "./createAddress";
@@ -28,6 +29,10 @@ import {
 import Sidemenudata from "@/components/profile/sidemenujson/sidemenu.json";
 import { useRouter } from "next/navigation";
 import WithdrawSection from "./withdrawsection";
+import {
+  withDrawAmount,
+  withdrawAmountlist,
+} from "@/helpers/services/withdraw";
 
 export default function ProfilePage({ routeid }: { routeid: any }) {
   const [loading, setloading] = useState(0);
@@ -42,6 +47,12 @@ export default function ProfilePage({ routeid }: { routeid: any }) {
   const Sidemenu = Sidemenudata;
   const [activeMenu, setactiveMenu] = useState(1);
   const navigation = useRouter();
+  const [withdrawModal, setwithdrawModal] = useState(false);
+  const [withdrawamountValue, setwithdrawamountValue] = useState("");
+  const [withdrawamounterror, setwithdrawamounterror] = useState("");
+  const [withdrawamountsubmit, setwithdrawamountsubmit] = useState(false);
+  const [withdrawAmountlistByuser, setwithdrawAmountlistByuser] =
+    useState<any>(null);
 
   const [profile, setProfile] = useState({
     username: "Jatin Arora",
@@ -52,12 +63,13 @@ export default function ProfilePage({ routeid }: { routeid: any }) {
 
   useEffect(() => {
     setactiveLevel((e) => 1);
-    getUserdata();
+    withdrawList();
+    getUserdata(null);
     getOrderbyUserId();
-    const orderTrack = localStorage.getItem('checkorder');
-    if(orderTrack){
-      localStorage.removeItem('checkorder');
-      setactiveMenu((e) => 3)
+    const orderTrack = localStorage.getItem("checkorder");
+    if (orderTrack) {
+      localStorage.removeItem("checkorder");
+      setactiveMenu((e) => 3);
     }
   }, []);
 
@@ -66,6 +78,21 @@ export default function ProfilePage({ routeid }: { routeid: any }) {
       addNewadress(true, 1, null);
     }
   }, [routeid]);
+
+  async function withdrawList() {
+    try {
+      const id = localStorage.getItem("uId");
+      const response: any = await withdrawAmountlist(id).then((res) => res);
+
+      if (response.succeeded && response.data?.length > 0) {
+        setwithdrawAmountlistByuser((e: any) => response.data);
+      } else {
+        setwithdrawAmountlistByuser((e: any) => null);
+      }
+    } catch (error) {
+      setwithdrawAmountlistByuser((e: any) => null);
+    }
+  }
 
   async function useraddress() {
     try {
@@ -86,7 +113,7 @@ export default function ProfilePage({ routeid }: { routeid: any }) {
     }
   }
 
-  async function getUserdata() {
+  async function getUserdata(flag: any) {
     try {
       setloading((e) => 1);
       const id = localStorage.getItem("uId");
@@ -94,9 +121,13 @@ export default function ProfilePage({ routeid }: { routeid: any }) {
         const response = await userDetails(id).then((res) => res);
         if (response) {
           setuserDeatils((e: any) => response);
-          getUserlevels(id);
+          if (!flag) getUserlevels(id);
         } else {
           setuserDeatils((e: any) => null);
+          setloading((e) => 0);
+        }
+
+        if (flag) {
           setloading((e) => 0);
         }
       }
@@ -229,9 +260,12 @@ export default function ProfilePage({ routeid }: { routeid: any }) {
           toast.success("New Address added Successfully");
           setloading((e) => 1);
           useraddress();
-          if(response.data && routeid){
-             localStorage.setItem("adsData", JSON.stringify({id:response.data})),
-             navigation.replace("/cart")
+          if (response.data && routeid) {
+            localStorage.setItem(
+              "adsData",
+              JSON.stringify({ id: response.data })
+            ),
+              navigation.replace("/cart");
           }
         }
 
@@ -281,10 +315,59 @@ export default function ProfilePage({ routeid }: { routeid: any }) {
     }
   }
 
+  const amountWithdraw = (flag: number) => {
+    if (flag == 1) {
+      setwithdrawModal((e) => true);
+      setwithdrawamountValue("");
+    } else if (flag == 2) {
+      if (!withdrawamountValue) {
+        setwithdrawamountsubmit((e) => true);
+        setwithdrawamounterror((e) => "Please enter withdraw amount");
+      } else if (withdrawamountValue > userDeatils.totalBalance) {
+        setwithdrawamountsubmit((e) => true);
+        setwithdrawamounterror(
+          (e) => "Withdraw amount cannot be more than your balance"
+        );
+      } else {
+        setwithdrawamountsubmit((e) => false);
+        setwithdrawamounterror((e) => "");
+        withdrawamountSubmit();
+      }
+    } else if (flag == 3) {
+      setwithdrawamountValue("");
+      setwithdrawamountsubmit((e) => false);
+      setwithdrawamounterror((e) => "");
+      setwithdrawModal((e) => false);
+    }
+  };
+
+  async function withdrawamountSubmit() {
+    try {
+      if (withdrawamountValue && userDeatils) {
+        setformSubmit((e) => 1);
+        let payload = {
+          userId: userDeatils.id,
+          amount: parseInt(withdrawamountValue),
+          paymentType: "Admin",
+          status: "Pending",
+        };
+        const response: any = await withDrawAmount(payload).then((res) => res);
+        if (response.succeeded) {
+          setwithdrawamountValue("");
+          setwithdrawModal((e) => false);
+          getUserdata(1);
+          withdrawList();
+          toast.success("Successfully request sent");
+        }
+        setformSubmit((e) => 0);
+      }
+    } catch (error) {}
+  }
+
   return (
     <>
       <Apploader Loadingstate={loading}>
-        <ToastContainer />
+        {/* <ToastContainer /> */}
         <div className="mt-10 mb-10 min-h-[600px]">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-4 p-5">
             <div className="md:col-span-3 btn-color-by-logo-2 rounded-md shadow-lg p-4 pt-5 pb-5">
@@ -445,12 +528,13 @@ export default function ProfilePage({ routeid }: { routeid: any }) {
                   />
                 </>
               )}
-              
+
               {activeMenu == 5 && (
                 <>
                   <WithdrawSection
-                    data={userAddressDetail}
-                    addNewaddress={addNewadress}
+                    data={userDeatils}
+                    amountWithdraw={amountWithdraw}
+                    withdrawamountlist={withdrawAmountlistByuser}
                   />
                 </>
               )}
@@ -469,6 +553,58 @@ export default function ProfilePage({ routeid }: { routeid: any }) {
             >
               <Createaddress onCancel={addNewadress} onCreate={addNewadress} />
             </DialogBody>
+          </>
+        </Apploader>
+      </Dialog>
+
+      <Dialog open={withdrawModal} dismiss={false} size="sm">
+        <Apploader Loadingstate={formSubmit}>
+          <>
+            <DialogHeader>Withdraw Amount</DialogHeader>
+            <DialogBody>
+              <div>
+                <Input
+                  type="number"
+                  variant="outlined"
+                  label="Withdraw Amount"
+                  value={withdrawamountValue}
+                  onChange={(e) => [
+                    setwithdrawamountValue(e.target.value),
+                    setwithdrawamounterror(""),
+                    setwithdrawamountsubmit(false),
+                  ]}
+                  maxLength={10}
+                />
+              </div>
+              {withdrawamountsubmit && withdrawamounterror && (
+                <div>
+                  <p className="text-sm text-red-900 mt-1">
+                    {withdrawamounterror}
+                  </p>
+                </div>
+              )}
+            </DialogBody>
+
+            <DialogFooter>
+              <div className="flex justify-end">
+                <Button
+                  variant="filled"
+                  className="mr-5"
+                  color="red"
+                  size="sm"
+                  onClick={() => amountWithdraw(3)}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  variant="filled"
+                  size="sm"
+                  onClick={() => amountWithdraw(2)}
+                >
+                  Submit
+                </Button>
+              </div>
+            </DialogFooter>
           </>
         </Apploader>
       </Dialog>

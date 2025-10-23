@@ -36,6 +36,18 @@
   margin-right: 15px;
 }
 
+.cart-add-cst-block {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+}
+
+.cart-add-cst-block-price {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+}
+
 @media screen and (min-width: 300px) and (max-width: 650px) {
   .custom-res-cart {
     flex-direction: column;
@@ -64,6 +76,14 @@
   .logo-sz {
     width: 120px;
     height: auto;
+  }
+
+  .cart-add-cst-block {
+    flex-direction: column;
+  }
+
+  .cart-add-cst-block-price {
+    flex-direction: column;
   }
 }
 
@@ -95,7 +115,7 @@
   background-image: url("/image/login-pattern.jpg");
 }
 
-.front-slider-hero{
+.front-slider-hero {
   background-size: cover;
   background-position: top center;
   background-repeat: no-repeat;

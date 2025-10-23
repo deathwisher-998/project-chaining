@@ -4,7 +4,10 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Apploader } from "@/components/loader/loading";
 import { SubmitHandler } from "react-hook-form";
-import { Adminloginforminput, Adminloginformschema } from "@/components/admin/form-utilities/login-form"
+import {
+  Adminloginforminput,
+  Adminloginformschema,
+} from "@/components/admin/form-utilities/login-form";
 import { loginModel, loginResponse } from "@/model/typemodel";
 import { Form } from "@/ui/form";
 import {
@@ -44,14 +47,18 @@ function Adminlogincomponent() {
         const res: any = await token(payload).then((res: any) => {
           return res;
         });
-        const response:any = res;
+        const response: any = res;
         if (response.succeeded) {
-          setloadingState((e) => 0);
-          setReset((e) => {});
-          localStorage.setItem("admintoken", response.data?.token);
-          localStorage.setItem("adminId", response.data?.userId);
-          localStorage.setItem("role", response.data?.role);
-          navigate.replace("/admin/33/samadmin2xj25/product");
+          if (response.data?.role == "Admin") {
+            setloadingState((e) => 0);
+            setReset((e) => {});
+            localStorage.setItem("admintoken", response.data?.token);
+            localStorage.setItem("adminId", response.data?.userId);
+            localStorage.setItem("role", response.data?.role);
+            navigate.replace("/admin/33/samadmin2xj25/product");
+          }else{
+            toast.error("Invalid User");
+          }
         } else {
           toast.error("Invalid Credentials");
           setloadingState((e) => 0);

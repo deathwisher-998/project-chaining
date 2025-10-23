@@ -143,19 +143,26 @@ export function ExploreCourses() {
 
   return (
     <Apploader Loadingstate={productLoader}>
-      <section className="px-8 mt-10 md:mt-20 mb-20">
-        <div className="container mx-auto mb-20 md:mb-10 text-center">
+      <section className="px-2 md:px-8 mt-10 md:mt-20 mb-20">
+        <div className="container mx-auto mb-7 md:mb-14 text-center">
           <Typography
             variant="h2"
-            className="text-color-by-logo-2 text-2xl md:text-4xl md:mb-5 font-light"
+            className="text-color-by-logo-2 font-semibold text-2xl md:text-4xl md:mb-5"
           >
             Our Products
           </Typography>
         </div>
-        <div className="container mx-auto grid grid-cols-1 gap-x-10 gap-y-10 lg:gap-y-16 md:grid-cols-2 lg:grid-cols-3 lg:gap-x-8">
-          {products.map((props, idx) => (
-            props.isActive &&<ProductCard key={idx} {...props} addcart={addandremovetocart} />
-          ))}
+        <div className="container mx-auto grid grid-cols-2 gap-x-2 md:gap-x-10 gap-y-5 md:gap-y-10 lg:gap-y-16 md:grid-cols-2 lg:grid-cols-3 lg:gap-x-8">
+          {products.map(
+            (props, idx) =>
+              props.isActive && (
+                <ProductCard
+                  key={idx}
+                  {...props}
+                  addcart={addandremovetocart}
+                />
+              )
+          )}
           {/* <CourseCard key={idx} {...props} addcart={addandremovetocart} /> */}
         </div>
       </section>

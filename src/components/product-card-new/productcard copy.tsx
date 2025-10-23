@@ -103,7 +103,7 @@ const ProductCard: React.FC<ProductProps> = ({
         <CardFooter
           className={`flex flex-col sm:flex-row items-left sm:items-center justify-between px-4 py-3 border-t border-gray-200`}
         >
-          <div className="cart-add-cst-block-price">
+          <div className="flex-col md:flex">
             <Typography className="font-bold text-black">
               Price {salePrice} Rs
             </Typography>
@@ -127,7 +127,7 @@ const ProductCard: React.FC<ProductProps> = ({
 
       {addtocart && (
         <CardFooter className={`flex flex-col justify-between px-4 py-3 border-t border-gray-200 border-t border-gray-200`}>
-          <div className="cart-add-cst-block-price">
+          <div className="flex-col md:flex">
             <Typography className="font-bold text-black">
               Price {salePrice} Rs
             </Typography>
@@ -137,11 +137,11 @@ const ProductCard: React.FC<ProductProps> = ({
           </div>
 
           <>
-            <div className="cart-add-cst-block">
+            <div className="flex-col justify-start sm:justify-end mt-2 sm:mt-0 md:flex-row">
               {" "}
               <Button
                 // variant="gradient"
-                className="mr-0 md:mr-2 btn-color-by-logo-2 text-xs px-2 py-1 md:text-md md:px-4 md:py-2"
+                className="mr-2 btn-color-by-logo-2 text-xs px-2 py-1 md:text-md md:px-4 md:py-2"
                 size="sm"
                 onClick={() =>
                   token ? navigation.push("/cart") : navigation.push("/login")
