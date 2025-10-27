@@ -10,10 +10,10 @@ const Carousel = () => {
   });
 
   React.useEffect(() => {
-    // const interval = setInterval(() => {
-    //   instanceRef.current?.next();
-    // }, 4000);
-    // return () => clearInterval(interval);
+    const interval = setInterval(() => {
+      instanceRef.current?.next();
+    }, 4000);
+    return () => clearInterval(interval);
   }, [instanceRef]);
 
   const slides = [
