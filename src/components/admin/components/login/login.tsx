@@ -50,23 +50,22 @@ function Adminlogincomponent() {
         const response: any = res;
         if (response.succeeded) {
           if (response.data?.role == "Admin") {
-            setloadingState((e) => 0);
             setReset((e) => {});
             localStorage.setItem("admintoken", response.data?.token);
             localStorage.setItem("adminId", response.data?.userId);
             localStorage.setItem("role", response.data?.role);
-            navigate.replace("/admin/33/samadmin2xj25/product");
+            navigate.replace("/admin/33/samdena-admin/product");
           }else{
             toast.error("Invalid User");
           }
         } else {
           toast.error("Invalid Credentials");
-          setloadingState((e) => 0);
         }
+        setloadingState((e) => 0);
       }
     } catch (err) {
       if (err) {
-        toast.error("Invalid Credentials");
+        toast.error("Something went wrong");
         setloadingState((e) => 0);
       }
     }

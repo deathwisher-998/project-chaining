@@ -12,7 +12,7 @@ function Adminpage() {
     const adminId = localStorage.getItem("adminId");
 
     if (admintoken && adminId) {
-      navigate.replace("/admin/33/samadmin2xj25/product");
+      navigate.replace("/admin/33/samdena-admin/product");
     }
   }, []);
 

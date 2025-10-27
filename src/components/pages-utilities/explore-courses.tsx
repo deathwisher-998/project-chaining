@@ -39,24 +39,14 @@ export function ExploreCourses() {
       setproductLoader(1);
       const response: any = await Productlist().then((res) => res);
       if (response.succeeded && response.data?.length > 0) {
-        productsRef.current = response.data;
+        // productsRef.current = response.data;
+        productsRef.current = limitProductsPerCategory(
+          response.data.filter((item: any) => item.isActive)
+        );
         productsRef.current.forEach((item: any) => {
           item.addtocart = false;
           item.cartquantity = 1;
         });
-        // productsRef.current = await Promise.all(
-        //   productsRef.current.map(async (product: any) => {
-        //     const imgRes = await productImages(product.id).then((res) => res);
-        //     const images = await imgRes;
-        //     return {
-        //       ...product,
-        //       productImages:
-        //         images.data?.length > 0
-        //           ? imagePathFunc(images.data[0]?.imagePath)
-        //           : null,
-        //     };
-        //   })
-        // );
         let mewdata: any = localStorage.getItem("cdata");
         mewdata = JSON.parse(mewdata);
         if (productSelector.cartproductlist || mewdata?.cartproductlist) {
@@ -92,6 +82,26 @@ export function ExploreCourses() {
     } catch (err) {
       setproductLoader((e) => 0);
     }
+  }
+
+  function limitProductsPerCategory(data: any, limit = 2) {
+    const categoryMap: any = {};
+
+    // Group products by categoryId
+    data.forEach((item: any) => {
+      const categoryId = item.categoryId;
+      if (!categoryMap[categoryId]) {
+        categoryMap[categoryId] = [];
+      }
+
+      // Add item only if the category has less than the limit
+      if (categoryMap[categoryId].length < limit) {
+        categoryMap[categoryId].push(item);
+      }
+    });
+
+    // Flatten all limited categories back into a single array
+    return Object.values(categoryMap).flat();
   }
 
   const imagePathFunc = (data: any) => {

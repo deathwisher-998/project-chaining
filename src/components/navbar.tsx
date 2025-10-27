@@ -102,7 +102,7 @@ export function Navbar() {
       })
     );
 
-    window.location.href = '/'
+    window.location.href = "/";
   }
 
   return (
@@ -113,7 +113,7 @@ export function Navbar() {
           color="white"
           className="z-50 relative border-0 pr-2 py-3 pl-2 md:pl-10 md:pr-10 max-w-[100%]"
           // pt-5 pb-5
-          style={{ backgroundColor: "#17212b", borderRadius:0 }}
+          style={{ backgroundColor: "#17212b", borderRadius: 0 }}
         >
           <div className="flex items-center justify-between">
             <Typography
@@ -121,17 +121,14 @@ export function Navbar() {
               className="text-lg font-bold text-white"
             >
               <Link href={routes.auth.home}>
-               <Image src={"/image/app-logo.png"} width={180} height={70} className="logo-sz" />
+                <Image
+                  src={"/image/app-logo.png"}
+                  width={180}
+                  height={70}
+                  className="logo-sz"
+                />
               </Link>
             </Typography>
-            {/* <ul className="ml-10 hidden items-center gap-8 lg:flex">
-              {NAV_MENU.map(({ name, icon: Icon, href }) => (
-                <NavItem key={name} href={href}>
-                  <Icon className="h-5 w-5" />
-                  {name}
-                </NavItem>
-              ))}
-            </ul> */}
             <div className="hidden items-center gap-4 lg:flex">
               <Button
                 variant="text"
@@ -143,6 +140,14 @@ export function Navbar() {
                 className="text-white"
               >
                 {token ? "Account" : "Login"}
+              </Button>
+
+              <Button
+                variant="text"
+                onClick={() => navigation.push("/products")}
+                className="text-white"
+              >
+                {"Products"}
               </Button>
 
               <Button
@@ -164,7 +169,9 @@ export function Navbar() {
                     variant="text"
                     className="text-white"
                     size="sm"
-                    onClick={() => {logoutReload()}}
+                    onClick={() => {
+                      logoutReload();
+                    }}
                   >
                     Log Out
                   </Button>
@@ -186,14 +193,6 @@ export function Navbar() {
           </div>
           <Collapse open={open}>
             <div className="container mx-auto mt-3 border-t border-gray-200 px-2 pt-4">
-              {/* <ul className="flex flex-col gap-4">
-                {NAV_MENU.map(({ name, icon: Icon, href }) => (
-                  <NavItem key={name} href={href}>
-                    <Icon className="h-5 w-5" />
-                    {name}
-                  </NavItem>
-                ))}
-              </ul> */}
               <div
                 className="flex items-center gap-4"
                 style={{ flexDirection: "column" }}
@@ -210,18 +209,24 @@ export function Navbar() {
                   >
                     {token ? "Account" : "Login"}
                   </Button>
+                  <Button
+                    variant="text"
+                    className="text-white"
+                    onClick={() => navigation.push("/products")}
+                  >
+                    {"Products"}
+                  </Button>
                 </div>
                 {}
 
                 <div>
                   <Button
-                    // color="red"
                     onClick={() =>
                       token
                         ? navigation.push("/cart")
                         : navigation.push("/login")
                     }
-                   className="btn-color-by-logo-1"
+                    className="btn-color-by-logo-1"
                   >
                     Items in Cart{" "}
                     {cartcount.productQuantity

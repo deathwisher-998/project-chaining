@@ -200,7 +200,7 @@ export default function Productpage() {
       <ToastContainer />
       <Apploader Loadingstate={loading}>
         <div className="container mx-auto">
-           <Adminnavbar />
+          <Adminnavbar />
           <div className="flex justify-between align-center mb-5 mt-5">
             <div>
               <h1 className="m-0 p-0 font-semibold text-lg">Product List</h1>

@@ -15,7 +15,7 @@ const ProductTable = ({ products, onviewImage}: Product) => {
             <th className="px-4 py-3">#</th>
             <th className="px-4 py-3">Name</th>
             <th className="px-4 py-3">SKU</th>
-            <th className="px-4 py-3">Product Image</th>
+            {/* <th className="px-4 py-3">Product Image</th> */}
             <th className="px-4 py-3">Sale Price</th>
             <th className="px-4 py-3">Quantity</th>
             <th className="px-4 py-3">Status</th>
@@ -31,15 +31,15 @@ const ProductTable = ({ products, onviewImage}: Product) => {
                   className="border-b hover:bg-gray-50 transition duration-200"
                 >
                   <td className="px-4 py-3">{index + 1}</td>
-                  <td className="px-4 py-3 font-medium text-gray-900">
+                  <td className="px-4 py-3 font-medium text-gray-900 underline cursor-pointer" onClick={() => onviewImage(item)}>
                     {item.name}
                   </td>
                   <td className="px-4 py-3">{item.skU}</td>
-                  <td className="px-4 py-3">
+                  {/* <td className="px-4 py-3">
                     <p className="font-semibold cursor-pointer" onClick={() => onviewImage(item)}>
                       {"No of images" + ` (${item.productImages?.length})`}
                     </p>
-                  </td>
+                  </td> */}
                   <td className="px-4 py-3 text-green-600">
                     <div>
                       <p>{item.salePrice.toFixed(2)} Rs</p>

@@ -10,10 +10,10 @@ const Carousel = () => {
   });
 
   React.useEffect(() => {
-    const interval = setInterval(() => {
-      instanceRef.current?.next();
-    }, 4000);
-    return () => clearInterval(interval);
+    // const interval = setInterval(() => {
+    //   instanceRef.current?.next();
+    // }, 4000);
+    // return () => clearInterval(interval);
   }, [instanceRef]);
 
   const slides = [
@@ -32,7 +32,7 @@ const Carousel = () => {
               className="keen-slider__slide flex items-center justify-center bg-gray-200 overflow-hidden relative cursor-grab"
             >
               <div
-                className="w-full h-[350px] md:h-[650px] bg-gray-200 front-slider-hero"
+                className="w-full h-[225px] md:h-[650px] bg-gray-200 front-slider-hero"
                 style={{ backgroundImage: `url(${slide.image})` }}
               ></div>
             </div>

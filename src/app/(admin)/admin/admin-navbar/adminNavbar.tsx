@@ -4,7 +4,7 @@ function Adminnavbar() {
   const navigation = useRouter();
   function logOut() {
     localStorage.clear();
-    navigation.replace("/admin/33/samadmin2xj25");
+    navigation.replace("/admin/33/samdena-admin/product");
     window.location.reload();
   }
   return (
@@ -12,14 +12,14 @@ function Adminnavbar() {
       <div className="flex">
         <p
           className="text-white font-semibold underline cursor-pointer"
-          onClick={() => navigation.replace("/admin/33/samadmin2xj25/product")}
+          onClick={() => navigation.replace("/admin/33/samdena-admin/product")}
         >
           Products
         </p>
         <p
           className="text-white font-semibold ml-5 underline cursor-pointer"
           onClick={() =>
-            navigation.replace("/admin/33/samadmin2xj25/user-refferal")
+            navigation.replace("/admin/33/samdena-admin/user-refferal")
           }
         >
           User Referral
@@ -27,16 +27,24 @@ function Adminnavbar() {
         <p
           className="text-white font-semibold ml-5 underline cursor-pointer"
           onClick={() =>
-            navigation.replace("/admin/33/samadmin2xj25/withdraw-list")
+            navigation.replace("/admin/33/samdena-admin/withdraw-list")
           }
         >
           Withdraw List
         </p>
         <p
           className="text-white font-semibold ml-5 underline cursor-pointer"
-          onClick={() => navigation.replace("/admin/33/samadmin2xj25/category")}
+          onClick={() => navigation.replace("/admin/33/samdena-admin/category")}
         >
           Category
+        </p>
+        <p
+          className="text-white font-semibold ml-5 underline cursor-pointer"
+          onClick={() =>
+            navigation.replace("/admin/33/samdena-admin/order-list")
+          }
+        >
+          Order
         </p>
         <p
           className="text-white font-semibold ml-5 underline cursor-pointer"
